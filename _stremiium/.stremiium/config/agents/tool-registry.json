@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "mode": "deny-by-default",
+  "tools": [
+    { "tool_id": "repo.read", "class": "read", "side_effects": false, "approval": "policy" },
+    { "tool_id": "repo.diff", "class": "read", "side_effects": false, "approval": "policy" },
+    { "tool_id": "repo.write", "class": "write", "side_effects": true, "approval": "owner" },
+    { "tool_id": "repo.commit", "class": "write", "side_effects": true, "approval": "human" },
+    { "tool_id": "repo.merge", "class": "deploy", "side_effects": true, "approval": "human" },
+    { "tool_id": "repo.delete", "class": "destructive", "side_effects": true, "approval": "human" }
+  ]
+}

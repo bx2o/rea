@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stremiium.xyz/schemas/plugin-manifest.schema.json",
+  "title": "Stremiium Agent Plugin Manifest",
+  "type": "object",
+  "required": ["plugin_id", "version", "owner", "provider", "capabilities", "scopes", "auth", "sandbox", "health_check", "revocation"],
+  "properties": {
+    "plugin_id": { "type": "string", "pattern": "^[a-z0-9_-]+$" },
+    "version": { "type": "string" },
+    "owner": { "type": "string" },
+    "provider": { "type": "string" },
+    "capabilities": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "scopes": { "type": "array", "items": { "type": "string" } },
+    "auth": { "enum": ["oauth_user_grant", "service_identity", "none"] },
+    "sandbox": { "enum": ["ephemeral", "restricted", "trusted"] },
+    "health_check": { "type": "string" },
+    "revocation": { "type": "string" }
+  },
+  "additionalProperties": false
+}

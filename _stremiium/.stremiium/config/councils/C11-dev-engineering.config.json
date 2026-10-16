@@ -1,0 +1,87 @@
+{
+  "councilId": "C11",
+  "councilName": "Dev-Engineering-Squad",
+  "tier": "TIER-2-TECHNICAL",
+  "description": "Software development, code quality, testing, technical architecture implementation, QA automation",
+  "captain": {
+    "name": "Dev-Engineering-Squad-Captain",
+    "title": "Council Captain",
+    "authority": "Council Captain - Development Authority",
+    "escalationPath": "Sparkling Curious (architecture/quality disputes)"
+  },
+  "agents": 6,
+  "specialties": [
+    "Backend Developer",
+    "Frontend Developer",
+    "UI/UX Design Agent",
+    "DevOps Infrastructure Agent",
+    "QA Automation Lead",
+    "Tech Lead"
+  ],
+  "primaryDomain": "Software Development & Quality",
+  "responsibilityAreas": [
+    "Feature Development",
+    "Code Quality",
+    "Testing & QA",
+    "Technical Architecture",
+    "Performance Optimization",
+    "API Development",
+    "Debugging & Issue Resolution"
+  ],
+  "authority": {
+    "code-quality-authority": true,
+    "description": "C11 has final authority on code quality, testing standards, and implementation approaches",
+    "coordinatesWith": ["C06-Engineering", "C12-Security", "C14-QA"],
+    "requiredApprovalOn": [
+      "code-standards-changes",
+      "testing-strategy",
+      "performance-requirements",
+      "architectural-decisions"
+    ]
+  },
+  "crossCouncilDependencies": {
+    "dependsOn": ["C04-Strategy (requirements)", "C06-Infrastructure (platform)"],
+    "enables": ["C14-Customer (features)", "C15-Product (implementation)"],
+    "integrations": "All 16 councils (implements their needs)"
+  },
+  "communicationPreferences": {
+    "async": true,
+    "channel": "Notion - C11-Dev-Engineering Hub",
+    "responseTime": "2-4 hours for blocking issues, 24 hours for planning",
+    "escalationThreshold": "code-quality-breach OR multi-council-blocker"
+  },
+  "sla": {
+    "featureDevelopment": "3-5 days (typical)",
+    "bugFix": "2-8 hours by severity",
+    "codeReview": "24 hours max",
+    "testCoverage": "80%+ minimum",
+    "performanceOptimization": "10% improvement target"
+  },
+  "qualityStandards": {
+    "testCoverage": "80%+ minimum",
+    "codeReviewApprovals": "2 required",
+    "performanceBenchmarks": "<200ms 95th percentile API response",
+    "securityScanning": "Zero hardcoded secrets"
+  },
+  "notionDatabases": [
+    "Council Dashboard",
+    "Council Members",
+    "Development Tasks",
+    "Code Review Queue",
+    "Testing Status",
+    "Performance Metrics"
+  ],
+  "artifacts": {
+    "rulesLocation": ".github/rules/github-copilot-workspace.md",
+    "codePatterns": ".github/artifacts/code-mode/code-snippets.md",
+    "qualityStandards": ".github/artifacts/code-mode/code-review.md",
+    "skillsLocation": ".github/skills/*/backend-*.md, frontend-*.md"
+  },
+  "performanceMetrics": {
+    "codeCoverageAvg": 87,
+    "bugEscapeRate": 2.1,
+    "deploymentSuccess": 99.5,
+    "technicalDebtRatio": 8,
+    "velocityStory": "45 points per sprint"
+  }
+}

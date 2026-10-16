@@ -1,0 +1,208 @@
+name	kind	binding	analysisOperation
+annotate_native_function	official-proxy	target-free	annotate_native_function
+inspect_native_load_image	official-proxy	target-free	inspect_native_load_image
+inspect_native_data_type	official-proxy	target-free	inspect_native_data_type
+inspect_native_instruction	official-proxy	target-free	inspect_native_instruction
+resolve_native_call_targets	official-proxy	target-free	resolve_native_call_targets
+address_name	official-proxy	target-free	address_name
+comment	official-proxy	target-free	comment
+current_address	official-proxy	target-free	current_address
+current_procedure	official-proxy	target-free	current_procedure
+current_document	official-proxy	target-free	current_document
+goto_address	official-proxy	target-free	goto_address
+inline_comment	official-proxy	target-free	inline_comment
+list_bookmarks	official-proxy	target-free	list_bookmarks
+list_documents	official-proxy	target-free	list_documents
+list_names	official-proxy	target-free	list_names
+list_procedures	official-proxy	target-free	list_procedures
+list_segments	official-proxy	target-free	list_segments
+list_strings	official-proxy	target-free	list_strings
+next_address	official-proxy	target-free	next_address
+prev_address	official-proxy	target-free	prev_address
+procedure_address	official-proxy	target-free	procedure_address
+procedure_assembly	official-proxy	target-free	procedure_assembly
+procedure_callees	official-proxy	target-free	procedure_callees
+procedure_callers	official-proxy	target-free	procedure_callers
+procedure_info	official-proxy	target-free	procedure_info
+read_function_instructions	official-proxy	target-free	read_function_instructions
+search_bytes	official-proxy	target-free	search_bytes
+read_bytes	official-proxy	target-free	read_bytes
+address_to_file_offset	official-proxy	target-free	address_to_file_offset
+procedure_references	official-proxy	target-free	procedure_references
+procedure_pseudo_code	official-proxy	target-free	procedure_pseudo_code
+resolve_containing_procedure	official-proxy	target-free	resolve_containing_procedure
+search_procedures	official-proxy	target-free	search_procedures
+search_strings	official-proxy	target-free	search_strings
+set_address_name	official-proxy	target-free	set_address_name
+set_addresses_names	official-proxy	target-free	set_addresses_names
+set_bookmark	official-proxy	target-free	set_bookmark
+set_comment	official-proxy	target-free	set_comment
+set_inline_comment	official-proxy	target-free	set_inline_comment
+unset_bookmark	official-proxy	target-free	unset_bookmark
+xrefs	official-proxy	target-free	xrefs
+inspect_native_dispatch_metadata	enhanced	target-free	inspect_native_dispatch_metadata
+get_objc_classes	enhanced	target-free	get_objc_classes
+get_objc_protocols	enhanced	target-free	get_objc_protocols
+batch_decompile	enhanced	target-free	batch_decompile
+get_call_graph	enhanced	target-free	get_call_graph
+analyze_swift_types	enhanced	target-free	analyze_swift_types
+find_xrefs_to_name	enhanced	target-free	find_xrefs_to_name
+binary_overview	enhanced	target-free	binary_overview
+analyze_function	enhanced	target-free	analyze_function
+inspect_native_api	enhanced	target-free	inspect_native_api
+trace_feature	enhanced	target-free	trace_feature
+trace_call_path	enhanced	target-free	trace_call_path
+trace_native_ui_action	enhanced	target-free	trace_native_ui_action
+trace_native_values	enhanced	target-free	trace_native_values
+observe_native_ui	native-provider	target-free	observe_native_ui
+capture_native_ui_scenario	native-provider	target-free	capture_native_ui_scenario
+observe_native_calls	native-provider	target-free	observe_native_calls
+inspect_macho	native-provider	target-free	inspect_macho
+inspect_signature	native-provider	target-free	inspect_signature
+inspect_plist	native-provider	target-free	inspect_plist
+list_architectures	native-provider	target-free	list_architectures
+demangle_swift	native-provider	target-free	demangle_swift
+inspect_pe_resources	native-provider	target-free	inspect_pe_resources
+inspect_binary_layout	native-provider	target-free	inspect_binary_layout
+inspect_recorded_crash	native-provider	target-free	inspect_recorded_crash
+inspect_analysis_view	application	target-free	
+inspect_artifact	artifact-provider	target-free	inspect_artifact
+extract_artifact	artifact-provider	target-free	extract_artifact
+decode_interface_builder	artifact-provider	target-free	decode_interface_builder
+inspect_keyed_archive	artifact-provider	target-free	inspect_keyed_archive
+inspect_asset_catalog	artifact-provider	target-free	inspect_asset_catalog
+trace_dylib_resolution	artifact-provider	target-free	trace_dylib_resolution
+inspect_evm_interface	artifact-provider	target-free	inspect_evm_interface
+inspect_go_binary	artifact-provider	target-free	inspect_go_binary
+inspect_rust_binary	artifact-provider	target-free	inspect_rust_binary
+inspect_wasm_artifact	artifact-provider	target-free	inspect_wasm_artifact
+compare_wasm_interfaces	application	target-free	
+inspect_sqlite_database	artifact-provider	target-free	inspect_sqlite_database
+inspect_packet_fields	artifact-provider	target-free	inspect_packet_fields
+inspect_packet_capture	artifact-provider	target-free	inspect_packet_capture
+inspect_signal_decoders	artifact-provider	target-free	inspect_signal_decoders
+decode_signal_recording	artifact-provider	target-free	decode_signal_recording
+inspect_managed_artifact	managed-provider	target-free	inspect_managed_artifact
+inspect_managed_members	managed-provider	target-free	inspect_managed_members
+inspect_managed_native_boundaries	managed-provider	target-free	inspect_managed_native_boundaries
+inspect_android_package	android-provider	target-free	
+search_android_classes	android-provider	target-free	
+inspect_android_class	android-provider	target-free	
+inspect_android_method	android-provider	target-free	
+trace_android_references	android-provider	target-free	
+inspect_apktool_client	apktool-provider	target-free	
+decode_android_resources	apktool-provider	target-free	
+inspect_pcap_client	pcap-provider	target-free	
+inspect_pcap_capture	pcap-provider	target-free	
+identify_flutter_build	flutter-provider	target-free	
+inspect_dart_aot	flutter-provider	target-free	
+inspect_jeb_client	jeb-provider	target-free	
+open_jeb_project	jeb-provider	target-free	
+list_jeb_units	jeb-provider	target-free	
+decompile_jeb_item	jeb-provider	target-free	
+inspect_adb_client	adb-provider	target-free	
+list_adb_devices	adb-provider	target-free	
+inspect_adb_device	adb-provider	target-free	
+list_adb_packages	adb-provider	target-free	
+pull_adb_package	adb-provider	target-free	
+read_adb_logcat	adb-provider	target-free	
+inspect_adb_package	adb-provider	target-free	
+pull_adb_file	adb-provider	target-free	
+push_adb_file	adb-provider	target-free	
+capture_adb_screen	adb-provider	target-free	
+list_adb_processes	adb-provider	target-free	
+list_adb_directory	adb-provider	target-free	
+list_adb_features	adb-provider	target-free	
+list_adb_services	adb-provider	target-free	
+inspect_adb_display	adb-provider	target-free	
+inspect_adb_window	adb-provider	target-free	
+read_adb_setting	adb-provider	target-free	
+collect_adb_bugreport	adb-provider	target-free	
+resolve_adb_packages	adb-provider	target-free	
+install_adb_package	adb-provider	target-free	
+uninstall_adb_package	adb-provider	target-free	
+start_adb_app	adb-provider	target-free	
+start_adb_activity	adb-provider	target-free	
+stop_adb_app	adb-provider	target-free	
+inspect_firmware_regions	firmware-provider	target-free	
+extract_firmware	firmware-provider	target-free	
+compare_managed_members	application	session	
+verify_managed_native_boundaries	application	session	
+import_managed_reconstruction	application	session	
+project_managed_application_graph	application	session	
+list_browser_targets	browser-provider	target-free	
+inspect_web_page	browser-provider	target-free	
+analyze_web_bundle	browser-provider	target-free	
+observe_web_session	browser-provider	target-free	
+discover_webmcp_tools	browser-provider	target-free	
+compare_web_captures	browser-provider	target-free	
+capture_web_screenshot	browser-provider	target-free	
+compare_web_screenshots	browser-provider	target-free	
+capture_browser_scenario	browser-provider	target-free	
+list_electron_targets	electron-provider	target-free	
+inspect_electron_page	electron-provider	target-free	
+analyze_javascript_application	electron-provider	target-free	
+reconcile_javascript_runtime	electron-provider	target-free	
+capture_electron_scenario	electron-provider	target-free	
+inspect_electron_fuses	artifact-provider	target-free	inspect_electron_fuses
+list_javascript_runtime_targets	runtime-provider	target-free	
+observe_javascript_runtime	runtime-provider	target-free	
+trace_application_feature	application	target-free	
+trace_javascript_semantics	application	target-free	
+compare_application_versions	application	target-free	
+compare_source_to_bundle	application	target-free	
+compare_javascript_export_shapes	application	target-free	
+build_reconstruction_obligation_ledger	application	target-free	
+evaluate_reconstruction_coverage	application	target-free	
+project_android_application_graph	application	target-free	
+project_apple_application_graph	application	target-free	
+project_harmony_application_graph	application	target-free	
+trace_web_source_location	application	target-free	
+trace_web_module_imports	application	target-free	
+export_web_scripts	application	target-free	
+observe_web_execution	browser-provider	target-free	
+inspect_web_event_listeners	browser-provider	target-free	
+inspect_web_network_capture	browser-provider	target-free	
+recover_javascript_sources	application	target-free	
+open_binary	session	session	
+close_binary	session	session	
+binary_session	session	session	
+export_evidence_bundle	session	session	
+import_evidence_bundle	session	session	
+capture_process_scenario	session	session	
+compare_process_captures	session	session	
+compare_artifacts	session	session	
+compare_functions	session	session	
+compare_bundles	session	session	
+find_changed_behavior	session	session	
+build_call_path	session	session	
+correlate_static_and_runtime	session	session	
+verify_reconstruction	session	session	
+list_unknowns	session	session	
+record_unknown	session	session	
+update_unknown	session	session	
+verify_unknown_resolution	session	session	
+get_evidence_bundle	session	session	
+get_navigation_context	session	session	
+inspect_address_context	session	session	
+list_cutter_sessions	native-provider	target-free	list_cutter_sessions
+cutter_command	native-provider	target-free	cutter_command
+inspect_with_objdump	native-provider	target-free	inspect_with_objdump
+execute_rizin_command	native-provider	target-free	execute_rizin_command
+start_gdb_session	native-provider	target-free	start_gdb_session
+gdb_console	native-provider	target-free	gdb_console
+gdb_session_status	native-provider	target-free	gdb_session_status
+close_gdb_session	native-provider	target-free	close_gdb_session
+start_rizin_debug_session	native-provider	target-free	start_rizin_debug_session
+rizin_debug_command	native-provider	target-free	rizin_debug_command
+rizin_debug_session_status	native-provider	target-free	rizin_debug_session_status
+close_rizin_debug_session	native-provider	target-free	close_rizin_debug_session
+list_frida_devices	native-provider	target-free	list_frida_devices
+list_frida_processes	native-provider	target-free	list_frida_processes
+start_frida_session	native-provider	target-free	start_frida_session
+load_frida_script	native-provider	target-free	load_frida_script
+resume_frida_session	native-provider	target-free	resume_frida_session
+unload_frida_script	native-provider	target-free	unload_frida_script
+frida_session_status	native-provider	target-free	frida_session_status
+close_frida_session	native-provider	target-free	close_frida_session
+instrument_with_frida	native-provider	target-free	instrument_with_frida

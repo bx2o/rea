@@ -1,0 +1,69 @@
+{
+  "councilId": "C04",
+  "councilName": "Strategy-Growth-Squad",
+  "tier": "TIER-1-STRATEGIC",
+  "description": "Business strategy, growth planning, market analysis, operational efficiency, strategic optimization",
+  "captain": {
+    "name": "Chief-Strategist (The-Strategist)",
+    "title": "Council Captain",
+    "authority": "Council Captain - Strategic Authority",
+    "escalationPath": "Sparkling Curious (organizational strategy disputes)"
+  },
+  "agents": 4,
+  "specialties": [
+    "Strategic Planner",
+    "Business Development Manager",
+    "Market Analyst",
+    "Operations Optimizer"
+  ],
+  "primaryDomain": "Strategy & Business Growth",
+  "responsibilityAreas": [
+    "Strategic Planning",
+    "Growth Planning",
+    "Market Analysis",
+    "Business Development",
+    "Operational Optimization"
+  ],
+  "authority": {
+    "strategy-setter": true,
+    "description": "C04 sets organizational direction and priorities (subject to C01-Legal veto)",
+    "coordinatesWith": ["C01-Legal", "C06-Engineering", "C10-Finance", "C15-Product"],
+    "strategicInfluence": "All 16 councils follow C04 strategic direction"
+  },
+  "crossCouncilDependencies": {
+    "dependsOn": ["C01-Legal", "C10-Finance", "C03-Admin"],
+    "enables": ["C07-Sales", "C15-Product", "C04-All councils (via strategic direction)"],
+    "coordinatesMulti": true
+  },
+  "communicationPreferences": {
+    "async": true,
+    "channel": "Notion - C04-Strategy-Growth Hub",
+    "responseTime": "48 hours for planning, 24 hours for urgent",
+    "escalationThreshold": "organizational-strategy OR board-level"
+  },
+  "sla": {
+    "strategyReview": "10 business days",
+    "marketAnalysis": "15 business days",
+    "planDevelopment": "20 business days",
+    "escalationToCapitain": "4 hours"
+  },
+  "notionDatabases": [
+    "Council Dashboard",
+    "Council Members",
+    "Strategic Initiatives",
+    "Market Analysis",
+    "Growth Opportunities",
+    "Council Decisions"
+  ],
+  "artifacts": {
+    "rulesLocation": ".github/rules/github-copilot-workspace.md",
+    "workflowLocation": ".github/workflows/agent-workflows/the-strategist-workflows.md",
+    "implementationPlan": ".github/artifacts/plan-mode/implementation-plan.md"
+  },
+  "performanceMetrics": {
+    "strategyAccuracy": 85,
+    "marketForecastAccuracy": 78,
+    "executionCompliancePercent": 92,
+    "growthTarget": "15% YoY"
+  }
+}

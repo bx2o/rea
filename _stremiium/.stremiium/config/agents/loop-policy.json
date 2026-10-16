@@ -1,0 +1,8 @@
+{
+  "version": "1.0.0",
+  "mode": "bounded",
+  "required_fields": ["trigger", "evaluation", "feedback", "stop_condition", "convergence_condition", "max_iterations", "cost_limit", "escalation", "audit_trail"],
+  "defaults": { "max_iterations": 5, "cost_limit": "task_budget", "require_human_approval_for_policy_changes": true },
+  "loop_classes": ["research", "verification", "testing", "security", "learning", "optimization", "monitoring", "incident", "deployment", "rollback"],
+  "prohibited": ["unbounded_iteration", "self_granted_permissions", "silent_production_mutation"]
+}

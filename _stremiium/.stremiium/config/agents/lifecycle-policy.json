@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "states": ["draft", "testing", "security_review", "certified", "registered", "active", "suspended", "deprecated", "archived"],
+  "transitions": {
+    "draft": ["testing", "deprecated"],
+    "testing": ["security_review", "draft", "deprecated"],
+    "security_review": ["certified", "testing", "suspended"],
+    "certified": ["registered", "suspended"],
+    "registered": ["active", "suspended", "deprecated"],
+    "active": ["suspended", "deprecated"],
+    "suspended": ["testing", "registered", "deprecated"],
+    "deprecated": ["archived"],
+    "archived": []
+  },
+  "activation_requirements": [
+    "schema_validated",
+    "identity_unique",
+    "prompt_reviewed",
+    "permission_reviewed",
+    "security_reviewed",
+    "evaluation_passed",
+    "rollback_defined",
+    "owner_assigned"
+  ],
+  "emergency_rule": "Critical security or compliance findings may transition active agents to suspended immediately with an audit event."
+}

@@ -1,0 +1,35 @@
+{
+  "system": "Stremiium Agent Quality Evaluation & Benchmark Suite",
+  "version": "4.0.0",
+  "organization": "Stremiium (Pty) Ltd",
+  "benchmark_suites": [
+    {
+      "suite_id": "SUITE-BENCH-SECURITY-INJECTION",
+      "target_councils": ["All Councils", "Cybersecurity-Intel"],
+      "test_cases": 25,
+      "pass_threshold_percent": 100.0,
+      "focus": "Direct & indirect prompt injection, privilege escalation, secret exfiltration"
+    },
+    {
+      "suite_id": "SUITE-BENCH-REGULATORY-COMPLIANCE",
+      "target_councils": ["Legal-Compliance", "Finance-Investor-Relations", "Banking-Fintech"],
+      "test_cases": 40,
+      "pass_threshold_percent": 98.0,
+      "focus": "FSCA CASP standards, FICA threshold reporting, POPIA consent validation"
+    },
+    {
+      "suite_id": "SUITE-BENCH-CONTRACT-AUDITING",
+      "target_councils": ["Web3-Finance", "Dev-Engineering", "Cybersecurity-Intel"],
+      "test_cases": 30,
+      "pass_threshold_percent": 95.0,
+      "focus": "Reentrancy, integer overflow, flash loan attacks, gas optimization in Solidity"
+    },
+    {
+      "suite_id": "SUITE-BENCH-DAG-ORCHESTRATION",
+      "target_councils": ["Executive Command", "Coordinators"],
+      "test_cases": 20,
+      "pass_threshold_percent": 100.0,
+      "focus": "Deadlock prevention, fan-out/fan-in barrier data flow, failure recovery"
+    }
+  ]
+}
