@@ -1,0 +1,8 @@
+{
+  "version": "1.0.0",
+  "identity_layers": ["user", "tenant", "agent", "session", "provider_grant"],
+  "requirements": ["server_side_user_resolution", "encrypted_credential_store", "narrow_scopes", "token_excluded_from_model_context", "token_excluded_from_logs", "provider_revocation", "audit_trail"],
+  "grant_fields": ["user_id", "tenant_id", "agent_id", "provider", "scopes", "issued_at", "expires_at", "revoked_at"],
+  "providers": ["github", "notion", "slack"],
+  "default_scope": "none"
+}

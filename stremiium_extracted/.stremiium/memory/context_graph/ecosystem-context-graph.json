@@ -1,0 +1,29 @@
+{
+  "graph_version": "4.0.0",
+  "organization": "Stremiium (Pty) Ltd",
+  "root_node": "ST-SC-MASTER-001",
+  "node_types": ["EXECUTIVE", "COUNCIL", "DEPARTMENT", "COORDINATOR", "SPECIALIST", "SERVICE", "SMART_CONTRACT"],
+  "edge_types": ["ORCHESTRATES", "GOVERNS", "AUDITS", "DEPENDS_ON", "COMMUNICATES_WITH", "EXECUTES"],
+  "entities": [
+    { "id": "ST-SC-MASTER-001", "type": "EXECUTIVE", "label": "Sparkling Curious" },
+    { "id": "ST-C01-LEGAL", "type": "COUNCIL", "label": "Legal & Compliance Council" },
+    { "id": "ST-C06-CTO", "type": "COUNCIL", "label": "Engineering & Infrastructure Council" },
+    { "id": "ST-C10-CFO", "type": "COUNCIL", "label": "Finance & Investor Relations Council" },
+    { "id": "ST-C11-DEV", "type": "COUNCIL", "label": "Dev & Engineering Council" },
+    { "id": "ST-C12-CYBERSEC", "type": "COUNCIL", "label": "Cybersecurity & Intel Council" },
+    { "id": "ST-C13-WEB3", "type": "COUNCIL", "label": "Web3 & Financial Infrastructure Council" },
+    { "id": "ST-C16-BANKING", "type": "COUNCIL", "label": "Banking & Fintech Council" },
+    { "id": "CONTRACT-STM-POLYGON", "type": "SMART_CONTRACT", "label": "$STM Token Contract (Polygon PoS)" },
+    { "id": "SERVICE-NEOBANK", "type": "SERVICE", "label": "Stremiium Neobank Fiat/Crypto Gateway" },
+    { "id": "SERVICE-PREDICTION-MARKET", "type": "SERVICE", "label": "Stremiium Prediction Markets Platform" }
+  ],
+  "relationships": [
+    { "source": "ST-SC-MASTER-001", "target": "ST-C01-LEGAL", "type": "ORCHESTRATES" },
+    { "source": "ST-SC-MASTER-001", "target": "ST-C06-CTO", "type": "ORCHESTRATES" },
+    { "source": "ST-SC-MASTER-001", "target": "ST-C13-WEB3", "type": "ORCHESTRATES" },
+    { "source": "ST-C01-LEGAL", "target": "SERVICE-NEOBANK", "type": "GOVERNS" },
+    { "source": "ST-C12-CYBERSEC", "target": "CONTRACT-STM-POLYGON", "type": "AUDITS" },
+    { "source": "ST-C13-WEB3", "target": "CONTRACT-STM-POLYGON", "type": "EXECUTES" },
+    { "source": "ST-C16-BANKING", "target": "SERVICE-NEOBANK", "type": "EXECUTES" }
+  ]
+}

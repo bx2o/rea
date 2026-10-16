@@ -1,0 +1,30 @@
+{
+  "councilId": "C13",
+  "councilName": "Web3-Finance-Squad",
+  "tier": "TIER-2-TECHNICAL",
+  "description": "Web3 strategy, blockchain development, DeFi protocols, crypto systems, smart contracts, blockchain integration",
+  "captain": {
+    "name": "Web3-Financial-Infrastructure-Squad-Captain",
+    "title": "Council Captain",
+    "authority": "Council Captain - Web3 Authority"
+  },
+  "agents": 2,
+  "specialties": ["Blockchain Architect", "DeFi Protocol Specialist"],
+  "responsibilityAreas": [
+    "Smart Contracts",
+    "Blockchain Architecture",
+    "DeFi Protocol Design",
+    "Crypto Integration",
+    "Web3 Strategy",
+    "Blockchain Security"
+  ],
+  "crossCouncilDependencies": {
+    "dependsOn": ["C06-Infrastructure", "C12-Security"],
+    "coordinatesWith": ["C10-Finance", "C11-Dev"]
+  },
+  "sla": {
+    "protocolDesign": "20 business days",
+    "securityAudit": "15 business days",
+    "integration": "10 business days"
+  }
+}

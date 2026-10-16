@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "mode": "review-before-edit",
+  "prohibited_actions": ["generic_filler", "silent_overwrite", "activation_before_evaluation", "deletion_before_reference_audit"],
+  "priority_rules": {
+    "critical": ["sparkling-curious", "council-agents", "organizational-meta-agents"],
+    "high": ["legal-agents", "cybersecurity-agents", "financial-agents", "engineering-agents", "coordinators-agents"],
+    "medium": ["admin-agents", "human-resource-agents", "marketing-agents", "operations-agents", "products-agents", "sales-agents", "strategy-agents"]
+  },
+  "required_review": ["owner", "council", "security", "compliance_when_applicable", "evaluation"],
+  "activation_state": "suspended"
+}

@@ -1,0 +1,38 @@
+{
+  "councilId": "C14",
+  "councilName": "Customer-Success-Squad",
+  "tier": "TIER-3-CUSTOMER-PRODUCT",
+  "description": "Customer success, support, onboarding, retention, satisfaction, customer relationships, SLA management",
+  "captain": {
+    "name": "VP-Customer-Success",
+    "title": "Council Captain",
+    "authority": "Council Captain - Customer Authority"
+  },
+  "agents": 5,
+  "specialties": [
+    "Customer Success Manager",
+    "Support Lead",
+    "Onboarding Manager",
+    "CSM Team Lead",
+    "Retention Specialist"
+  ],
+  "responsibilityAreas": [
+    "Customer Support",
+    "Onboarding",
+    "Retention",
+    "Satisfaction",
+    "SLA Management",
+    "Account Growth",
+    "Customer Advocacy"
+  ],
+  "crossCouncilDependencies": {
+    "dependsOn": ["C15-Product", "C11-Dev"],
+    "ambassadorFor": "Customer voice to all councils",
+    "enablesFor": "Customer success metrics"
+  },
+  "sla": {
+    "supportResponse": "2-4 hours by severity",
+    "onboarding": "10 business days",
+    "issueResolution": "24 hours critical, 5 days standard"
+  }
+}

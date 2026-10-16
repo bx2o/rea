@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "layers": {
+    "working_context": { "owner": "task", "persistent": false, "classification": "internal" },
+    "short_term": { "owner": "agent", "persistent": true, "classification": "internal" },
+    "long_term": { "owner": "agent", "persistent": true, "classification": "confidential" },
+    "organizational": { "owner": "council", "persistent": true, "classification": "restricted" },
+    "compliance": { "owner": "legal", "persistent": true, "classification": "regulated" }
+  },
+  "requirements": ["provenance", "source_hash", "confidence", "owner", "access_policy", "expiration", "rollback_or_deletion"],
+  "poisoning_controls": ["quarantine_untrusted_sources", "human_review_for_regulated_memory", "immutable_audit_events", "reversible_updates"]
+}

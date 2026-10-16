@@ -1,0 +1,39 @@
+{
+  "councilId": "C10",
+  "councilName": "Finance-Investor-Relations-Squad",
+  "tier": "TIER-1-STRATEGIC",
+  "description": "Financial management, budgeting, investor relations, financial planning, capital strategy, forecasting",
+  "captain": {
+    "name": "Chief-Financial-Officer (The-Capitalist)",
+    "title": "Council Captain",
+    "authority": "Council Captain - Finance Authority"
+  },
+  "agents": 4,
+  "specialties": [
+    "Financial Planning Manager",
+    "Investor Relations Officer",
+    "Financial Analysis Manager",
+    "Treasury Manager"
+  ],
+  "responsibilityAreas": [
+    "Financial Planning",
+    "Investor Relations",
+    "Capital Strategy",
+    "Budgeting",
+    "Forecasting",
+    "Financial Controls"
+  ],
+  "authority": {
+    "budgetAuthority": true,
+    "description": "C10 controls budget allocation across councils"
+  },
+  "crossCouncilDependencies": {
+    "constraintAuthority": "Budget limits for all councils",
+    "coordinatesWith": "All councils (budget enforcement)"
+  },
+  "sla": {
+    "budgetReview": "20 business days",
+    "financialForecasting": "15 business days",
+    "investorReporting": "10 business days"
+  }
+}

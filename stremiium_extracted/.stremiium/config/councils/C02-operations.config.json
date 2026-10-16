@@ -1,0 +1,34 @@
+{
+  "councilId": "C02",
+  "councilName": "Operations-Squad",
+  "tier": "TIER-1-STRATEGIC",
+  "description": "Business operations, governance, risk management, vendor relationships, operational efficiency",
+  "captain": {
+    "name": "VP-Operations",
+    "title": "Council Captain",
+    "authority": "Council Captain - Operations Authority"
+  },
+  "agents": 3,
+  "specialties": [
+    "Governance & Risk Officer",
+    "Vendor & Procurement Manager",
+    "Operations Director"
+  ],
+  "responsibilityAreas": [
+    "Operational Planning",
+    "Vendor Management",
+    "Risk Assessment",
+    "Process Optimization",
+    "Compliance",
+    "Budget Control"
+  ],
+  "crossCouncilDependencies": {
+    "coordinatesWith": "All 15 other councils",
+    "enablesOrgwide": "operational-governance"
+  },
+  "sla": {
+    "vendorManagement": "10 business days",
+    "riskAssessment": "15 business days",
+    "escalationToCapitain": "4 hours"
+  }
+}

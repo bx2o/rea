@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stremiium.xyz/schemas/permission-policy.schema.json",
+  "type": "object",
+  "required": ["agent_id", "subject_type", "data_classifications", "tools", "approval"],
+  "properties": {
+    "agent_id": { "type": "string", "pattern": "^stremiium\\.agent\\.[a-z0-9_]+$" },
+    "subject_type": { "enum": ["agent", "user", "service"] },
+    "data_classifications": { "type": "array", "items": { "enum": ["public", "internal", "confidential", "restricted", "regulated"] } },
+    "tools": { "type": "array", "items": { "type": "string" } },
+    "write_scopes": { "type": "array", "items": { "type": "string" } },
+    "approval": { "enum": ["none", "council", "legal", "security", "human", "executive"] },
+    "tenant_isolation": { "type": "boolean" },
+    "audit_required": { "type": "boolean" }
+  },
+  "additionalProperties": false
+}
