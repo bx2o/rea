@@ -1,0 +1,10 @@
+entity,product,charge_type,fee_value,unit,notes,source,date_captured,tag
+eBucks,Programme membership,fee,0,R,free for FNB/RMB customers,https://www.online.fnb.co.za/ebweb/eBucks/earn/fnb-aspire-2025.2.jsp,2026-10-16,OBS
+eBucks,Pick n Pay asap!,earn_rate,30,%,up to at max reward level,https://www.ebucks.com/web/eBucks/earn/fnb-private-clients-2025.jsp,2026-10-16,OBS
+eBucks,Pick n Pay in-store,earn_rate,20,%,up to,https://www.ebucks.com/web/eBucks/earn/fnb-private-clients-2025.jsp,2026-10-16,OBS
+eBucks,Pick n Pay Clothing,earn_rate,30,%,up to,https://dailyinvestor.com/retail/131970/6-million-burgers-and-r600-million-in-one-year/,2026-10-16,OBS
+eBucks,Clicks,earn_rate,15,%,up to with virtual card,https://www.ebucks.com/web/eBucks/partners/clicks.jsp,2026-10-16,OBS
+eBucks,ARC stores,earn_rate,30,%,up to,https://www.ebucks.com/ebweb/ebucks/binaries/content/assets/ebucks/frg-earn-rules/2025-2026/earn-guides/retail/ebucks_summary_guide_2025_rmb.pdf,2026-10-16,OBS
+eBucks,Engen fuel,earn_rate,R8/litre,R,private wealth tier,https://www.ebucks.com/web/ebucks/binaries/content/assets/ebucks/frg-earn-rules/2024-2025/earn-guides/retail/fnb-private-wealth_ebucks-earn-rules-summary-guide.pdf,2026-10-16,OBS
+eBucks,Woolworths,earn_rate,25,%,up to varies by level,https://codecash.co.za/fnb-ebucks-complete-rewards-guide-2025-transfer-earn-redeem/,2026-10-16,UNVERIFIED
+eBucks,Currency conversion,conversion,R1 = eB10,ratio,eBucks never expire,https://www.ebucks.com/web/ebucks/binaries/content/assets/ebucks/frg-earn-rules/2024-2025/earn-guides/retail/fnb-private-wealth_ebucks-earn-rules-summary-guide.pdf,2026-10-16,OBS

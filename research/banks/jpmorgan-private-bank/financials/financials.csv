@@ -1,0 +1,10 @@
+bank,fiscal_year,metric,value,unit,source,tag
+J.P. Morgan Private Bank,2025,Client assets (secondary),3500000000000,USD,https://grokipedia.com/page/JP_Morgan_Private_Bank,UNVERIFIED
+J.P. Morgan Private Bank,2025,Advisors (secondary),3500,count,https://grokipedia.com/page/JP_Morgan_Private_Bank,UNVERIFIED
+J.P. Morgan Private Bank,2025,Offices (secondary),75,count,https://grokipedia.com/page/JP_Morgan_Private_Bank,UNVERIFIED
+J.P. Morgan Private Bank,2024,Global Family Office Report avg family net worth,1400000000,USD,https://privatebank.jpmorgan.com/nam/en/services/wealth-planning-and-advice/family-office-services/2024-global-family-office-report,OBS
+J.P. Morgan Private Bank,2024,Global Family Office Report geographies,48,count,https://privatebank.jpmorgan.com/nam/en/services/wealth-planning-and-advice/family-office-services/2024-global-family-office-report,OBS
+J.P. Morgan Private Bank,2024,Global Family Office Report avg target portfolio return,11,percent,https://privatebank.jpmorgan.com/nam/en/services/wealth-planning-and-advice/family-office-services/2024-global-family-office-report,OBS
+J.P. Morgan Private Bank,2025,Minimum investable assets tier,5000000,USD,https://media.chase.com/news/jpmorganchase-opens-flagship-financial-centers-for-affluent-clients,OBS
+J.P. Morgan Private Bank,2025,Standalone revenue,NA,USD,NA,UNK
+J.P. Morgan Private Bank,2025,Standalone net income,NA,USD,NA,UNK

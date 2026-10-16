@@ -1,0 +1,13 @@
+entity,product,charge_type,fee_value,unit,notes,source,date_captured,tag
+EasyEquities,ZAR account,brokerage,0.25,%,per transaction min 1c (some say R10),https://gt247com.freshdesk.com/support/solutions/articles/13000075565-fees-and-costs,2026-10-16,OBS
+EasyEquities,Registration,setup,0,R,no registration fee,https://gt247com.freshdesk.com/support/solutions/articles/13000075565-fees-and-costs,2026-10-16,OBS
+EasyEquities,Thrive platform fee,monthly,25,R,waived at Thrive Level 3 or under 21 or over 65,https://gt247com.freshdesk.com/support/solutions/articles/13000075565-fees-and-costs,2026-10-16,OBS
+EasyEquities,USD account commission,brokerage,0.25,%,buy and sell,https://resources.easyequities.co.za/EasyEquities_CostProfile_USTrading.pdf,2026-10-16,OBS
+EasyEquities,USD clearing/administration,admin,0.31,%,- ,https://resources.easyequities.co.za/EasyEquities_CostProfile_USTrading.pdf,2026-10-16,OBS
+EasyEquities,USD SEC fee,sell,0.00218,%,- ,https://resources.easyequities.co.za/EasyEquities_CostProfile_USTrading.pdf,2026-10-16,OBS
+EasyEquities,FX fee,forex,0.5+2,%,0.5 plus 2 above morning spot,https://www.easyequities.com.au/old2,2026-10-16,OBS
+EasyEquities,EasyProperties platform fee,annual,0.6,%,of AUM,https://properties.easyequities.co.za/how-it-works?referrer=ImmoAfrica,2026-10-16,OBS
+EasyEquities,EasyProperties IPO fee,ipo,1.0,%,capital raising,https://properties.easyequities.co.za/how-it-works?referrer=ImmoAfrica,2026-10-16,OBS
+EasyEquities,EasyProperties auction brokerage,brokerage,1.5,%,- ,https://properties.easyequities.co.za/how-it-works?referrer=ImmoAfrica,2026-10-16,OBS
+EasyEquities,TFSA,annual_limit,46000,R,older sources cite R36000,https://www.easyequities.co.za/tfsa-investing,2026-10-16,OBS
+EasyEquities,TFSA,lifetime_limit,500000,R,withdrawals do not reset,https://www.easyequities.co.za/tfsa-investing,2026-10-16,OBS

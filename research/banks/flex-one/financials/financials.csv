@@ -1,0 +1,15 @@
+bank,fiscal_year,metric,value,unit,source,tag
+Flex (Flex.one),2025,Annualized revenue,75000000,USD,https://sacra.com/c/flex/,EST
+Flex (Flex.one),2025,Revenue growth YoY,4,multiple,https://fintechmagazine.com/globenewswire/3199876,OBS
+Flex (Flex.one),2025,Annualized TPV,3000000000,USD,https://yespress.io/zaid-rahman,OBS
+Flex (Flex.one),2025,Total team members,140,count,https://yespress.io/zaid-rahman,OBS
+Flex (Flex.one),2025,Total equity raised,105000000,USD,https://fintechmagazine.com/globenewswire/3199876,OBS
+Flex (Flex.one),2025,Total raised equity+debt,490000000,USD,https://yespress.io/zaid-rahman,OBS
+Flex (Flex.one),2025,Series B equity,60000000,USD,https://fintechmagazine.com/globenewswire/3199876,OBS
+Flex (Flex.one),2026,Series B1 equity,70000000,USD,https://www.flex.one/it/resource-hub/halo-fund-leads-70m-investment-to-accelerate-the-launch-of-flex-global,OBS
+Flex (Flex.one),2026,Post-money valuation,1200000000,USD,https://www.woofun.ai/en/news/detail/101902,UNVERIFIED
+Flex (Flex.one),2025,Mar 2025 equity plus debt raise,225000000,USD,https://www.businesswire.com/news/home/20250306625979/en/,OBS
+Flex (Flex.one),2025,Bill-payment card fee,4,percent,https://sacra.com/c/flex/,EST
+Flex (Flex.one),2025,International wire FX fee,1,percent,https://www.flex.one/pricing,OBS
+Flex (Flex.one),2025,Cash-back on eligible purchases,1,percent,https://www.flex.one/business-banking,OBS
+Flex (Flex.one),2025,High-yield APY up to,2.47,percent,https://www.flex.one/business-banking,OBS

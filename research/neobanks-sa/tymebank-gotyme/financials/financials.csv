@@ -1,0 +1,23 @@
+metric,value,unit,period,status,source
+customers_sa,11600000,count,FY2025 (yr to 30 Jun 2025),OBS,https://www.tymebank.co.za/wp-content/uploads/2025/10/TymeBank-Limited-AFS-2025-Signed.pdf
+customers_sa_yoy_growth,21,percent,FY2025,OBS,https://www.tymebank.co.za/wp-content/uploads/2025/10/TymeBank-Limited-AFS-2025-Signed.pdf
+customers_sa,10700000,count,Dec 2024,OBS,https://africasignal.com/tymebank-the-digital-disruptor-democratizing-banking-in-south-africa/amp/
+customers_sa,9750000,count,FY2024 (yr to 30 Jun 2024),OBS,https://www.tymebank.co.za/wp-content/uploads/2024/10/TymeBank-Limited-Annual-Report-2024-26-signed.pdf
+customers_group,22000000,count,2026,EST,https://www.tyme.com/
+customers_group,21000000,count,May 2026,OBS,https://www.billionaires.africa/2026/05/18/billionaire-patrice-motsepes-gotyme-bank-eyes-15-billion-listing-as-customer-count-surpasses-21-million/
+deposits,7700000000,ZAR,FY2025,OBS,https://www.tymebank.co.za/wp-content/uploads/2025/10/TymeBank-Limited-AFS-2025-Signed.pdf
+deposits_yoy_growth,22,percent,FY2025,OBS,https://www.tymebank.co.za/wp-content/uploads/2025/10/TymeBank-Limited-AFS-2025-Signed.pdf
+deposits,6290000000,ZAR,FY2024,OBS,https://www.tymebank.co.za/wp-content/uploads/2024/10/TymeBank-Limited-Annual-Report-2024-26-signed.pdf
+net_advances,2250000000,ZAR,FY2025,OBS,https://gotyme.co.za/static-assets/Disclosures/tymebank-limited-afs-2025-signed.pdf
+net_advances,1770000000,ZAR,FY2024,OBS,https://www.tymebank.co.za/wp-content/uploads/2024/10/TymeBank-Limited-Annual-Report-2024-26-signed.pdf
+revenue,3100000000,ZAR,FY2025,OBS,https://gotyme.co.za/static-assets/Disclosures/tymebank-limited-afs-2025-signed.pdf
+revenue_yoy_growth,29,percent,FY2025,OBS,https://gotyme.co.za/static-assets/Disclosures/tymebank-limited-afs-2025-signed.pdf
+revenue,1920000000,ZAR,FY2024,OBS,https://www.tymebank.co.za/wp-content/uploads/2024/10/TymeBank-Limited-Annual-Report-2024-26-signed.pdf
+loss_before_tax,-226000000,ZAR,FY2025,OBS,https://gotyme.co.za/static-assets/Disclosures/tymebank-limited-afs-2025-signed.pdf
+loss_before_tax_narrowing,32,percent,FY2025,OBS,https://gotyme.co.za/static-assets/Disclosures/tymebank-limited-afs-2025-signed.pdf
+first_profitable_month,Dec-2023,date,2023,OBS,https://www.theasianbanker.com/press-releases/tymebank-south-africa-hits-profitability-in-under-5-years
+accumulated_losses_before_breakeven,347000000,USD,2023,OBS,https://ghanahype.com/tymebank-reaches-profitability-and-unicorn-valuation-in-2025/
+revenue_run_rate_2023,95000000,USD,late 2023,OBS,https://ghanahype.com/tymebank-reaches-profitability-and-unicorn-valuation-in-2025/
+series_d_raise,250000000,USD,Dec 2024,OBS,https://www.tyme.com/news-room/latin-americas-nubank-leads-newly-minted-unicorn-tymes-capital-raise
+valuation,1500000000,USD,Dec 2024,OBS,https://www.tyme.com/news-room/latin-americas-nubank-leads-newly-minted-unicorn-tymes-capital-raise
+customers_philippines,2300000,count,14 months after launch,OBS,https://www.tyme.com/news-room/singapores-tyme-group-delivers-the-worlds-fastest-profitable-standalone
