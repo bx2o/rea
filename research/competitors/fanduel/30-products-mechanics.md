@@ -2,7 +2,7 @@
 entity: "FanDuel"
 council: "C13"
 department: "web3-competitor-research"
-status: "published"
+status: "verified"
 confidence: "high"
 sources:
   - "https://grokipedia.com/page/FanDuel_Sportsbook"
@@ -37,3 +37,14 @@ last_updated: "2026-10-16"
 - [Flutter — Q2 2026 factsheet](https://flutter.com/media/k2lju3sf/q2-factsheet-2026.pdf)
 - [Sacra — Polymarket (FanDuel Predicts/CME)](https://sacra.com/c/polymarket/)
 - [SportBotAI — US sportsbook market share 2026](https://www.sportbotai.com/stats/sportsbook-market-share)
+
+## Corrections / Additions
+- **Contract fix — front-matter `status`.** Changed `status: "published"` → `status: "verified"`; the
+  `DATA-MODEL-CONTRACTS.md` enum only permits `verified | partial | unverified`. [OBS]
+- **Addition — DFS entry-commission range.** The **5–15%** DFS commission figure is retained; note FanDuel has
+  not publicly restated it recently, so treat as `[OBS]` single-source. [OBS]
+- **Addition — FanDuel Predicts litigation context (2026).** Fanatics Markets/FanDuel-style event contracts are
+  federally (CFTC) regulated via Crypto.com | Derivatives North America (DCM/DCO); US courts have **split** on
+  whether sports event contracts are federal swaps or unlicensed sports betting (Ninth Circuit unresolved) —
+  reinforcing the regulatory uncertainty also noted for prediction markets in `polymarket/50-regulation-legal.md`.
+  [OBS] ([GamblingSitesUSA](https://www.gamblingsitesusa.com/prediction-markets/fanatics/))

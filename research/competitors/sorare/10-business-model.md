@@ -41,3 +41,13 @@ last_updated: "2026-10-16"
 - [Sorare Help — scarcity levels](https://sorare.com/pt/help/a/4406429217053/understanding-sorare-cards-pro-set-and-scarcity-levels)
 - [Sorare — Wikipedia (FR)](https://fr.wikipedia.org/wiki/Sorare)
 - [BlockchainGamer.biz — Sorare rebuilds to profitability](https://www.blockchaingamer.biz/news/42931/sorare-raises-10-million-rebuilds-profitability/)
+
+## Corrections / Additions
+- **Error (internal inconsistency) — scarcity ladder.** This file's "Scarcity ladder" line states *"Limited
+  (1,000/season), Rare (100), Super Rare (10), Unique (1)"*, which conflicts with the other Sorare files
+  (`30-products-mechanics.md`, `40-tokenomics.md`) and with Sorare's own help page, which describe **Limited
+  1,000–5,000, Rare 100–1,000, Super Rare 10–100, Unique 1** per player per season. Treat the **1,000 Limited**
+  figure here as **low-confidence [UNVERIFIED]**; the higher ranges are the better-supported values. [OBS]
+  ([sorare help](https://sorare.com/pt/help/a/4406429217053/understanding-sorare-cards-pro-set-and-scarcity-levels))
+- **Sourcing note.** The **5% secondary commission** rests on a single secondary source (Ludo9, a fan guide),
+  so this file's `status: partial` is correct; the fee remains `[OBS]` single-source. [OBS]

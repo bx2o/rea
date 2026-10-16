@@ -46,3 +46,21 @@ last_updated: "2026-10-16"
 - [Predscope — Polymarket review (CFTC approval)](https://predscope.com/guide/polymarket-review)
 - [NextPredict — Prediction markets in Africa](https://nextpredict.io/legal/africa/)
 - [Best Bitcoin Casino — SA gambling law](https://www.bestbitcoincasino.com/crypto-casinos-south-africa/)
+
+## Corrections / Additions
+- **Addition — SABA Policy Position Paper (27 Jul 2026).** The **South African Bookmakers' Association**
+  formally argued that prediction markets should be regulated as **exchange betting** and, absent a comprehensive
+  SA framework (licensing, integrity, consumer protection, AML, tax), **should be treated as illegal** in South
+  Africa. SABA cited **>R700,000 staked on Johannesburg's next mayor via Polymarket** without SA licensing, tax
+  or responsible-gambling safeguards. This sharpens the "legal gap" framing above toward **likely-unlawful**. [OBS]
+  ([iGaming Expert](https://igamingexpert.com/news/regulation/south-africa-betting-prediction-markets/), [NextPredict](https://nextpredict.io/legal/africa/), [CNBC Africa](https://www.cnbcafrica.com/media/7785235474667/the-dangers-of-unregulated-prediction-markets))
+- **Addition — NGB enforcement posture (2026).** The **National Gambling Board** (a) issued a **Feb 2026**
+  media release stating **remote gambling servers** are not lawful gambling systems and that interactive/remote
+  gambling remains unlawful absent explicit national authorisation; and (b) ran a **site-blocking Expression of
+  Interest** against unlicensed offshore sites. Unlawful winnings (~**R3.075M**, 2025/26–Apr 2026) were forfeited
+  to the State under **NGA s.16**. [OBS]
+  ([NGB release](https://www.ngb.org.za/wp-content/uploads/2026/02/Media-Release_RGS.pdf), [Savannah Herald](https://savannahherald.com/illegal-online-gambling-operators-in-spotlight/), [The iGaming](https://theigaming.eu/2026/08/24/south-africa-plans-to-block-illegal-gambling-websites/))
+- **Addition — jurisdictional basis.** The SCA in **Casino Enterprises v Gauteng Gambling Board** [2011] ZASCA 155
+  held online gambling takes place **where the player is**, so unlicensed offshore play **from South Africa** is
+  unlawful — the same reasoning SABA applies to offshore prediction markets. [OBS]
+  ([SCA judgment](https://www.supremecourtofappeal.org.za/index.php/judgements/send/26-judgments-2011/1912-casino-enterprises-v-the-gauteng-gambling-board-653-10-2011-zasca-155-28-september-2011))
