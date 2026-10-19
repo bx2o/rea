@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "scope": "T20-T29",
+  "execution_mode": "sequential_evidence_and_gated_implementation",
+  "entries": [
+    { "prompt": "T20", "status": "partial", "evidence": ["package.json", "package-lock.json", "tool/plugin registries", "implementation/t20-framework-security-tester.md"], "finding": "No active framework-security tester runtime or sandbox pipeline", "gated_work": "dependency/CVE/license/sandbox evaluator" },
+    { "prompt": "T21", "status": "partial", "evidence": ["4165 scoped mobile-related matches", "context/t21-mobile-agent-architecture.md"], "finding": "No verified Android/iOS agent runtime or device farm integration", "gated_work": "mobile agent/tool implementation and release gates" },
+    { "prompt": "T22", "status": "partial", "evidence": ["1075 scoped datacenter/infrastructure matches", "context/t22-datacenter-agent-architecture.md"], "finding": "No verified datacenter agent or model-serving control plane", "gated_work": "inventory, capacity, GPU, DR, and change-control services" },
+    { "prompt": "T23", "status": "partial", "evidence": ["audit/t23-threat-hacker-architecture.md", "harness-policy.json", "git-safety-policy.json"], "finding": "Authorization and sandbox design exists; authorized testing runtime is not active", "gated_work": "rules-of-engagement workflow, sandbox runner, evidence store" },
+    { "prompt": "T24", "status": "executed", "evidence": ["context/t24-algorithm-agent-architecture.md", "capability-catalog.json"], "finding": "Agent/skill/deterministic-library boundary recorded", "gated_work": "benchmark and formal-verification integrations" },
+    { "prompt": "T25", "status": "executed", "evidence": ["2907 scoped product/sports/service matches", "context/t25-product-agent-architecture.md"], "finding": "Service-to-council mapping recorded", "gated_work": "product-specific ownership and KPI registration" },
+    { "prompt": "T26", "status": "partial", "evidence": ["2907 scoped sports-related matches", "audit/t26-sports-agent-architecture.md"], "finding": "Sports capabilities map to existing councils; no dedicated sports runtime established", "gated_work": "evidence-backed sports owner and workflow registration" },
+    { "prompt": "T27", "status": "partial", "evidence": ["1944 scoped forensic/AML-related matches", "audit/t27-crypto-forensic-analyst-architecture.md"], "finding": "Forensic role and authority boundaries are designed; case system is not active", "gated_work": "provenance/evidence/case-management implementation" },
+    { "prompt": "T28", "status": "executed", "evidence": ["implementation/t28-specialist-vs-skill-decision-framework.md", "capability-catalog.json", "tool-registry.json"], "finding": "Capability classification rules and initial mappings recorded", "gated_work": "apply classifications to every registry record" },
+    { "prompt": "T29", "status": "partial", "evidence": ["implementation/t29-self-improving-agent-loop-research.md", "loop-policy.json", "evaluation-suite.json"], "finding": "Controlled improvement contract exists; supplied seven-rule source is not canonical in repository", "gated_work": "source verification, benchmark feedback loop, approval workflow" }
+  ],
+  "completion_rule": "Executed means locally verifiable research, classification, or policy checks ran. Partial means the design/control exists but the specialist runtime, external source verification, or production activation is incomplete."
+}

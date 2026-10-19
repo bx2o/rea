@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0",
+  "state_domains": ["immutable_configuration", "identity", "task", "workflow", "conversation_context", "memory", "external_state", "event_history", "metrics"],
+  "mutation": { "shared_state": "forbidden", "copy_on_write": true, "event_required": true, "owner_context_required": true },
+  "serialization": { "format": "canonical_json", "sort_keys": true, "version_required": true },
+  "retention": { "event_history_days": 365, "conversation_context_days": 30 }
+}

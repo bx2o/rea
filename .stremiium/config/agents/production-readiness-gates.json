@@ -1,0 +1,20 @@
+{
+  "version": "1.0.0",
+  "gates": [
+    "registry_integrity",
+    "identity_uniqueness",
+    "schema_validation",
+    "prompt_completeness_review",
+    "permission_review",
+    "security_review",
+    "regulatory_review_when_applicable",
+    "behavior_evaluation",
+    "cost_and_latency_baseline",
+    "observability_verified",
+    "rollback_tested",
+    "owner_and_escalation_assigned",
+    "human_approval"
+  ],
+  "release_rule": "All gates are required; regulated or privileged agents additionally require Legal/Compliance and Cybersecurity approval.",
+  "default_release_state": "suspended"
+}

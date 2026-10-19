@@ -1,0 +1,34 @@
+{
+  "councilId": "C16",
+  "councilName": "Banking-Fintech-Squad",
+  "tier": "TIER-3-CUSTOMER-PRODUCT",
+  "description": "Banking systems, fintech integration, payments processing, financial infrastructure, banking compliance",
+  "captain": {
+    "name": "Banking-Fintech-Squad-Captain",
+    "title": "Council Captain",
+    "authority": "Council Captain - Banking Authority"
+  },
+  "agents": 3,
+  "specialties": ["Banking Architect", "FinTech Systems Specialist", "Payments Integration Lead"],
+  "responsibilityAreas": [
+    "Banking Systems",
+    "Payments Processing",
+    "FinTech Integration",
+    "Financial Infrastructure",
+    "Banking Compliance",
+    "Settlement"
+  ],
+  "authority": {
+    "bankingCompliance": true,
+    "description": "C16 ensures banking/fintech regulatory compliance"
+  },
+  "crossCouncilDependencies": {
+    "dependsOn": ["C01-Legal", "C06-Infrastructure", "C11-Dev"],
+    "coordinatesWith": ["C10-Finance", "C12-Security"]
+  },
+  "sla": {
+    "bankingIntegration": "20 business days",
+    "complianceReview": "10 business days",
+    "paymentProcessing": "24 hours testing"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "scope": "T0-T9",
+  "execution_mode": "sequential_evidence_and_gated_implementation",
+  "entries": [
+    { "prompt": "T0", "status": "executed", "evidence": ["task/T1-agent-operating-system-architecture/implementation/t0-research-constitution.md"], "mutation": "none" },
+    { "prompt": "T1", "status": "executed", "evidence": ["277 normalized agent definitions", "280 files under .github/agents", "task/T1-agent-operating-system-architecture/audit/t1-complete-repository-census.md"], "mutation": "none" },
+    { "prompt": "T2", "status": "executed", "evidence": ["task/T1-agent-operating-system-architecture/audit/t2-documentation-deep-research-audit.md", "26 reference findings"], "mutation": "none" },
+    { "prompt": "T3", "status": "executed", "evidence": ["absent .trae/.Codex/.gemini/.windsurf directories", "task/T1-agent-operating-system-architecture/context/t3-canonical-home-decision.md"], "mutation": "none", "decision": "hybrid .github control plane plus approval-gated domain namespace" },
+    { "prompt": "T4", "status": "executed", "evidence": ["task/T1-agent-operating-system-architecture/context/t4-canonical-hierarchy-options.md"], "mutation": "none", "decision": "organization, capability, knowledge, execution, and control planes" },
+    { "prompt": "T5", "status": "executed", "evidence": ["task/T1-agent-operating-system-architecture/context/t5-terminology-migration.md"], "mutation": "none", "decision": "Squad retained as legacy alias" },
+    { "prompt": "T6", "status": "executed", "evidence": ["16-council registry", "task/T1-agent-operating-system-architecture/audit/t6-departmental-agent-taxonomy.md"], "mutation": "none" },
+    { "prompt": "T7", "status": "executed", "evidence": ["task/T1-agent-operating-system-architecture/audit/t7-missing-departmental-agent-matrix.md"], "mutation": "none", "requires_validation": "external Notion/runtime ownership" },
+    { "prompt": "T8", "status": "executed", "evidence": ["2 coordinator definitions", "task/T1-agent-operating-system-architecture/context/t8-coordinator-architecture.md"], "mutation": "none" },
+    { "prompt": "T9", "status": "executed", "evidence": ["task/T1-agent-operating-system-architecture/context/t9-coordinator-folder-file-standard.md"], "mutation": "none", "decision": "design only; target folders not created" }
+  ],
+  "completion_rule": "Executed means required investigation/checks ran and evidence is recorded. It does not imply production runtime activation or prompt rewriting."
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stremiium.xyz/schemas/agent-lifecycle.schema.json",
+  "title": "Stremiium Agent Lifecycle",
+  "type": "object",
+  "required": ["version", "states", "transitions", "global_gates"],
+  "properties": {
+    "version": { "type": "string" },
+    "states": { "type": "array", "minItems": 10, "items": { "type": "string" } },
+    "transitions": { "type": "array", "items": { "type": "object", "required": ["from", "to", "gates"], "properties": { "from": { "type": "string" }, "to": { "type": "string" }, "gates": { "type": "array", "items": { "type": "string" }, "minItems": 1 } }, "additionalProperties": false } },
+    "global_gates": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+  },
+  "additionalProperties": false
+}

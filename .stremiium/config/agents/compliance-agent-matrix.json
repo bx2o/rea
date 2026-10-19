@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "domains": {
+    "fsca_casp": { "owner_council": "C01", "review": ["legal", "compliance", "human"] },
+    "fica_aml_kyc": { "owner_council": "C01", "review": ["compliance", "security", "human"] },
+    "popia": { "owner_council": "C01", "review": ["privacy", "security", "human"] },
+    "tax_carf": { "owner_council": "C10", "review": ["finance", "legal", "human"] },
+    "travel_rule_sanctions": { "owner_council": "C01", "review": ["compliance", "security", "human"] },
+    "transaction_monitoring": { "owner_council": "C12", "review": ["security", "compliance", "human"] },
+    "regulatory_reporting": { "owner_council": "C01", "review": ["legal", "finance", "human"] }
+  },
+  "default": { "approval": "human", "audit_required": true, "autonomous_enforcement": false }
+}
