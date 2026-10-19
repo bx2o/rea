@@ -1,0 +1,124 @@
+{
+  "entity": "African Bank",
+  "program": "SC-REA-NEOBANK-5.0",
+  "rea_status": "not-executed",
+  "entries": [
+    {
+      "id": "african-bank-EV-001",
+      "claim": "African Bank Limited is a registered bank under the Banks Act; registration 2014/176899/06; FSP 46904; NCR registration NCRCP7638",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "African Bank Limited AFS 30 September 2025; African Bank catalogue PDF",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "african-bank-EV-002",
+      "claim": "African Bank is listed as a locally controlled bank on the SARB Prudential Authority register; HQ 59 16th Road, Midrand; CEO Kennedy Bungane",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "SARB Locally Controlled Banks list as at 1 September 2025",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "african-bank-EV-003",
+      "claim": "African Bank Holdings Limited shareholders comprise the SARB, a consortium of six banks, the GEPF managed by the PIC, and the iKamva Lethu employee trust",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "African Bank Holdings Limited interim results, six months ended 31 March 2025",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "african-bank-EV-004",
+      "claim": "MyWorld Account has no monthly fee, one transactional account plus up to five linked pockets, overdraft access up to R100,000, and shared-banking features",
+      "evidence_class": "SEEN",
+      "source_type": "published-pricing",
+      "source_ref": "africanbank.co.za/en/home/banking/",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "african-bank-EV-005",
+      "claim": "Audacious Rewards pays points for everyday banking (savings, loan repayment, card swipes, buying airtime/electricity) redeemable for airtime, data, groceries, travel and entertainment; points are credited only after the qualifying transaction clears",
+      "evidence_class": "SEEN",
+      "source_type": "published-pricing",
+      "source_ref": "audaciousrewards.co.za/faq; Audacious Rewards Terms and Conditions v29 (2025-06-24)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "african-bank-EV-006",
+      "claim": "African Bank supports tap-to-pay via Samsung Wallet, Garmin Pay and SwatchPay",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "africanbank.co.za/en/home/digital-wallets/",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "african-bank-EV-007",
+      "claim": "H1 FY2025 (six months to 31 March 2025) group net profit after tax rose 15% to R202 million",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "African Bank Holdings Limited Interim Financial Results, six months ended 31 March 2025",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "african-bank-EV-008",
+      "claim": "FY2025 (year to 30 September 2025): net income from operations before impairments R7,601m; credit impairments R2,440m (-6%); credit loss ratio improved to 5.3% from 6.3%; total income before expenses R5,161m (+5%)",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "SENS release of audited FY2025 results, 24 November 2025",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "african-bank-EV-009",
+      "claim": "Press reports a FY2025 net loss of about R624 million attributed to transformation and integration costs",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "African News Agency / press reporting on African Bank FY2025 results",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "african-bank-EV-010",
+      "claim": "African Bank acquired Grindrod Bank and Ubank (2022) and plans a JSE relisting in 2027; iKamva Lethu 10% staff scheme is live",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "ABHL interim statements; Mail & Guardian (2025-08-11)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "african-bank-EV-011",
+      "claim": "Tap2Glass is an Android softPOS merchant card-acceptance app",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Program entity anchor + softPOS market context (limited primary sourcing)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "african-bank-EV-012",
+      "claim": "Mobile app framework, authentication primitives, API endpoints, core banking vendor, and Tap2Glass scheme SDK",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "pending REA extraction: rea analyze-application on the African Bank APK and the Tap2Glass APK; rea trace-network during MyWorld/rewards flows",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "african-bank-EV-013",
+      "claim": "Exact FY2025 audited bottom line (profit vs press-reported c.R624m loss), CAR/liquidity ratios, and Audacious Rewards earning rates as coded",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "pending primary AFS read + REA static resource extraction",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    }
+  ]
+}

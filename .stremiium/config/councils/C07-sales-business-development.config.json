@@ -1,0 +1,35 @@
+{
+  "councilId": "C07",
+  "councilName": "Sales-Business-Development-Squad",
+  "tier": "TIER-1-STRATEGIC",
+  "description": "Sales strategy, business development, revenue growth, client acquisition, deal management, partnerships",
+  "captain": {
+    "name": "Rainmaker-Captain (The-Rainmaker)",
+    "title": "Council Captain",
+    "authority": "Council Captain - Revenue Authority"
+  },
+  "agents": 4,
+  "specialties": [
+    "Sales Strategy Officer",
+    "Business Development Manager",
+    "Client Success Lead",
+    "Revenue Operations Manager"
+  ],
+  "responsibilityAreas": [
+    "Sales Strategy",
+    "Business Development",
+    "Revenue Growth",
+    "Partnership Management",
+    "Client Acquisition",
+    "Deal Closing"
+  ],
+  "crossCouncilDependencies": {
+    "dependsOn": ["C04-Strategy", "C10-Finance"],
+    "enables": ["Revenue", "Customer relationships"]
+  },
+  "sla": {
+    "dealReview": "48 hours",
+    "partnership": "10 business days",
+    "salesStrategy": "15 business days"
+  }
+}

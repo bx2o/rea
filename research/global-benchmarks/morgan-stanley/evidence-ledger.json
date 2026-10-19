@@ -1,0 +1,115 @@
+{
+  "entity": "Morgan Stanley",
+  "program": "SC-REA-NEOBANK-5.0",
+  "rea_status": "not-executed",
+  "entries": [
+    {
+      "id": "ms-EV-001",
+      "claim": "Morgan Stanley reported FY2025 (year ended 31 December 2025) net revenues of $70.6 billion, up 14% year over year.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Morgan Stanley Fourth Quarter and Full Year 2025 Earnings Results; FY2025 income statement",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "ms-EV-002",
+      "claim": "For Q4 2025 Morgan Stanley reported net revenues of $17.9 billion, net income applicable to Morgan Stanley of $4.4 billion, and diluted EPS of $2.68.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Morgan Stanley 4Q25 Earnings Release (quarter ended 31 December 2025)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "ms-EV-003",
+      "claim": "For FY2025 Morgan Stanley Wealth Management reported net revenue of $31.8 billion, a 29% pre-tax margin, $356 billion of net new assets, and $160 billion of fee-based asset flows.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Morgan Stanley 4Q25 Financial Supplement / FY2025 earnings release",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "ms-EV-004",
+      "claim": "As of Q4 2025, Wealth Management client assets were approximately $7.381 trillion; combined Wealth and Investment Management assets were ~$9.3 trillion; Investment Management AUM was $1.895 trillion.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Morgan Stanley 4Q25 Financial Supplement",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "ms-EV-005",
+      "claim": "Morgan Stanley Wealth Management has approximately 16,000 financial advisors (FY2025).",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Morgan Stanley FY2025 disclosures / analyst summaries",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "ms-EV-006",
+      "claim": "Morgan Stanley acquired E*TRADE (announced 20 February 2020; closed 2 October 2020) in an all-stock transaction valued at approximately $13 billion, retaining the E*TRADE brand for self-directed digital brokerage.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Morgan Stanley strategic update / acquisition disclosures (2020)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "ms-EV-007",
+      "claim": "Morgan Stanley closed its acquisition of Eaton Vance on 1 March 2021.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Morgan Stanley strategic update / acquisition disclosures (2021)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "ms-EV-008",
+      "claim": "Morgan Stanley's Q4 2025 net interest income increased year over year, driven by lending growth and balance-sheet mix (cash-sweep and securities-based lending engine).",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Morgan Stanley 4Q25 Earnings Release (quarter ended 31 December 2025)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "ms-EV-009",
+      "claim": "Morgan Stanley's Q4 2025 asset management revenue was $5,031 million (vs $4,417 million a year earlier) and transactional revenue was $1,143 million (vs $973 million).",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Morgan Stanley 4Q25 Financial Supplement",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "ms-EV-010",
+      "claim": "Morgan Stanley uses an 'advisor funnel' to convert client assets into advisor-managed, fee-based relationships, and employs Monte Carlo portfolio-risk/planning tooling in its advisory stack.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Morgan Stanley earnings-call coverage and public product materials (2025)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "ms-EV-011",
+      "claim": "Morgan Stanley's Monte Carlo engine internals, advisory fee grids and cash-sweep rate mechanics are proprietary and not publicly disclosed.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "public-filing",
+      "source_ref": "pending programme disclosure / ADV brochures / regulatory filings",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "ms-EV-012",
+      "claim": "No Morgan Stanley on-chain contract or digital-asset custody address has been verified against a public block explorer by this squad; Morgan Stanley's blockchain footprint is limited in the public sources reviewed.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "network-trace",
+      "source_ref": "pending verified-explorer cross-check + issuer disclosure (no address asserted)",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    }
+  ]
+}

@@ -1,0 +1,692 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-08-17T10:33:18.670Z",
+  "mode": "review-before-edit",
+  "activation_state": "suspended",
+  "candidateCount": 57,
+  "required_review": [
+    "owner",
+    "council",
+    "security",
+    "compliance_when_applicable",
+    "evaluation"
+  ],
+  "candidates": [
+    {
+      "path": ".github/agents/squad-agents/financial-agents/banking-fintech-squad/Banking-Architect-Agent-Complete-System-Prompt.md",
+      "priority": "high",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/financial-agents/banking-fintech-squad/Banking-Fintech-Squad-Captain-Complete-System-Prompt.md",
+      "priority": "high",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/financial-agents/finance-cfo-squad/CFO-Office-Squad-Captain-Complete-System-Prompt.md",
+      "priority": "high",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/financial-agents/finance-cfo-squad/Financial-Planning-Analysis-Agent-Complete-System-Prompt.md",
+      "priority": "high",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/financial-agents/finance-cfo-squad/Treasury-Capital-Management-Agent-Complete-System-Prompt.md",
+      "priority": "high",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/financial-agents/web3-squad/Blockchain-Settlement-Agent-Complete-System-Prompt.md",
+      "priority": "high",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/admin-agents/admin-knowledge-squad/Product-Documentation-Manager-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/admin-agents/customer-success-squad/Customer-Support-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/admin-agents/customer-success-squad/Onboarding-Adoption-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/admin-agents/customer-success-squad/VP-Customer-Success-Squad-Captain-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/cybersecurity-agents/cybersecurity-squad/Cybersecurity-Intelligence-Squad-Captain-Complete-System-Prompt.md",
+      "priority": "high",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/cybersecurity-agents/cybersecurity-squad/Security-Architect-Agent-Complete-System-Prompt.md",
+      "priority": "high",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/cybersecurity-agents/cybersecurity-squad/Security-Compliance-Agent-Complete-System-Prompt.md",
+      "priority": "high",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/cybersecurity-agents/cybersecurity-squad/Threat-Detection-Agent-Complete-System-Prompt.md",
+      "priority": "high",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/engineering-agents/dev-engineering-squad/Backend-Developer-Agent-Complete-System-Prompt.md",
+      "priority": "high",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/engineering-agents/dev-engineering-squad/Dev-Engineering-Squad-Captain-Complete-System-Prompt.md",
+      "priority": "high",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/engineering-agents/dev-engineering-squad/DevOps-Infrastructure-Agent-Complete-System-Prompt.md",
+      "priority": "high",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/engineering-agents/dev-engineering-squad/Frontend-Developer-Agent-Complete-System-Prompt.md",
+      "priority": "high",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/engineering-agents/dev-engineering-squad/UI-UX-Design-Agent-Complete-System-Prompt.md",
+      "priority": "high",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/human-resource-agents/hr-people-squad/HR-Leadership-Squad-Captain-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/human-resource-agents/hr-people-squad/People-Development-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/human-resource-agents/hr-people-squad/Recruiting-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/legal-agents/legal-compliance-squad/Legal-Compliance-Squad-Captain-Complete-System-Prompt.md",
+      "priority": "high",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/legal-agents/legal-compliance-squad/Privacy-Law-Agent-Complete-System-Prompt.md",
+      "priority": "high",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/marketing-agents/marketing-brand-squad/Chief-Marketing-Officer-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/marketing-agents/marketing-growth-squad/CMO-Squad-Captain-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/marketing-agents/marketing-growth-squad/Content-Strategy-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/marketing-agents/marketing-growth-squad/Performance-Marketing-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/operations-agents/operations-squad/VP-Operations-Squad-Captain-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/products-agents/blts-squad/BLTs-Engagement-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/products-agents/blts-squad/BLTs-Squad-Captain-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/products-agents/blts-squad/Brands-Management-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/products-agents/blts-squad/Influencer-Partnerships-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/products-agents/fan-tokens-squad/Fan-Engagement-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/products-agents/fan-tokens-squad/Fan-Token-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/products-agents/fan-tokens-squad/Fan-Tokens-Squad-Captain-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/products-agents/fan-tokens-squad/Match-Statistics-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/products-agents/fan-tokens-squad/Player-Performance-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/products-agents/product-management-squad/Product-Analytics-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/products-agents/product-management-squad/Product-Management-Squad-Captain-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/products-agents/product-management-squad/Product-Roadmap-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/products-agents/product-management-squad/Product-Strategy-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/products-agents/product-management-squad/User-Research-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/sales-agents/sales-revenue-squad/Enterprise-Account-Manager-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/sales-agents/sales-revenue-squad/Enterprise-Sales-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/sales-agents/sales-revenue-squad/Sales-Operations-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/sales-agents/sales-revenue-squad/VP-Sales-Squad-Captain-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/sales-agents/sales-revenue-squad/Vice-President-Sales-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/strategy-agents/strategy-growth-squad/Chief-Strategist-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/strategy-agents/strategy-research-squad/Data-Science-BI-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs",
+        "sections"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/strategy-agents/strategy-research-squad/Strategy-Research-Growth-Squad-Captain-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs",
+        "sections"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/strategy-agents/strategy-squad/Chief-Strategist-Captain-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/strategy-agents/strategy-squad/Data-Science-BI-Agent-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/squad-agents/strategy-agents/strategy-squad/Strategy-Research-Growth-Squad-Captain-Complete-System-Prompt.md",
+      "priority": "medium",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/coordinators-agents/Engineering-Product-Coordinator-Complete-System-Prompt.md",
+      "priority": "high",
+      "missing_content": [
+        "capabilities",
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/council-agents/STREMIIUM-AGENTS-COUNCIL-MASTER-SYSTEM-PROMPT.md",
+      "priority": "critical",
+      "missing_content": [
+        "composition"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    },
+    {
+      "path": ".github/agents/organizational-meta-agents/AGENTS-COUNCIL-CAPTAIN-SYSTEM-PROMPT.md",
+      "priority": "critical",
+      "missing_content": [
+        "faqs"
+      ],
+      "disposition": "review-required",
+      "owner": null,
+      "council": null,
+      "evaluation_status": "not-evaluated"
+    }
+  ]
+}

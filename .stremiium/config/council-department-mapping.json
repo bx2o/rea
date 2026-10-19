@@ -1,0 +1,60 @@
+{
+  "version": "1.1.0",
+  "generated": "2026-08-22",
+  "owner": "SC-MASTER-001",
+  "model": "two-plane-hierarchy",
+  "coordinators": {
+    "crd-workflow-orchestrator": "sequencing, handoffs, task-routing table",
+    "crd-git-state-safeguard": "destructive-op guard",
+    "crd-security-compliance-sentinel": "security interception",
+    "crd-resource-cost-governor": "budget/cost guard",
+    "crd-engineering-product": "engineering coordination (product duties split to project-sync)",
+    "crd-council-liaison": "consult clocks + department fold coverage",
+    "crd-compliance-ops": "regulatory screen calendar (C01 staff)",
+    "crd-executive-liaison": "briefings + override-log integrity",
+    "crd-research-ops": "evidence library + contradiction queue (C04 staff)",
+    "crd-data-governance": "PI inventory + flow declarations (C01/C12 staff)",
+    "crd-knowledge-flow": "learnings routing + memory hygiene (C03 staff)",
+    "crd-incident-response": "incident command process (C12 staff)",
+    "crd-deployment": "release gates + rollback readiness (C06/C11 staff)",
+    "crd-agent-lifecycle": "P12 transition mechanics + registry parity",
+    "crd-project-sync": "milestones + dependency chains"
+  },
+  "planes": {
+    "command": { "root": ".stremiium/agents/council-agents", "role": "strategy, approval, arbitration, escalation to SC" },
+    "workforce": { "root": ".stremiium/agents/department-agents", "role": "execution, specialist judgment, subagent fan-out" },
+    "staff_line": { "root": ".stremiium/agents/coordinators", "role": "cross-cutting enforcement (workflow, git-safety, security sentinel, cost governor)" },
+    "meta_councils": { "root": ".stremiium/agents/meta-councils", "role": "cross-org advisory bodies; no line authority" },
+    "executive": { "root": ".stremiium/agents/executive", "role": "CEO-proxy governance prompt" }
+  },
+  "councils": {
+    "C01": { "captain": "C01-legal-compliance-captain.agent.md", "departments": ["c01-legal-compliance"] },
+    "C02": { "captain": "C02-vp-operations.agent.md", "departments": ["c02-operations", "c02-operations-infrastructure"] },
+    "C03": { "captain": "C03-chief-librarian.agent.md", "departments": ["c03-admin-knowledge"] },
+    "C04": { "captain": "C04-chief-strategist.agent.md", "departments": ["c04-strategy-growth", "c04-strategy-operations", "c04-strategy-research", "c04-strategy-core"] },
+    "C05": { "captain": "C05-chief-people-officer.agent.md", "departments": ["c05-hr-culture", "c05-hr-people"] },
+    "C06": { "captain": "C06-chief-technology-officer.agent.md", "departments": ["c06-engineering-infrastructure"] },
+    "C07": { "captain": "C07-rainmaker-captain.agent.md", "departments": ["c07-sales-business-development", "c07-sales-revenue"] },
+    "C08": { "captain": "C08-chief-design-officer.agent.md", "departments": ["c08-design-creative"] },
+    "C09": { "captain": "C09-chief-marketing-officer.agent.md", "departments": ["c09-marketing-brand", "c09-marketing-growth", "c09-marketing-communications"] },
+    "C10": { "captain": "C10-chief-financial-officer.agent.md", "departments": ["c10-finance-cfo", "c10-finance-investor-relations", "c10-algo-trading"] },
+    "C11": { "captain": "C11-dev-engineering-captain.agent.md", "departments": ["c11-dev-engineering"] },
+    "C12": { "captain": "C12-cybersecurity-intel-captain.agent.md", "departments": ["c12-cybersecurity-intel"] },
+    "C13": { "captain": "C13-web3-finance-captain.agent.md", "departments": ["c13-web3-finance"] },
+    "C14": { "captain": "C14-customer-success-captain.agent.md", "departments": ["c14-customer-success"] },
+    "C15": { "captain": "C15-product-management-captain.agent.md", "departments": ["c15-product-management", "c15-products-blt", "c15-products-fan-tokens"] },
+    "C16": { "captain": "C16-banking-fintech-captain.agent.md", "departments": ["c16-banking-fintech", "c16-website-product"] }
+  },
+  "cross_council_units": {
+    "notion-projection": { "path": "department-agents/notion-projection", "serves": ["all"], "note": "Notion projection layer (CAPABILITY 7); chiefs+subagents mirror" }
+  },
+  "routing_rules": [
+    "R1: task -> owning council captain by domain matrix before any department contact",
+    "R2: captain decomposes to departments listed above only",
+    "R3: cross-council tasks convene captains; SC arbitrates conflicts <24h",
+    "R4: coordinators (CRD-*) may intercept any step for git-safety/security/cost gates",
+    "R5: meta-councils advise SC on request; never command departments directly",
+    "R6: subagents (SUB-/The-*) instantiate only under a registered AGT parent"
+  ],
+  "vocabulary": { "canonical": "Council", "retired": ["Squad"], "alias_grace": "frontmatter aliases:[squad] permitted one release cycle" }
+}

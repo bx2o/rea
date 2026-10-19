@@ -1,0 +1,115 @@
+{
+  "entity": "Discovery Bank",
+  "program": "SC-REA-NEOBANK-5.0",
+  "rea_status": "not-executed",
+  "entries": [
+    {
+      "id": "discovery-bank-EV-001",
+      "claim": "Discovery Bank is a wholly-owned subsidiary of Discovery Limited (JSE: DSY) and reporting segment of the group",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Discovery Limited integrated/annual results; Discovery Bank website footer",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "discovery-bank-EV-002",
+      "claim": "Discovery Bank Limited registration 2015/408745/06; FSP 48657; registered credit provider NCRCP9997; banking licence approved November 2017; launched March 2019",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "online.discovery.bank footer; press/JSE commentary",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "discovery-bank-EV-003",
+      "claim": "FY2026 (year to 30 June 2026): profit R370m vs prior-year loss R68m; revenue R3.1bn (+31%); 1.57m clients (+26%); 3.77m accounts (+26%); 70% of new business outside the group",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Discovery Limited Audited Results FY2026",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "discovery-bank-EV-004",
+      "claim": "FY2025 (year to 30 June 2025): revenue ~R2.4bn (+31%); normalised loss R68m (narrowed ~85%); advances R9.2bn (+39%); reached monthly break-even end-H1 and first profitable period in H2",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Discovery Limited Audited Results FY2025 (results booklet)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "discovery-bank-EV-005",
+      "claim": "Stated ambition to reach 2 million clients and R3 billion profit by FY2029",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Discovery Bank Holdings Basel Pillar III Public Disclosures, 30 June 2025",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "discovery-bank-EV-006",
+      "claim": "Core banking runs on an SAP banking engine on a high-availability cloud",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "public/vendor reporting + program entity anchor; exact SAP module set not public",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "discovery-bank-EV-007",
+      "claim": "AI layer built on Microsoft Azure OpenAI (Foundry Models) and Azure Databricks, productised as Discovery AI inside the banking app",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Microsoft customer story; discovery.co.za/bank/news-discovery-ai-in-the-banking-app",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "discovery-bank-EV-008",
+      "claim": "Dynamic Interest Rates linked to Vitality Money status: up to 1.6% everyday balance, 6% demand savings, 7% lower borrowing rate (Gold)",
+      "evidence_class": "SEEN",
+      "source_type": "published-pricing",
+      "source_ref": "discovery.co.za/bank/accounts-suite-gold",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "discovery-bank-EV-009",
+      "claim": "Forex wallets in USD/GBP/EUR with instant in-app opening, zero transfer fees, multicurrency card, payments in 60+ currencies",
+      "evidence_class": "SEEN",
+      "source_type": "published-pricing",
+      "source_ref": "discovery.co.za/bank/digital-banking",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "discovery-bank-EV-010",
+      "claim": "Vitality Travel offers 10%-75% off international flights driven by bank product x Vitality Money x Vitality Health x card spend; Discovery Miles earn up to 1 per R15",
+      "evidence_class": "SEEN",
+      "source_type": "published-pricing",
+      "source_ref": "discovery.co.za/bank/info-and-tips-travel-benefits-and-rewards; Discovery Bank training doc",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "discovery-bank-EV-011",
+      "claim": "Mobile app framework, authentication primitives, scheme/tokenisation and network endpoints",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "pending REA extraction: rea analyze-javascript-application on Discovery Bank APK index.android.bundle; rea trace-network during login",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "discovery-bank-EV-012",
+      "claim": "Exact fee schedules, Miles valuation and Vitality Money status thresholds as coded",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "pending REA extraction: static resource/config extraction + cross-check vs published fee schedule",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    }
+  ]
+}

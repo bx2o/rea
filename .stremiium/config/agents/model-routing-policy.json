@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "default_tier": "standard",
+  "tiers": {
+    "fast": { "risk": "low", "max_context_tokens": 16000 },
+    "standard": { "risk": "normal", "max_context_tokens": 64000 },
+    "reasoning": { "risk": "high", "max_context_tokens": 128000 },
+    "security": { "risk": "high", "max_context_tokens": 128000 },
+    "private": { "risk": "restricted", "max_context_tokens": 128000 }
+  },
+  "rules": [
+    { "when": "regulated_or_sensitive_data", "allow": ["private", "security"], "require_approval": true },
+    { "when": "destructive_or_deployment_action", "allow": ["reasoning", "security"], "require_approval": true },
+    { "when": "routine_classification_or_extraction", "allow": ["fast", "standard"], "require_approval": false }
+  ],
+  "fallback": { "max_retries": 2, "require_audit_event": true }
+}

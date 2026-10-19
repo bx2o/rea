@@ -1,0 +1,115 @@
+{
+  "entity": "VALR",
+  "program": "SC-REA-NEOBANK-5.0",
+  "rea_status": "not-executed",
+  "entries": [
+    {
+      "id": "valr-EV-001",
+      "claim": "VALR is an FSCA-licensed Crypto Asset Service Provider (CASP) holding Category I and Category II licences, plus an additional Financial Services Provider (FSP) licence.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "https://blog.valr.com (licence announcements) / FSCA-authorised coverage (2025)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "valr-EV-002",
+      "claim": "VALR was granted an Over-the-Counter Derivatives Provider (ODP) licence by the FSCA (reported 20 October 2025), enabling crypto-referenced OTC derivatives.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "https://blog.valr.com/blog/valr-secures-over-the-counter-derivatives-provider-license-from-south-african-regulator",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "valr-EV-003",
+      "claim": "VALR provides REST, WebSocket and FIX APIs, with SDKs for Python, Node.js and Java.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "https://docs.valr.com/ ; https://www.valr.com/en/api",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "valr-EV-004",
+      "claim": "VALR exposes sub-account endpoints (create: POST /v1/account/subaccount; transfer: POST /v1/account/subaccount/transfer) and supports multi-user access with dual authorisation.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "https://docs.valr.com/ ; https://www.valr.com/en/business",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "valr-EV-005",
+      "claim": "VALR charges a negative maker fee (approximately -0.01% rebate) on ZAR pairs, with tiered taker fees of approximately 0.05%-0.10%.",
+      "evidence_class": "SEEN",
+      "source_type": "published-pricing",
+      "source_ref": "exchange fee aggregators / Moneyweb comparison (2025-2026)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "valr-EV-006",
+      "claim": "VALR has raised approximately $55 million in equity from investors including Pantera Capital, Coinbase Ventures, GSR, F-Prime and Avon Ventures.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "https://blog.valr.com (funding/product announcements)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "valr-EV-007",
+      "claim": "VALR offers spot, spot margin, perpetual futures, staking, lending, sub-accounts, OTC desk, Simple Buy/Sell, VALR Pay and API services.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "https://www.valr.com / VALR blog product pages",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "valr-EV-008",
+      "claim": "VALR launched xStocks, a tokenised US-equities trading product, in South Africa.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "https://blog.valr.com/blog/valr-launches-xstocks-pioneering-tokenised-us-equities-trading-in-south-africa",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "valr-EV-009",
+      "claim": "Reported scale: approximately 1.7 million users and approximately 1,800 institutional customers (late 2025).",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "media/press reporting (2025); not independently audited",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "valr-EV-010",
+      "claim": "FICA Directive 9 Travel Rule (R5,000 threshold, effective 30 April 2025) applies to VALR as a CASP.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "https://www.fic.gov.za (Directive 9; PCC 61 of 2026)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "valr-EV-011",
+      "claim": "VALR's actual matching-engine throughput (orders/sec) and latency are unverified marketing claims; no independent benchmark is available.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "pending independent benchmark / server-side unreachable via REA",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "valr-EV-012",
+      "claim": "VALR's mobile application internals (auth, framework, embedded SDKs) and its on-chain custody addresses are unverified.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "pending REA extraction (artefact not supplied) / pending verified-explorer cross-check",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    }
+  ]
+}

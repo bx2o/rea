@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "StremiiumSecurityPolicy",
+  "description": "Least-privilege authorization, per-user OAuth isolation, and tool access policies.",
+  "type": "object",
+  "properties": {
+    "version": { "type": "string" },
+    "zero_exposure_rules": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "human_in_the_loop_triggers": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "permission_matrix": {
+      "type": "object"
+    }
+  }
+}

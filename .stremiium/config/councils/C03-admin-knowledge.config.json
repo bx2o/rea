@@ -1,0 +1,80 @@
+{
+  "councilId": "C03",
+  "councilName": "Admin-Knowledge-Squad",
+  "tier": "TIER-1-STRATEGIC",
+  "description": "Documentation, knowledge management, compliance auditing, organizational memory, information architecture",
+  "captain": {
+    "name": "Chief-Librarian (The-Librarian)",
+    "title": "Council Captain",
+    "authority": "Council Captain - Knowledge Authority",
+    "escalationPath": "Sparkling Curious (institutional memory disputes)"
+  },
+  "agents": 20,
+  "specialties": [
+    "Knowledge Architect",
+    "Documentation Specialist",
+    "Data Steward",
+    "Information Analyst",
+    "Auditor",
+    "Archivist",
+    "Compliance Officer"
+  ],
+  "primaryDomain": "Administration & Knowledge Management",
+  "responsibilityAreas": [
+    "Institutional Memory Preservation",
+    "Documentation Standards",
+    "Knowledge Management",
+    "Compliance Auditing",
+    "Information Architecture",
+    "Accessibility & Archiving"
+  ],
+  "authority": {
+    "knowledge-authority": true,
+    "description": "C03 is authority on institutional knowledge, documentation standards, and information preservation",
+    "coordinatesWith": "All 15 other councils on knowledge capture",
+    "requiredApprovalOn": [
+      "strategic-decisions",
+      "documentation-standards",
+      "knowledge-retention-policies",
+      "archive-procedures"
+    ]
+  },
+  "crossCouncilDependencies": {
+    "dependsOn": "All 15 other councils (source of knowledge)",
+    "enables": "All councils (provides documented knowledge)",
+    "masterOfKnowledge": "Knowledge-Base, Decision-History, Best-Practices, Lessons-Learned"
+  },
+  "communicationPreferences": {
+    "async": true,
+    "channel": "Notion - C03-Admin-Knowledge Hub + Master Knowledge Bank",
+    "responseTime": "48 hours for documentation, 24 hours for urgent",
+    "escalationThreshold": "knowledge-governance OR institutional-risk"
+  },
+  "sla": {
+    "documentationReview": "5 business days",
+    "knowledgeCapture": "3 business days after decision",
+    "archiveProcessing": "10 business days",
+    "complianceAudit": "20 business days"
+  },
+  "notionDatabases": [
+    "Council Dashboard",
+    "Council Members",
+    "Council Tasks",
+    "Master Knowledge Bank",
+    "Council Decisions Snapshot",
+    "Documentation Standards",
+    "Archive Registry"
+  ],
+  "artifacts": {
+    "rulesLocation": ".github/rules/github-copilot-workspace.md",
+    "workflowLocation": ".github/workflows/agent-workflows/the-librarian-workflows.md",
+    "skillsLocation": ".github/skills/*/admin-*.md",
+    "masterKnowledge": ".github/artifacts/ask-mode/knowledge-base.md"
+  },
+  "performanceMetrics": {
+    "knowledgeCompleteness": 95,
+    "documentationCoveragePercent": 100,
+    "accessibilityScore": 92,
+    "archiveAccuracyPercent": 99
+  }
+}

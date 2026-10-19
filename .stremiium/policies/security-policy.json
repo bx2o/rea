@@ -1,0 +1,35 @@
+{
+  "version": "4.0.0",
+  "policy_name": "Stremiium Enterprise Security & Least Privilege Baseline",
+  "organization": "Stremiium (Pty) Ltd",
+  "zero_exposure_rules": [
+    "Raw private keys, API secrets, and OAuth refresh tokens must NEVER appear in agent prompts, system context, or log output.",
+    "Credentials must be resolved server-side via encrypted key-vaults with ephemeral runtime session tokens.",
+    "Data categorized as POPIA Personal Identifiable Information (PII) must be masked before entering public model inference tiers."
+  ],
+  "human_in_the_loop_triggers": [
+    "Smart contract mainnet deployments on Polygon or other chains.",
+    "Treasury asset transfers exceeding ZAR 50,000 equivalent.",
+    "Production database DROP, TRUNCATE, or schema migration operations.",
+    "Formal regulatory submissions to the FSCA, FIC, SARS, or National Gambling Board.",
+    "Creation or modification of executive security policies and root permissions."
+  ],
+  "permission_matrix": {
+    "SYSTEM_ROOT": {
+      "allowed_actions": ["READ", "WRITE", "EXECUTE", "ADMIN", "DEPLOY", "SECURITY"],
+      "requires_human_approval": true
+    },
+    "CRITICAL_FINANCIAL_LEGAL": {
+      "allowed_actions": ["READ", "WRITE", "FINANCIAL", "COMPLIANCE_AUDIT"],
+      "requires_human_approval": true
+    },
+    "INTERNAL": {
+      "allowed_actions": ["READ", "WRITE", "EXECUTE"],
+      "requires_human_approval": false
+    },
+    "PUBLIC": {
+      "allowed_actions": ["READ"],
+      "requires_human_approval": false
+    }
+  }
+}

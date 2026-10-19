@@ -1,0 +1,36 @@
+{
+  "system": "Stremiium Agent Disaster Recovery & State Backup Specification",
+  "version": "4.0.0",
+  "organization": "Stremiium (Pty) Ltd",
+  "recovery_objectives": {
+    "rpo_recovery_point_objective_hours": 1.0,
+    "rto_recovery_time_objective_minutes": 15.0
+  },
+  "backup_targets": [
+    {
+      "component": "Agent Registries & Manifests",
+      "path": ".stremiium/registry/",
+      "frequency": "Continuous via Git / Hourly Snapshot",
+      "storage": "Encrypted Offsite S3 / Git-LFS"
+    },
+    {
+      "component": "Context Graph & Episodic Event Stores",
+      "path": ".stremiium/memory/",
+      "frequency": "Hourly Incremental",
+      "storage": "Encrypted Offsite Cold Storage"
+    },
+    {
+      "component": "Policies & Regulatory Schemas",
+      "path": ".stremiium/policies/",
+      "frequency": "On-Change Cryptographic Tag",
+      "storage": "Git Tagged Release"
+    }
+  ],
+  "point_in_time_rollback_procedure": [
+    "1. COORD-Git-State-SafeGuard identifies corrupted commit or failing agent manifest.",
+    "2. Freeze active agent task execution via COORD-Workflow-Orchestrator barrier lock.",
+    "3. Revert working tree to last certified Git release tag.",
+    "4. Restore state snapshot from hourly incremental backup store.",
+    "5. Re-run CI/CD validation suite and verify 100% benchmark compliance before unlocking queues."
+  ]
+}

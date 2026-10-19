@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0",
+  "suites": ["unit", "behavior", "tool_use", "prompt_regression", "security", "compliance", "adversarial", "performance", "cost", "handoff"],
+  "requirements": ["baseline_required", "versioned_dataset", "provenance", "tenant_isolation", "critical_failure_blocks_release", "results_retained"],
+  "release_thresholds": { "critical_security_findings": 0, "critical_policy_violations": 0, "required_suite_pass_rate": 1.0 },
+  "review": { "owner": true, "security_for_privileged": true, "legal_for_regulated": true, "human_certification": true }
+}

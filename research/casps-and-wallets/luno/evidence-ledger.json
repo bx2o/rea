@@ -1,0 +1,115 @@
+{
+  "entity": "Luno",
+  "program": "SC-REA-NEOBANK-5.0",
+  "rea_status": "not-executed",
+  "entries": [
+    {
+      "id": "luno-EV-001",
+      "claim": "Luno (Pty) Ltd is an authorised Financial Services Provider, FSP No. 53314, under FAIS.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "https://www.luno.com/legal (Luno legal/risk disclosure pages)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "luno-EV-002",
+      "claim": "Luno (Pty) Ltd is a registered credit provider, NCRCP22123, under the National Credit Act 34 of 2005.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "https://www.luno.com/legal (and 2025 tokenised-stocks risk disclosure, 04-Aug-2025)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "luno-EV-003",
+      "claim": "Luno is a wholly-owned, independently-operated subsidiary of Digital Currency Group (DCG), acquired September 2020; formerly named BitX.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "DCG/Luno acquisition press release (BusinessWire, 2020-09) / PitchBook profile",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "luno-EV-004",
+      "claim": "The majority (~95%) of customer crypto is held offline in multi-signature 'deep freeze' storage managed by BitGo Custody and Fireblocks; hot wallets use multi-sig with dual authorisation.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "https://www.luno.com/safety ; https://www.fireblocks.com/customers/luno/",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "luno-EV-005",
+      "claim": "Luno publishes a monthly Proof of Reserves using the Merkle-tree method under ISRS 4400 (Revised), independently attested by Moore, showing reserves exceeding 100% of customer liabilities at snapshot.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Moore AUP PoR reports (e.g. Luno_PoR_OCT25, Luno_POR_January_2025)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "luno-EV-006",
+      "claim": "Instant Buy/Sell in South Africa is priced at approximately 2% per transaction (separate from Exchange order-book fees).",
+      "evidence_class": "SEEN",
+      "source_type": "published-pricing",
+      "source_ref": "https://guide.luno.com (Luno fees and limits in South Africa)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "luno-EV-007",
+      "claim": "Luno operates an off-chain internal ledger enabling instant transfers between Luno users.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Luno help/documentation",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "luno-EV-008",
+      "claim": "Luno exposes a public REST API for market data and trading.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "https://api.luno.com (developer documentation)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "luno-EV-009",
+      "claim": "FICA Directive 9 (issued 15-Nov-2024, effective 30-Apr-2025) imposes a Travel Rule on CASP crypto transfers with an R5,000 threshold; it applies to CASP<->CASP and CASP<->unhosted-wallet transfers.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "https://www.fic.gov.za (Directive 9 media release; Public Compliance Communication PCC 61 of 2026)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "luno-EV-010",
+      "claim": "Luno offers ETH staking with an undisclosed commission take-rate on rewards.",
+      "evidence_class": "INFERRED",
+      "source_type": "docs",
+      "source_ref": "Luno staking product page (feature SEEN; take-rate not published)",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "luno-EV-011",
+      "claim": "Luno's mobile application internals (auth token format, certificate pinning, embedded SDK inventory, framework) are unverified.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "pending REA extraction (APK/IPA not supplied)",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "luno-EV-012",
+      "claim": "Luno's on-chain cold/hot custody addresses and any Luno-issued token contract addresses are unverified against a public block explorer.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "network-trace",
+      "source_ref": "pending verified-explorer cross-check (no address asserted)",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    }
+  ]
+}

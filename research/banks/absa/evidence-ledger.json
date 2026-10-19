@@ -1,0 +1,97 @@
+{
+  "entity": "ABSA Group",
+  "program": "SC-REA-NEOBANK-5.0",
+  "rea_status": "not-executed",
+  "entries": [
+    {
+      "id": "absa-EV-001",
+      "claim": "Absa Group Limited is listed on the JSE under ticker ABG.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "JSE listing / Absa Group annual report",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "absa-EV-002",
+      "claim": "Renamed from Barclays Africa Group to Absa Group in 2018; Barclays wound down its controlling stake.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Absa Group public announcements and filings",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "absa-EV-003",
+      "claim": "Core processing spans SAP and Finacle (heterogeneous/dual estate).",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Company/vendor reporting on Absa core banking",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "absa-EV-004",
+      "claim": "AWS-led cloud migration following the Barclays separation.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Public technology/company reporting",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "absa-EV-005",
+      "claim": "Consumer surfaces: Absa Banking App, Absa Pay and WhatsApp ChatBanking.",
+      "evidence_class": "SEEN",
+      "source_type": "app-store",
+      "source_ref": "Public app-store listing for Absa Banking App; Absa ChatBanking announcements",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "absa-EV-006",
+      "claim": "Retail product ladder: Transact, Flexi Core, Ultimate, Wealth, plus Islamic Banking.",
+      "evidence_class": "SEEN",
+      "source_type": "published-pricing",
+      "source_ref": "Absa published product/pricing documentation",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "absa-EV-007",
+      "claim": "Absa Rewards delivers cashback and tiered grocery/fuel rebates with Sasol as fuel partner.",
+      "evidence_class": "SEEN",
+      "source_type": "published-pricing",
+      "source_ref": "Absa Rewards published programme terms",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "absa-EV-008",
+      "claim": "Regulated by the SARB Prudential Authority under the Banks Act 94 of 1990.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "SARB Prudential Authority register; Absa Group annual report",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "absa-EV-009",
+      "claim": "Return on equity ~14-15.5% with a target of ~15-16% by FY2026; cost-to-income ~53-56%.",
+      "evidence_class": "INFERRED",
+      "source_type": "public-filing",
+      "source_ref": "Absa Group results presentations (fiscal year ends 31 December)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "absa-EV-010",
+      "claim": "App framework, certificate pinning, and the Absa Rewards rebate/tier formula are unresolved.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "pending REA extraction (apktool/jadx + mitmproxy + Frida)",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    }
+  ]
+}

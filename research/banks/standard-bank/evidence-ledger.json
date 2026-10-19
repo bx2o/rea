@@ -1,0 +1,97 @@
+{
+  "entity": "Standard Bank Group",
+  "program": "SC-REA-NEOBANK-5.0",
+  "rea_status": "not-executed",
+  "entries": [
+    {
+      "id": "standard-bank-EV-001",
+      "claim": "Listed on the JSE under ticker SBK; registered name Standard Bank Group Limited.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "JSE listing / Standard Bank Group Integrated Annual Report (standardbank.com investor-relations)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "standard-bank-EV-002",
+      "claim": "Core banking runs on Finacle (Infosys).",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Infosys/company announcements on Finacle core banking deployment",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "standard-bank-EV-003",
+      "claim": "Multi-cloud posture across AWS and Azure with legacy IBM mainframe roots.",
+      "evidence_class": "INFERRED",
+      "source_type": "docs",
+      "source_ref": "Public cloud/vendor reporting; mainframe heritage inferred",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "standard-bank-EV-004",
+      "claim": "Consumer app estate is fragmented across Standard Bank Mobile Banking, Shyft (forex) and OneHub (B2B).",
+      "evidence_class": "SEEN",
+      "source_type": "app-store",
+      "source_ref": "Public app-store listings for 'Standard Bank', 'Shyft', 'OneHub'",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "standard-bank-EV-005",
+      "claim": "UCount Rewards ties earn to partner spend with fuel (Caltex -> Astron Energy) and grocery tiering.",
+      "evidence_class": "SEEN",
+      "source_type": "published-pricing",
+      "source_ref": "UCount Rewards published programme terms",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "standard-bank-EV-006",
+      "claim": "Series of retail account tiers: MyMo, Elite, Prestige, Private Banking, plus business current accounts.",
+      "evidence_class": "SEEN",
+      "source_type": "published-pricing",
+      "source_ref": "Standard Bank published retail/business pricing guides",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "standard-bank-EV-007",
+      "claim": "Tier 1 capital adequacy ratio historically above 14.5% and ROE around 15-16%.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Standard Bank Group Integrated Annual Report / results presentations",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "standard-bank-EV-008",
+      "claim": "Regulated by the SARB Prudential Authority under the Banks Act 94 of 1990.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "SARB Prudential Authority register; Standard Bank IAR",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "standard-bank-EV-009",
+      "claim": "Participates in BankservAfrica rails and the PayShap real-time low-value scheme (scheme launched March 2023).",
+      "evidence_class": "INFERRED",
+      "source_type": "docs",
+      "source_ref": "BankservAfrica/PASA PayShap launch statements (participant timing to verify)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "standard-bank-EV-010",
+      "claim": "Mobile app framework, certificate pinning, token format and UCount server-side tier computation are unresolved.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "pending REA extraction (apktool/jadx + mitmproxy + Frida)",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    }
+  ]
+}

@@ -1,0 +1,646 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-08-22T12:10:06.342Z",
+  "mode": "read-only audit (P16)",
+  "source_note": "grid compiled from master-registry + council-department-mapping + capability templates",
+  "total_gap_instances": 64,
+  "councils": [
+    {
+      "council_id": "C01",
+      "captain_agent_id": "C01-legal-compliance-captain",
+      "departments": [
+        "c01-legal-compliance"
+      ],
+      "agent_count": 6,
+      "subagent_count": 0,
+      "coordinators_assigned": [],
+      "advisors": [
+        "META-captains-advisors-council"
+      ],
+      "skills_refs": [
+        "regulatory-compliance",
+        "popia",
+        "fica",
+        "ip-law"
+      ],
+      "default_tools": [
+        "legal-database",
+        "compliance-tracker",
+        "policy-manager"
+      ],
+      "required_certifications": [
+        "popia-compliance",
+        "fica-awareness"
+      ],
+      "authority_level": "veto-legal",
+      "response_sla": "4h",
+      "kpis": [],
+      "knowledge": [],
+      "security_posture": "inherits .stremiium/policies plane",
+      "escalation": "workflow-routing §4 (captain->sc->mychael->board)",
+      "gaps": [
+        "kpis undefined (no council KPI set registered)",
+        "no dedicated coordinator assigned (CRD assignment pending B2.4)",
+        "advisor seats generic (meta-councils only, no per-council advisors)",
+        "knowledge bindings unmapped"
+      ]
+    },
+    {
+      "council_id": "C02",
+      "captain_agent_id": "C02-vp-operations",
+      "departments": [
+        "c02-operations",
+        "c02-operations-infrastructure"
+      ],
+      "agent_count": 5,
+      "subagent_count": 0,
+      "coordinators_assigned": [],
+      "advisors": [
+        "META-captains-advisors-council"
+      ],
+      "skills_refs": [
+        "process-management",
+        "vendor-management",
+        "risk-governance"
+      ],
+      "default_tools": [
+        "process-mapper",
+        "vendor-portal",
+        "risk-dashboard"
+      ],
+      "required_certifications": [
+        "operations-excellence"
+      ],
+      "authority_level": "resource-allocation",
+      "response_sla": "8h",
+      "kpis": [],
+      "knowledge": [],
+      "security_posture": "inherits .stremiium/policies plane",
+      "escalation": "workflow-routing §4 (captain->sc->mychael->board)",
+      "gaps": [
+        "kpis undefined (no council KPI set registered)",
+        "no dedicated coordinator assigned (CRD assignment pending B2.4)",
+        "advisor seats generic (meta-councils only, no per-council advisors)",
+        "knowledge bindings unmapped"
+      ]
+    },
+    {
+      "council_id": "C03",
+      "captain_agent_id": "C03-chief-librarian",
+      "departments": [
+        "c03-admin-knowledge"
+      ],
+      "agent_count": 31,
+      "subagent_count": 0,
+      "coordinators_assigned": [],
+      "advisors": [
+        "META-captains-advisors-council"
+      ],
+      "skills_refs": [
+        "documentation",
+        "knowledge-management",
+        "archiving"
+      ],
+      "default_tools": [
+        "notion",
+        "confluence",
+        "document-management"
+      ],
+      "required_certifications": [
+        "knowledge-architect"
+      ],
+      "authority_level": "standards",
+      "response_sla": "12h",
+      "kpis": [],
+      "knowledge": [],
+      "security_posture": "inherits .stremiium/policies plane",
+      "escalation": "workflow-routing §4 (captain->sc->mychael->board)",
+      "gaps": [
+        "kpis undefined (no council KPI set registered)",
+        "no dedicated coordinator assigned (CRD assignment pending B2.4)",
+        "advisor seats generic (meta-councils only, no per-council advisors)",
+        "knowledge bindings unmapped"
+      ]
+    },
+    {
+      "council_id": "C04",
+      "captain_agent_id": "C04-chief-strategist",
+      "departments": [
+        "c04-strategy-growth",
+        "c04-strategy-operations",
+        "c04-strategy-research",
+        "c04-strategy-core"
+      ],
+      "agent_count": 46,
+      "subagent_count": 0,
+      "coordinators_assigned": [],
+      "advisors": [
+        "META-captains-advisors-council"
+      ],
+      "skills_refs": [
+        "strategic-planning",
+        "market-analysis",
+        "business-development"
+      ],
+      "default_tools": [
+        "strategy-platform",
+        "market-research",
+        "crm"
+      ],
+      "required_certifications": [
+        "strategic-leadership"
+      ],
+      "authority_level": "strategic-direction",
+      "response_sla": "24h",
+      "kpis": [],
+      "knowledge": [],
+      "security_posture": "inherits .stremiium/policies plane",
+      "escalation": "workflow-routing §4 (captain->sc->mychael->board)",
+      "gaps": [
+        "kpis undefined (no council KPI set registered)",
+        "no dedicated coordinator assigned (CRD assignment pending B2.4)",
+        "advisor seats generic (meta-councils only, no per-council advisors)",
+        "knowledge bindings unmapped"
+      ]
+    },
+    {
+      "council_id": "C05",
+      "captain_agent_id": "C05-chief-people-officer",
+      "departments": [
+        "c05-hr-culture",
+        "c05-hr-people"
+      ],
+      "agent_count": 16,
+      "subagent_count": 0,
+      "coordinators_assigned": [],
+      "advisors": [
+        "META-captains-advisors-council"
+      ],
+      "skills_refs": [
+        "recruiting",
+        "culture-management",
+        "employee-development"
+      ],
+      "default_tools": [
+        "ats",
+        "hris",
+        "engagement-platform"
+      ],
+      "required_certifications": [
+        "hr-professional"
+      ],
+      "authority_level": "hiring",
+      "response_sla": "24h",
+      "kpis": [],
+      "knowledge": [],
+      "security_posture": "inherits .stremiium/policies plane",
+      "escalation": "workflow-routing §4 (captain->sc->mychael->board)",
+      "gaps": [
+        "kpis undefined (no council KPI set registered)",
+        "no dedicated coordinator assigned (CRD assignment pending B2.4)",
+        "advisor seats generic (meta-councils only, no per-council advisors)",
+        "knowledge bindings unmapped"
+      ]
+    },
+    {
+      "council_id": "C06",
+      "captain_agent_id": "C06-chief-technology-officer",
+      "departments": [
+        "c06-engineering-infrastructure"
+      ],
+      "agent_count": 4,
+      "subagent_count": 0,
+      "coordinators_assigned": [],
+      "advisors": [
+        "META-captains-advisors-council"
+      ],
+      "skills_refs": [
+        "architecture",
+        "devops",
+        "infrastructure"
+      ],
+      "default_tools": [
+        "aws",
+        "kubernetes",
+        "terraform",
+        "datadog"
+      ],
+      "required_certifications": [
+        "aws-solutions-architect",
+        "cka"
+      ],
+      "authority_level": "technical-architecture",
+      "response_sla": "2h",
+      "kpis": [],
+      "knowledge": [],
+      "security_posture": "inherits .stremiium/policies plane",
+      "escalation": "workflow-routing §4 (captain->sc->mychael->board)",
+      "gaps": [
+        "kpis undefined (no council KPI set registered)",
+        "no dedicated coordinator assigned (CRD assignment pending B2.4)",
+        "advisor seats generic (meta-councils only, no per-council advisors)",
+        "knowledge bindings unmapped"
+      ]
+    },
+    {
+      "council_id": "C07",
+      "captain_agent_id": "C07-rainmaker-captain",
+      "departments": [
+        "c07-sales-business-development",
+        "c07-sales-revenue"
+      ],
+      "agent_count": 19,
+      "subagent_count": 0,
+      "coordinators_assigned": [],
+      "advisors": [
+        "META-captains-advisors-council"
+      ],
+      "skills_refs": [
+        "sales-strategy",
+        "partnerships",
+        "revenue-operations"
+      ],
+      "default_tools": [
+        "salesforce",
+        "hubspot",
+        "linkedin-sales"
+      ],
+      "required_certifications": [
+        "sales-excellence"
+      ],
+      "authority_level": "revenue",
+      "response_sla": "4h",
+      "kpis": [],
+      "knowledge": [],
+      "security_posture": "inherits .stremiium/policies plane",
+      "escalation": "workflow-routing §4 (captain->sc->mychael->board)",
+      "gaps": [
+        "kpis undefined (no council KPI set registered)",
+        "no dedicated coordinator assigned (CRD assignment pending B2.4)",
+        "advisor seats generic (meta-councils only, no per-council advisors)",
+        "knowledge bindings unmapped"
+      ]
+    },
+    {
+      "council_id": "C08",
+      "captain_agent_id": "C08-chief-design-officer",
+      "departments": [
+        "c08-design-creative"
+      ],
+      "agent_count": 7,
+      "subagent_count": 0,
+      "coordinators_assigned": [],
+      "advisors": [
+        "META-captains-advisors-council"
+      ],
+      "skills_refs": [
+        "ux-design",
+        "ui-design",
+        "brand-creative"
+      ],
+      "default_tools": [
+        "figma",
+        "adobe-cc",
+        "design-system"
+      ],
+      "required_certifications": [
+        "ux-professional"
+      ],
+      "authority_level": "design-standards",
+      "response_sla": "12h",
+      "kpis": [],
+      "knowledge": [],
+      "security_posture": "inherits .stremiium/policies plane",
+      "escalation": "workflow-routing §4 (captain->sc->mychael->board)",
+      "gaps": [
+        "kpis undefined (no council KPI set registered)",
+        "no dedicated coordinator assigned (CRD assignment pending B2.4)",
+        "advisor seats generic (meta-councils only, no per-council advisors)",
+        "knowledge bindings unmapped"
+      ]
+    },
+    {
+      "council_id": "C09",
+      "captain_agent_id": "C09-chief-marketing-officer",
+      "departments": [
+        "c09-marketing-brand",
+        "c09-marketing-growth",
+        "c09-marketing-communications"
+      ],
+      "agent_count": 8,
+      "subagent_count": 0,
+      "coordinators_assigned": [],
+      "advisors": [
+        "META-captains-advisors-council"
+      ],
+      "skills_refs": [
+        "brand-management",
+        "content-strategy",
+        "pr"
+      ],
+      "default_tools": [
+        "marketo",
+        "sprout-social",
+        "google-analytics"
+      ],
+      "required_certifications": [
+        "digital-marketing"
+      ],
+      "authority_level": "brand",
+      "response_sla": "12h",
+      "kpis": [],
+      "knowledge": [],
+      "security_posture": "inherits .stremiium/policies plane",
+      "escalation": "workflow-routing §4 (captain->sc->mychael->board)",
+      "gaps": [
+        "kpis undefined (no council KPI set registered)",
+        "no dedicated coordinator assigned (CRD assignment pending B2.4)",
+        "advisor seats generic (meta-councils only, no per-council advisors)",
+        "knowledge bindings unmapped"
+      ]
+    },
+    {
+      "council_id": "C10",
+      "captain_agent_id": "C10-chief-financial-officer",
+      "departments": [
+        "c10-finance-cfo",
+        "c10-finance-investor-relations",
+        "c10-algo-trading"
+      ],
+      "agent_count": 17,
+      "subagent_count": 4,
+      "coordinators_assigned": [],
+      "advisors": [
+        "META-captains-advisors-council"
+      ],
+      "skills_refs": [
+        "financial-planning",
+        "investor-relations",
+        "treasury"
+      ],
+      "default_tools": [
+        "netsuite",
+        "adaptive-insights",
+        "ir-platform"
+      ],
+      "required_certifications": [
+        "cpa",
+        "cfa"
+      ],
+      "authority_level": "budget",
+      "response_sla": "24h",
+      "kpis": [],
+      "knowledge": [],
+      "security_posture": "inherits .stremiium/policies plane",
+      "escalation": "workflow-routing §4 (captain->sc->mychael->board)",
+      "gaps": [
+        "kpis undefined (no council KPI set registered)",
+        "no dedicated coordinator assigned (CRD assignment pending B2.4)",
+        "advisor seats generic (meta-councils only, no per-council advisors)",
+        "knowledge bindings unmapped"
+      ]
+    },
+    {
+      "council_id": "C11",
+      "captain_agent_id": "C11-dev-engineering-captain",
+      "departments": [
+        "c11-dev-engineering"
+      ],
+      "agent_count": 6,
+      "subagent_count": 0,
+      "coordinators_assigned": [],
+      "advisors": [
+        "META-captains-advisors-council"
+      ],
+      "skills_refs": [
+        "typescript",
+        "solidity",
+        "react",
+        "devops"
+      ],
+      "default_tools": [
+        "vscode",
+        "hardhat",
+        "github",
+        "vercel"
+      ],
+      "required_certifications": [
+        "solidity-security",
+        "advanced-typescript"
+      ],
+      "authority_level": "implementation",
+      "response_sla": "4h",
+      "kpis": [],
+      "knowledge": [],
+      "security_posture": "inherits .stremiium/policies plane",
+      "escalation": "workflow-routing §4 (captain->sc->mychael->board)",
+      "gaps": [
+        "kpis undefined (no council KPI set registered)",
+        "no dedicated coordinator assigned (CRD assignment pending B2.4)",
+        "advisor seats generic (meta-councils only, no per-council advisors)",
+        "knowledge bindings unmapped"
+      ]
+    },
+    {
+      "council_id": "C12",
+      "captain_agent_id": "C12-cybersecurity-intel-captain",
+      "departments": [
+        "c12-cybersecurity-intel"
+      ],
+      "agent_count": 8,
+      "subagent_count": 0,
+      "coordinators_assigned": [],
+      "advisors": [
+        "META-captains-advisors-council"
+      ],
+      "skills_refs": [
+        "security-operations",
+        "threat-intelligence",
+        "compliance"
+      ],
+      "default_tools": [
+        "splunk",
+        "crowdstrike",
+        "siem",
+        "zero-trust"
+      ],
+      "required_certifications": [
+        "cissp",
+        "cism",
+        "ceh"
+      ],
+      "authority_level": "security-override",
+      "response_sla": "1h",
+      "kpis": [],
+      "knowledge": [],
+      "security_posture": "inherits .stremiium/policies plane",
+      "escalation": "workflow-routing §4 (captain->sc->mychael->board)",
+      "gaps": [
+        "kpis undefined (no council KPI set registered)",
+        "no dedicated coordinator assigned (CRD assignment pending B2.4)",
+        "advisor seats generic (meta-councils only, no per-council advisors)",
+        "knowledge bindings unmapped"
+      ]
+    },
+    {
+      "council_id": "C13",
+      "captain_agent_id": "C13-web3-finance-captain",
+      "departments": [
+        "c13-web3-finance"
+      ],
+      "agent_count": 4,
+      "subagent_count": 0,
+      "coordinators_assigned": [],
+      "advisors": [
+        "META-captains-advisors-council"
+      ],
+      "skills_refs": [
+        "blockchain-development",
+        "defi",
+        "tokenomics"
+      ],
+      "default_tools": [
+        "hardhat",
+        "ethers-js",
+        "openzeppelin",
+        "polygon"
+      ],
+      "required_certifications": [
+        "smart-contract-security",
+        "defi-professional"
+      ],
+      "authority_level": "web3-architecture",
+      "response_sla": "2h",
+      "kpis": [],
+      "knowledge": [],
+      "security_posture": "inherits .stremiium/policies plane",
+      "escalation": "workflow-routing §4 (captain->sc->mychael->board)",
+      "gaps": [
+        "kpis undefined (no council KPI set registered)",
+        "no dedicated coordinator assigned (CRD assignment pending B2.4)",
+        "advisor seats generic (meta-councils only, no per-council advisors)",
+        "knowledge bindings unmapped"
+      ]
+    },
+    {
+      "council_id": "C14",
+      "captain_agent_id": "C14-customer-success-captain",
+      "departments": [
+        "c14-customer-success"
+      ],
+      "agent_count": 5,
+      "subagent_count": 0,
+      "coordinators_assigned": [],
+      "advisors": [
+        "META-captains-advisors-council"
+      ],
+      "skills_refs": [
+        "customer-support",
+        "onboarding",
+        "retention"
+      ],
+      "default_tools": [
+        "zendesk",
+        "intercom",
+        "churnzero",
+        "hubspot"
+      ],
+      "required_certifications": [
+        "customer-success-management"
+      ],
+      "authority_level": "customer-advocacy",
+      "response_sla": "1h",
+      "kpis": [],
+      "knowledge": [],
+      "security_posture": "inherits .stremiium/policies plane",
+      "escalation": "workflow-routing §4 (captain->sc->mychael->board)",
+      "gaps": [
+        "kpis undefined (no council KPI set registered)",
+        "no dedicated coordinator assigned (CRD assignment pending B2.4)",
+        "advisor seats generic (meta-councils only, no per-council advisors)",
+        "knowledge bindings unmapped"
+      ]
+    },
+    {
+      "council_id": "C15",
+      "captain_agent_id": "C15-product-management-captain",
+      "departments": [
+        "c15-product-management",
+        "c15-products-blt",
+        "c15-products-fan-tokens"
+      ],
+      "agent_count": 17,
+      "subagent_count": 0,
+      "coordinators_assigned": [],
+      "advisors": [
+        "META-captains-advisors-council"
+      ],
+      "skills_refs": [
+        "product-strategy",
+        "roadmap-management",
+        "analytics"
+      ],
+      "default_tools": [
+        "productboard",
+        "amplitude",
+        "jira",
+        "confluence"
+      ],
+      "required_certifications": [
+        "product-management"
+      ],
+      "authority_level": "product-roadmap",
+      "response_sla": "8h",
+      "kpis": [],
+      "knowledge": [],
+      "security_posture": "inherits .stremiium/policies plane",
+      "escalation": "workflow-routing §4 (captain->sc->mychael->board)",
+      "gaps": [
+        "kpis undefined (no council KPI set registered)",
+        "no dedicated coordinator assigned (CRD assignment pending B2.4)",
+        "advisor seats generic (meta-councils only, no per-council advisors)",
+        "knowledge bindings unmapped"
+      ]
+    },
+    {
+      "council_id": "C16",
+      "captain_agent_id": "C16-banking-fintech-captain",
+      "departments": [
+        "c16-banking-fintech",
+        "c16-website-product"
+      ],
+      "agent_count": 2,
+      "subagent_count": 0,
+      "coordinators_assigned": [],
+      "advisors": [
+        "META-captains-advisors-council"
+      ],
+      "skills_refs": [
+        "banking-systems",
+        "payments",
+        "fintech-compliance"
+      ],
+      "default_tools": [
+        "core-banking",
+        "payment-gateway",
+        "fsca-portal"
+      ],
+      "required_certifications": [
+        "casp-compliance",
+        "banking-operations"
+      ],
+      "authority_level": "banking-compliance",
+      "response_sla": "2h",
+      "kpis": [],
+      "knowledge": [],
+      "security_posture": "inherits .stremiium/policies plane",
+      "escalation": "workflow-routing §4 (captain->sc->mychael->board)",
+      "gaps": [
+        "kpis undefined (no council KPI set registered)",
+        "no dedicated coordinator assigned (CRD assignment pending B2.4)",
+        "advisor seats generic (meta-councils only, no per-council advisors)",
+        "knowledge bindings unmapped"
+      ]
+    }
+  ]
+}

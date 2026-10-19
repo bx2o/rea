@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "cache_classes": {
+    "prompt": { "shared": false, "ttl": "version_bound", "invalidation": ["prompt_version_change", "policy_change"] },
+    "kv": { "shared": false, "ttl": "request_bound", "invalidation": ["model_change", "context_change", "tenant_change"] },
+    "semantic": { "shared": false, "ttl": "policy_bound", "invalidation": ["source_change", "access_revoked"] },
+    "tool_result": { "shared": false, "ttl": "tool_defined", "invalidation": ["external_state_change", "permission_change"] },
+    "embedding": { "shared": true, "ttl": "model_bound", "invalidation": ["embedding_model_change", "source_change"] }
+  },
+  "sensitive_data": "zero_cache",
+  "requirements": ["tenant_isolation", "access_check_before_read", "audit_cache_miss_and_hit", "invalidation_tested"]
+}
