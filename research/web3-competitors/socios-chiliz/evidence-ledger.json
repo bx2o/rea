@@ -1,0 +1,115 @@
+{
+  "entity": "Socios.com / Chiliz (CHZ)",
+  "program": "SC-REA-NEOBANK-5.0",
+  "rea_status": "not-executed",
+  "entries": [
+    {
+      "id": "socios-chiliz-EV-001",
+      "claim": "Chiliz issues ERC-20 fan tokens for sports clubs, distributed via the Socios.com fan-engagement app.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Official Chiliz/Socios product documentation and press",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "socios-chiliz-EV-002",
+      "claim": "Named fan tokens exist for clubs including FC Barcelona ($BAR), Paris Saint-Germain ($PSG), Manchester City ($CITY) and UFC ($UFC).",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Public token listings / press; contract addresses NOT captured",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "socios-chiliz-EV-003",
+      "claim": "Fan tokens are primary-issued through Fan Token Offerings (FTO) priced in the native token $CHZ.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Official Chiliz/Socios documentation",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "socios-chiliz-EV-004",
+      "claim": "Chiliz Chain is an EVM-compatible Layer-1 for sports/entertainment tokens, with migration from legacy/Ethereum-based deployment.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Chiliz public chain documentation",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "socios-chiliz-EV-005",
+      "claim": "$CHZ is the native token and is listed on major centralised exchanges.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Public exchange listings",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "socios-chiliz-EV-006",
+      "claim": "Token holders receive club polls, rewards and token-gated experiences (\"locker room\" style perks).",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Public Socios.com product descriptions",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "socios-chiliz-EV-007",
+      "claim": "Chiliz was founded by Alexandre Dreyfus and is rooted in Malta (EU), with Hungarian origins.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Public interviews / press",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "socios-chiliz-EV-008",
+      "claim": "As an EU-based crypto-asset issuer, Chiliz is exposed to MiCA, which governs non-ART/EMT crypto-asset issuance and services.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "EU MiCA regulation (public); specific token classification INFERRED",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "socios-chiliz-EV-009",
+      "claim": "Chiliz/Socios is a private entity; audited group financial statements are not publicly filed.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Absence of public filings (private MD/MT entity) — officer/comp data UNKNOWN",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "socios-chiliz-EV-010",
+      "claim": "The Socios.com client delivery model (native vs RN vs webview) and embedded-wallet custody are not determinable without an artefact.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "pending REA extraction (no .apk/.ipa/.asar supplied)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "socios-chiliz-EV-011",
+      "claim": "Fan-token contract addresses, Chiliz Chain validator/bridge contracts and any TVL/user counts are not stated and require explorer + contract verification.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "Requires Chiliz Chain explorer + contract verification; never to be fabricated",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "socios-chiliz-EV-012",
+      "claim": "The two-token flywheel (fiat -> $CHZ -> club token -> engagement) is a synthesised model, not observed code; voting-power weighting is server-side.",
+      "evidence_class": "INFERRED",
+      "source_type": "docs",
+      "source_ref": "Synthesised from public product mechanics (04-rewards-and-behaviour.md)",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    }
+  ]
+}

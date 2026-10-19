@@ -1,0 +1,115 @@
+{
+  "entity": "Flex.one",
+  "program": "SC-REA-NEOBANK-5.0",
+  "rea_status": "not-executed",
+  "entries": [
+    {
+      "id": "flex-EV-001",
+      "claim": "flex.one offers a Visa 'Global Card' connected directly to a user's stablecoin balance, spendable at 150M+ Visa merchants in 170+ countries.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "https://www.flex.one/global-card",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "flex-EV-002",
+      "claim": "The Flex Global Card balance is held in a non-custodial wallet; funding is via USDC/USDT from an external wallet, exchange, or ACH/wire.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "https://www.flex.one/global-card",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "flex-EV-003",
+      "claim": "Flex raised a $70 million Series B1 round led by Halo Fund to accelerate the launch of Flex Global.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "https://www.flex.one/resource-hub/halo-fund-leads-70m-investment-to-accelerate-the-launch-of-flex-global",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "flex-EV-004",
+      "claim": "Flex has raised a reported total of approximately $105 million in equity plus approximately $300 million in debt facilities.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "third-party company profiles / media (2025-2026)",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "flex-EV-005",
+      "claim": "Flex's named platform partners include Visa (network), Lead Bank (credit cards) and Thread Bank (banking services).",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "third-party company/partner profiles (2025-2026)",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "flex-EV-006",
+      "claim": "Flex Global (2025) spans stablecoin payment rails in 100+ countries, multi-currency accounts across 76 countries/32 currencies, institutional USD accounts, and private credit in 20+ countries.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "https://www.flex.one (Flex Global launch) / press coverage 2026",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "flex-EV-007",
+      "claim": "Flex's reported revenue model comprises card/bill-pay interchange, deposit products, subscription, and credit.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "third-party media reporting (2025)",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "flex-EV-008",
+      "claim": "The commercial model involves real-time liquidation of a stablecoin balance at point of sale via a BaaS-issued Visa card.",
+      "evidence_class": "INFERRED",
+      "source_type": "docs",
+      "source_ref": "synthesis of flex.one Global Card description + card-programme model",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "flex-EV-009",
+      "claim": "Flex's exact FX markup, interchange split and liquidation timing (who bears FX risk) are not publicly disclosed.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "docs",
+      "source_ref": "pending commercial/card-programme disclosure",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "flex-EV-010",
+      "claim": "The entity targeted by the program anchor ('Flex.one' crypto-native consumer card issuing Mastercard/Visa) does not fully match the verifiable flex.one (US AI-native business banking platform issuing Visa).",
+      "evidence_class": "INFERRED",
+      "source_type": "docs",
+      "source_ref": "anchor vs verified public description comparison",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "flex-EV-011",
+      "claim": "Flex's mobile/web application internals (auth, framework, embedded SDKs) are unverified.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "pending REA extraction (artefact not supplied)",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "flex-EV-012",
+      "claim": "No Flex-specific on-chain contract or custody address has been verified against a public block explorer.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "network-trace",
+      "source_ref": "pending verified-explorer cross-check (no address asserted)",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    }
+  ]
+}

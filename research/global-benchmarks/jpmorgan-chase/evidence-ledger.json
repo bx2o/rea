@@ -1,0 +1,115 @@
+{
+  "entity": "JPMorgan Chase (Kinexys)",
+  "program": "SC-REA-NEOBANK-5.0",
+  "rea_status": "not-executed",
+  "entries": [
+    {
+      "id": "jpmc-EV-001",
+      "claim": "JPMorgan rebranded its blockchain unit from Onyx to 'Kinexys by J.P. Morgan' (announced 6 November 2024), renaming JPM Coin System to Kinexys Digital Payments and Onyx Digital Assets to Kinexys Digital Assets, and creating Kinexys Labs.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "https://www.jpmorgan.com/insights/payments/blockchain-digital-assets/introducing-kinexys",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "jpmc-EV-002",
+      "claim": "JPM Coin (launched 2019) is a tokenised USD deposit supporting programmable features: conditional release, scheduled transfers and rule-based payments.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "https://www.jpmorgan.com/kinexys/jpm-coin",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "jpmc-EV-003",
+      "claim": "Kinexys Digital Payments runs on a permissioned, EVM-compatible ledger using Blockchain Deposit Accounts (BDAs), supporting USD/EUR/GBP with on-chain FX (USD/EUR).",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "JPMorgan Kinexys materials; technical commentary (2024-2025)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "jpmc-EV-004",
+      "claim": "Kinexys is described as using an asynchronous dual-ledger bridge architecture, with the ledger running parallel to JPMorgan's core banking systems and synced via event-driven APIs.",
+      "evidence_class": "INFERRED",
+      "source_type": "docs",
+      "source_ref": "technical analysis of Kinexys architecture (2025)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "jpmc-EV-005",
+      "claim": "In 2025 JPMorgan issued a USD deposit token (JPMD) on Base, a public Ethereum Layer 2, for institutional clients, becoming the first bank to do so.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "https://www.jpmorgan.com/payments/newsroom/jpm-coin-usd-deposit-token-institutional-clients",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "jpmc-EV-006",
+      "claim": "Kinexys operates a Tokenized Collateral Network (TCN) and an intraday repo product enabling secured intraday financing against tokenised collateral.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Kinexys Digital Financing case study (jpmorgan.com/kinexys/documents)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "jpmc-EV-007",
+      "claim": "Kinexys averages approximately $7 billion in daily transaction volume with over $4 trillion in cumulative transactions since inception (self-reported).",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "JPMorgan press/newsroom and HBS case study (2025-2026)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "jpmc-EV-008",
+      "claim": "JPMorgan Payments processes approximately $12 trillion in payments per average day (self-reported).",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "https://www.jpmorgan.com/payments/newsroom/harvard-business-school-case-study-kinexys",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "jpmc-EV-009",
+      "claim": "For FY2025 (year ended 31 December 2025), JPMorgan Chase reported ROE of 17%, CET1 capital ratio (Standardized) of 14.5-14.6%, Tier 1 capital ratio of 15.5%, average loans of ~$1.5T and average deposits of ~$2.6T.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "JPMorgan Chase FY2025 Annual Report / 4Q25 Financial Results (investor-relations PDFs)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "jpmc-EV-010",
+      "claim": "Named Kinexys Digital Payments participants include DBS, Siemens, FedEx, BlackRock, Barclays, Trafigura, LSEG SwapAgent and Ondo Finance (third-party compilation).",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "third-party institutional compilation (suit-up.info/institutions/kinexys)",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "jpmc-EV-011",
+      "claim": "The consensus/validator governance of the Kinexys permissioned ledger and the source code of its smart contracts (programmable payments, repo) are not public.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "pending Kinexys disclosure / verified-explorer (permissioned ledger not explorer-verifiable)",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "jpmc-EV-012",
+      "claim": "No Kinexys/JPMD contract address or wallet address has been verified against a public block explorer by this squad.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "network-trace",
+      "source_ref": "pending verified-explorer cross-check (Basescan) + issuer disclosure",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    }
+  ]
+}

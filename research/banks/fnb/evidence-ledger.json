@@ -1,0 +1,97 @@
+{
+  "entity": "First National Bank (FirstRand)",
+  "program": "SC-REA-NEOBANK-5.0",
+  "rea_status": "not-executed",
+  "entries": [
+    {
+      "id": "fnb-EV-001",
+      "claim": "FirstRand Limited is listed on the JSE under ticker FSR; FNB is its retail/business banking division.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "JSE listing / FirstRand annual results booklet",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fnb-EV-002",
+      "claim": "FNB Banking App is delivered as a hybrid React Native + webview build (publicly reported).",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Public technology reporting; app-store metadata for FNB Banking App",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fnb-EV-003",
+      "claim": "Core banking is Hogan CBS fronted by in-house middleware with a Kafka event bus.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Company/technology reporting on FNB core and middleware",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fnb-EV-004",
+      "claim": "eBucks Rewards is a five-reward-level behavioural programme driven by product adoption, card usage, app logins and auto-sweep.",
+      "evidence_class": "SEEN",
+      "source_type": "published-pricing",
+      "source_ref": "eBucks Rewards published programme rules",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fnb-EV-005",
+      "claim": "eBucks merchant partners include Checkers, Engen and iStore, with discounts advertised up to about 40% on selected categories.",
+      "evidence_class": "SEEN",
+      "source_type": "published-pricing",
+      "source_ref": "eBucks public marketing/partner pages",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fnb-EV-006",
+      "claim": "FNB Connect is an MVNO operated under the FNB brand.",
+      "evidence_class": "SEEN",
+      "source_type": "app-store",
+      "source_ref": "FNB Connect public app-store listing and marketing",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fnb-EV-007",
+      "claim": "Retail account ladder: Easy, Aspire, Premier, Private Clients/Wealth, Gold Business.",
+      "evidence_class": "SEEN",
+      "source_type": "published-pricing",
+      "source_ref": "FNB published pricing guides",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fnb-EV-008",
+      "claim": "Group ROE above about 19% with a cost-to-income ratio around 51-53%.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "FirstRand annual results (fiscal year ends 30 June)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fnb-EV-009",
+      "claim": "The exact eBucks behaviour-to-level weighting formula is not public and remains unresolved.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "pending REA extraction (mitmproxy + Frida hook on level computation)",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fnb-EV-010",
+      "claim": "FNB participates in BankservAfrica rails; PayShap scheme launched March 2023.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "BankservAfrica/PASA PayShap launch statements",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    }
+  ]
+}

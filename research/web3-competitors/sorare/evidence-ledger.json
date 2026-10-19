@@ -1,0 +1,115 @@
+{
+  "entity": "Sorare",
+  "program": "SC-REA-NEOBANK-5.0",
+  "rea_status": "not-executed",
+  "entries": [
+    {
+      "id": "sorare-EV-001",
+      "claim": "Sorare is a Paris-based fantasy-sports platform issuing officially licensed digital player cards as NFTs across football, NBA and MLB.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Official Sorare product pages / App Store & Google Play listings",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "sorare-EV-002",
+      "claim": "The platform runs on StarkWare StarkEx, a STARK-based Validium ZK-rollup with settlement anchored on Ethereum.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "StarkWare StarkEx public documentation and terminology",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "sorare-EV-003",
+      "claim": "StarkEx as used is a Validium: validity proof on-chain, transaction data availability held off-chain by the operator.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "StarkWare documentation (Validium vs zk-Rollup distinction)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "sorare-EV-004",
+      "claim": "Cards are issued in named scarcity tiers (Limited/Rare/Super Rare/Unique) that govern both supply and contest eligibility.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Public Sorare product descriptions; tier mint caps NOT asserted",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "sorare-EV-005",
+      "claim": "Sorare operates a secondary marketplace carrying a platform fee commonly reported at approximately 5%.",
+      "evidence_class": "SEEN",
+      "source_type": "published-pricing",
+      "source_ref": "Reported public fee schedule / press — requires signed-in in-app verification",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "sorare-EV-006",
+      "claim": "Tournament prizes are paid in ETH and rare cards.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Public Sorare product descriptions",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "sorare-EV-007",
+      "claim": "Sorare is a private, VC-backed company founded in 2018, widely reported to have raised a ~US$680M round at a ~US$4.3B valuation in 2021.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Press coverage of 2021 Series B (valuation/aggregate as reported, not audited)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "sorare-EV-008",
+      "claim": "Sorare's founders are Nicolas Julia (CEO) and Adrien Montfort (CTO).",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Public interviews / press",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "sorare-EV-009",
+      "claim": "Sorare has faced gambling-classification scrutiny from France's ANJ and the UK Gambling Commission over paid prize formats.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Press reporting on ANJ/UKGC scrutiny — regulator register not inspected here",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "sorare-EV-010",
+      "claim": "The mobile client delivery model (native vs React Native vs webview) and auth token internals are not determinable without an artefact.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "pending REA extraction (no .ipa/.apk/.asar supplied)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "sorare-EV-011",
+      "claim": "Sorare's on-chain contract addresses, operator registry, and any TVL/user counts are not stated and require explorer + contract verification.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "Requires Starknet/Ethereum explorer + contract verification; never to be fabricated",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "sorare-EV-012",
+      "claim": "Contest scoring formulas and division thresholds are server-side and derived here as a synthesised model, not observed code.",
+      "evidence_class": "INFERRED",
+      "source_type": "docs",
+      "source_ref": "Synthesised from public product mechanics (04-rewards-and-behaviour.md)",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    }
+  ]
+}
