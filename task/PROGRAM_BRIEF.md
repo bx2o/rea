@@ -95,6 +95,24 @@ research/<group>/<entity>/
 └── evidence-ledger.json             # machine-readable evidence index (see §6)
 ```
 
+### 4.0 Depth bar (v5.0 re-run — MANDATORY)
+
+The consolidated `.stremiium/agents/*.agent.md` files run **30 KB – 150 KB each**. Every artefact in
+this program must match that informational density. Minimum line/byte targets:
+
+| Artefact | Minimum depth |
+|---|---|
+| Any `research/<group>/<entity>/0x-*.md` file | 400–900 lines / 12–30 KB |
+| Any `architecture/**/*.md` file | 400–900 lines / 12–30 KB |
+| Any `UnConsolidated/**/*.md` file | 400–900 lines / 12–30 KB |
+| Any `task/T*/**/*.md` file | 150–350 lines / 5–12 KB |
+| Any `.github/**/*.md` file | 200–500 lines / 6–15 KB |
+| `evidence-ledger.json` | ≥ 20 entries |
+
+Depth means *specific, structured, decision-useful content* — tables, numeric models, worked
+examples, ASCII diagrams, clause-level regulatory citation, and explicit ADOPT/ADAPT/AVOID/BEAT
+verdicts. Padding, repetition, and filler are explicitly disallowed.
+
 ### 4.1 Required content per dossier file (minimum depth)
 
 * **01 Identity** — legal name, registration/listing (e.g. JSE ticker), HQ, owner/shareholder
