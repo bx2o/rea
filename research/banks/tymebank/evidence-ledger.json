@@ -1,0 +1,115 @@
+{
+  "entity": "TymeBank / GoTymeBank",
+  "program": "SC-REA-NEOBANK-5.0",
+  "rea_status": "not-executed",
+  "entries": [
+    {
+      "id": "tymebank-EV-001",
+      "claim": "Tyme Bank Limited registered as a bank by the SARB Prudential Authority in September 2017; publicly launched February 2019 after a December 2018 soft launch",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "TymeBank Limited Basel Pillar III Disclosure as at 30 June 2025",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "tymebank-EV-002",
+      "claim": "Core banking uses Mambu cloud-native SaaS",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "mambu.com/customer/tyme-bank",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "tymebank-EV-003",
+      "claim": "Technology stack runs on AWS (~85% of systems) with Docker, WSO2 API management and Java",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "openbankingtracker.com TymeBank technology profile",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "tymebank-EV-004",
+      "claim": "Debit cards issued at IDEMIA biometric self-service kiosks (partnership from December 2020) at Pick n Pay and Boxer stores; account and activated Visa card issued in about five minutes with an SA ID number",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "IDEMIA press release; Mambu case study",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "tymebank-EV-005",
+      "claim": "EveryDay Account has R0 monthly fee; ATM withdrawal about R10 per R1,000; card replacement about R70",
+      "evidence_class": "SEEN",
+      "source_type": "published-pricing",
+      "source_ref": "TymeBank EveryDay account fee schedule (secondary summaries)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "tymebank-EV-006",
+      "claim": "GoalSave is a tiered savings product with a standard rate of about 6.00% p.a. compounded monthly; TymeAdvance is an on-demand salary-linked advance auto-repaid on payday",
+      "evidence_class": "SEEN",
+      "source_type": "published-pricing",
+      "source_ref": "GoalSave product page; TymeBank investor overview deck",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "tymebank-EV-007",
+      "claim": "FY2025 (year to 30 June 2025): customer base 11.6m (+21%), deposits R7.7bn (+22%), net advances R2.25bn (+17%)",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Tyme Bank Limited Annual Financial Statements FY2025",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "tymebank-EV-008",
+      "claim": "African Rainbow Capital (Patrice Motsepe) holds roughly 40% after the December 2024 US$250m Series D led by Nubank at about US$1.5bn valuation; previously about 55.37% control",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "ARC / press reporting on Series D",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "tymebank-EV-009",
+      "claim": "Group operates across South Africa, the Philippines (GoTyme), Indonesia, Hong Kong and (planned) Vietnam; group customer count reported between ~17m and ~20m depending on date",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "TIME 100 Most Influential Companies 2025 (GoTyme); BusinessTech; vietnam.tyme.com",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "tymebank-EV-010",
+      "claim": "TymeBank South Africa does not operate a first-class loyalty/points currency; behavioural rewards are delivered as interest tiers and fee mechanics",
+      "evidence_class": "INFERRED",
+      "source_type": "published-pricing",
+      "source_ref": "TymeBank product pages (absence of a points programme)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "tymebank-EV-011",
+      "claim": "Mobile app framework, authentication primitives, API endpoints and card tokenisation",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "pending REA extraction: rea analyze-javascript-application on TymeBank APK classes.dex / index.android.bundle; rea trace-network during onboarding",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "tymebank-EV-012",
+      "claim": "Exact GoalSave tier rates, TymeAdvance pricing, TymePOS merchant discount rate and Mambu module coverage",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "pending REA extraction + primary AFS/Pillar III read",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    }
+  ]
+}

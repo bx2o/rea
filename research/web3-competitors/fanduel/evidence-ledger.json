@@ -1,0 +1,115 @@
+{
+  "entity": "FanDuel / DraftKings (FanDuel primary)",
+  "program": "SC-REA-NEOBANK-5.0",
+  "rea_status": "not-executed",
+  "entries": [
+    {
+      "id": "fanduel-EV-001",
+      "claim": "FanDuel is a US daily fantasy sports (DFS), regulated online sportsbook, and online casino brand, owned by Flutter Entertainment plc.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Flutter Entertainment plc investor disclosures / official pages",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanduel-EV-002",
+      "claim": "US sports betting is licensed state-by-state following the 2018 PASPA repeal (Murphy v. NCAA).",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "US Supreme Court decision + state regulator rules",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanduel-EV-003",
+      "claim": "Real-time sports data is sourced from providers such as Sportradar and Genius Sports (official league data partnerships).",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Public partnership reporting; vendor identity requires confirmation",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanduel-EV-004",
+      "claim": "Odds/pricing engines update in-play markets on a sub-second cadence.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Industry/product descriptions (not observed code)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanduel-EV-005",
+      "claim": "Geolocation gating (GeoComply-style) enforces licensed state boundaries before wagering.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Public reporting/docs; exact vendor requires network-trace confirmation",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanduel-EV-006",
+      "claim": "KYC/AML onboarding and responsible-gaming controls (limits, self-exclusion, reality checks) are regulatory requirements for real-money operators.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "State/UK gambling regulator rules (public)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanduel-EV-007",
+      "claim": "Anti-collusion monitoring is used to protect DFS contest integrity.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Public reporting on DFS integrity practices",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanduel-EV-008",
+      "claim": "DraftKings Inc. is a listed peer operator on NASDAQ (DKNG).",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Public exchange listing",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanduel-EV-009",
+      "claim": "FanDuel reports/derives revenue at a segment level within Flutter; no standalone audited FanDuel accounts are published.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Flutter annual/half-year report structure (cite period when used)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanduel-EV-010",
+      "claim": "The FanDuel client delivery model and auth/KYC/geolocation vendor integrations are not determinable without an artefact.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "pending REA extraction (no .apk/.ipa/.asar supplied)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanduel-EV-011",
+      "claim": "Exact state/provincial licence numbers and any vig/rake/revenue figures are not asserted and require regulator-register or filing reads.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "public-filing",
+      "source_ref": "Regulator registers + Flutter filed reports; never to be fabricated",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanduel-EV-012",
+      "claim": "The odds/risk engine internals are server-side and proprietary; the wager life cycle here is a synthesised model, not observed code.",
+      "evidence_class": "INFERRED",
+      "source_type": "docs",
+      "source_ref": "Synthesised from public product mechanics (04-rewards-and-behaviour.md)",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    }
+  ]
+}

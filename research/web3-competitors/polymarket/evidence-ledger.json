@@ -1,0 +1,115 @@
+{
+  "entity": "Polymarket",
+  "program": "SC-REA-NEOBANK-5.0",
+  "rea_status": "not-executed",
+  "entries": [
+    {
+      "id": "polymarket-EV-001",
+      "claim": "Polymarket is a decentralised prediction market built on Polygon PoS.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Polymarket official documentation",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "polymarket-EV-002",
+      "claim": "It settles via the Gnosis Conditional Tokens Framework (CTF), using ERC-1155 outcome tokens.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Polymarket + Gnosis CTF documentation",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "polymarket-EV-003",
+      "claim": "Trading uses a hybrid central-limit order book: off-chain order matching with on-chain settlement.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Polymarket official documentation",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "polymarket-EV-004",
+      "claim": "Market resolution is delegated to the UMA Optimistic Oracle, with dispute escalation to the UMA DVM.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Polymarket + UMA documentation",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "polymarket-EV-005",
+      "claim": "Collateral is USDC on Polygon.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Polymarket official documentation",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "polymarket-EV-006",
+      "claim": "Trading has historically been zero-fee, with liquidity funded by maker incentives.",
+      "evidence_class": "SEEN",
+      "source_type": "published-pricing",
+      "source_ref": "Published/reported fee + incentive materials; exact formula NOT asserted",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "polymarket-EV-007",
+      "claim": "In 2022 Polymarket settled with the US CFTC for operating an unregistered facility offering off-exchange event-based binary options, and subsequently geoblocked US users.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "CFTC order/press (2022); penalty figure reported — verify order number on CFTC register",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "polymarket-EV-008",
+      "claim": "Polymarket was founded by Shayne Coplan.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Public interviews / press",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "polymarket-EV-009",
+      "claim": "Polymarket reportedly re-entered the US market via an acquired CFTC-licensed venue (2024-2025).",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Press reporting — requires CFTC register verification of the acquired DCM",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "polymarket-EV-010",
+      "claim": "The Polymarket client delivery model and wallet/auth internals are not determinable without an artefact.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "pending REA extraction (no .apk/.ipa/.asar supplied)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "polymarket-EV-011",
+      "claim": "Polymarket contract addresses (CTF, CTF Exchange, collateral, UMA adapters) and any TVL/volume figures are not stated and require explorer + contract verification.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "Requires PolygonScan + official registry verification; never to be fabricated",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "polymarket-EV-012",
+      "claim": "The order lifecycle (off-chain match -> on-chain settle -> UMA resolve -> redeem) is a synthesised model, not observed code.",
+      "evidence_class": "INFERRED",
+      "source_type": "docs",
+      "source_ref": "Synthesised from public docs (02-technology-and-systems.md)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "entity": "Fanatics",
+  "program": "SC-REA-NEOBANK-5.0",
+  "rea_status": "not-executed",
+  "entries": [
+    {
+      "id": "fanatics-EV-001",
+      "claim": "Fanatics is a US sports-commerce company (licensed merchandise) founded in 1995 by Michael Rubin.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Fanatics company pages / press",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanatics-EV-002",
+      "claim": "Fanatics expanded into trading cards/collectibles via the Topps acquisition.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Public acquisition reporting (deal value reported, not audited)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanatics-EV-003",
+      "claim": "Fanatics operates a US sportsbook (Fanatics Betting & Gaming).",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Public reporting; state licence numbers NOT asserted",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanatics-EV-004",
+      "claim": "Fanatics runs live-commerce (Fanatics Live) and events businesses, plus Candy Digital for digital collectibles.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Public reporting",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanatics-EV-005",
+      "claim": "Fanatics maintains a unified customer identity/account across e-commerce, collectibles and betting.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Public reporting on platform unification",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanatics-EV-006",
+      "claim": "Fanatics operates FanCash, a cross-vertical loyalty currency.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Public FanCash program terms; exact earn/expiry rules UNKNOWN",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanatics-EV-007",
+      "claim": "Fanatics is a private company reported at roughly a US$31B valuation (2022 round), with league/players-association equity involvement reported.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Press reporting (as reported, not audited)",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanatics-EV-008",
+      "claim": "Fanatics has no published standalone audited financial statements (private company).",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Absence of public filings; reported revenue figures are third-party estimates",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanatics-EV-009",
+      "claim": "The betting pillar is regulated per US state with geolocation/KYC requirements.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "State gaming regulator rules (public)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanatics-EV-010",
+      "claim": "The Fanatics client delivery model and SSO/identity vendor integrations are not determinable without an artefact.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "pending REA extraction (no .apk/.ipa/.asar supplied)",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanatics-EV-011",
+      "claim": "FanCash ledger internals (accrual, expiry, redemption limits) are not stated and require official program terms or network-trace capture.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "docs",
+      "source_ref": "Official FanCash program terms / REA network-trace; never to be fabricated",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "fanatics-EV-012",
+      "claim": "The cross-vertical value loop (unified identity + shared currency) is a synthesised model from public reporting, not observed code.",
+      "evidence_class": "INFERRED",
+      "source_type": "docs",
+      "source_ref": "Synthesised from public reporting (04-rewards-and-behaviour.md)",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    }
+  ]
+}

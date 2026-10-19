@@ -1,0 +1,97 @@
+{
+  "entity": "Nedbank Group",
+  "program": "SC-REA-NEOBANK-5.0",
+  "rea_status": "not-executed",
+  "entries": [
+    {
+      "id": "nedbank-EV-001",
+      "claim": "Nedbank Group Limited is listed on the JSE under ticker NED.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "JSE listing / Nedbank Group integrated report",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "nedbank-EV-002",
+      "claim": "Runs a sustained, publicly documented 'Managed Evolution' IT transformation programme.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Nedbank public technology/investor documentation on Managed Evolution",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "nedbank-EV-003",
+      "claim": "Operates a Nedbank API Framework and a public API Marketplace.",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "Nedbank developer portal / API Marketplace",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "nedbank-EV-004",
+      "claim": "Consumer surfaces include the Nedbank Money App and the Avo super-app; both are publicly listed.",
+      "evidence_class": "SEEN",
+      "source_type": "app-store",
+      "source_ref": "Public app-store listings for 'Nedbank Money' and 'Avo'",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "nedbank-EV-005",
+      "claim": "Retail product ladder: MiGoals, Savvy, Professional, Private Wealth; plus small-business pay-as-you-use.",
+      "evidence_class": "SEEN",
+      "source_type": "published-pricing",
+      "source_ref": "Nedbank published pricing guides",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "nedbank-EV-006",
+      "claim": "Greenbacks rewards uses savings nudges and partner cashback (anchor cites American Express cashback).",
+      "evidence_class": "INFERRED",
+      "source_type": "published-pricing",
+      "source_ref": "Greenbacks published programme terms; Amex partnership per program anchor",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "nedbank-EV-007",
+      "claim": "Strong capital adequacy (CET1 comfortably above regulatory minimums).",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "Nedbank Group integrated report",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "nedbank-EV-008",
+      "claim": "Regulated by the SARB Prudential Authority under the Banks Act 94 of 1990.",
+      "evidence_class": "SEEN",
+      "source_type": "public-filing",
+      "source_ref": "SARB Prudential Authority register; Nedbank integrated report",
+      "confidence": "high",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "nedbank-EV-009",
+      "claim": "Participates in BankservAfrica rails including PayShap and RTC (PayShap scheme launched March 2023).",
+      "evidence_class": "SEEN",
+      "source_type": "docs",
+      "source_ref": "BankservAfrica/PASA statements",
+      "confidence": "medium",
+      "verified_at": "2026-10-19"
+    },
+    {
+      "id": "nedbank-EV-010",
+      "claim": "Money App/Avo framework, certificate pinning, and the Greenbacks accrual/tier formula are unresolved.",
+      "evidence_class": "UNKNOWN",
+      "source_type": "rea-artifact",
+      "source_ref": "pending REA extraction (apktool/jadx + mitmproxy + Frida)",
+      "confidence": "low",
+      "verified_at": "2026-10-19"
+    }
+  ]
+}
