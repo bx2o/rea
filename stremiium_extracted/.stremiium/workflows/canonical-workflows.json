@@ -1,0 +1,63 @@
+{
+  "system": "Stremiium Reusable Multi-Agent Workflows",
+  "version": "4.0.0",
+  "organization": "Stremiium (Pty) Ltd",
+  "workflows": [
+    {
+      "workflow_id": "WF-SMART-CONTRACT-AUDIT",
+      "name": "Smart Contract Security & Compliance Audit Pipeline",
+      "topology": "DIAMOND",
+      "stages": [
+        {
+          "stage_id": "STAGE_1_STATIC_ANALYSIS",
+          "agent": "ST-C12-CYBERSEC-CAPTAIN",
+          "action": "Run Slither & automated AST vulnerability scanner",
+          "type": "PARALLEL"
+        },
+        {
+          "stage_id": "STAGE_2_REGULATORY_CHECK",
+          "agent": "ST-C01-LEGAL-CAPTAIN",
+          "action": "Verify FSCA CASP asset classification and sanctions screening",
+          "type": "PARALLEL"
+        },
+        {
+          "stage_id": "STAGE_3_BARRIER_SYNTHESIS",
+          "agent": "ST-COORD-WORKFLOW-001",
+          "action": "Consolidate static scan and legal findings into unified report",
+          "type": "BARRIER"
+        },
+        {
+          "stage_id": "STAGE_4_EXECUTIVE_APPROVAL",
+          "agent": "ST-SC-MASTER-001",
+          "action": "Review summary and request CEO/Board human sign-off",
+          "type": "HUMAN_APPROVAL_GATE"
+        }
+      ]
+    },
+    {
+      "workflow_id": "WF-AGENT-UPGRADE-LIFECYCLE",
+      "name": "Agent Manifest & Prompt Upgrade Lifecycle",
+      "topology": "PIPELINE",
+      "stages": [
+        {
+          "stage_id": "STAGE_1_SCHEMA_VALIDATE",
+          "agent": "ST-COORD-GITSAFE-001",
+          "action": "Validate agent prompt against 31-section standard and JSON schema",
+          "type": "SEQUENTIAL"
+        },
+        {
+          "stage_id": "STAGE_2_SECURITY_TEST",
+          "agent": "ST-COORD-SECCOMP-001",
+          "action": "Execute prompt injection tests and verify least-privilege tool bounds",
+          "type": "SEQUENTIAL"
+        },
+        {
+          "stage_id": "STAGE_3_REGISTRY_UPDATE",
+          "agent": "ST-C03-KNOWLEDGE-CAPTAIN",
+          "action": "Promote agent state from TESTING to CERTIFIED in agent-registry.json",
+          "type": "SEQUENTIAL"
+        }
+      ]
+    }
+  ]
+}

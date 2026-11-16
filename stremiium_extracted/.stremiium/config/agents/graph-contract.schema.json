@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stremiium.xyz/schemas/graph-contract.schema.json",
+  "title": "Stremiium Agent Graph Contract",
+  "type": "object",
+  "required": ["graph_id", "version", "nodes", "edges", "failure_policy"],
+  "properties": {
+    "graph_id": { "type": "string", "pattern": "^[a-z0-9_-]+$" },
+    "version": { "type": "string" },
+    "nodes": { "type": "array", "minItems": 1, "items": { "type": "object", "required": ["node_id", "kind", "input_contract", "output_contract"], "properties": { "node_id": { "type": "string" }, "kind": { "enum": ["agent", "service", "router", "verify", "approval", "barrier", "loop"] }, "input_contract": { "type": "string" }, "output_contract": { "type": "string" } }, "additionalProperties": false } },
+    "edges": { "type": "array", "items": { "type": "object", "required": ["from", "to", "data_dependency"], "properties": { "from": { "type": "string" }, "to": { "type": "string" }, "data_dependency": { "type": "string", "minLength": 1 } }, "additionalProperties": false } },
+    "failure_policy": { "type": "object", "required": ["retry_limit", "isolation", "escalation"], "properties": { "retry_limit": { "type": "integer", "minimum": 0 }, "isolation": { "type": "string" }, "escalation": { "type": "string" } }, "additionalProperties": false }
+  },
+  "additionalProperties": false
+}

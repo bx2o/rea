@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "StremiiumAgentManifest",
+  "description": "Schema definition for Stremiium Agent Operating System (AOS) agent manifests.",
+  "type": "object",
+  "required": [
+    "agent_id",
+    "canonical_name",
+    "tier",
+    "council",
+    "department",
+    "authority_level",
+    "security_class",
+    "status",
+    "version",
+    "responsibilities"
+  ],
+  "properties": {
+    "agent_id": {
+      "type": "string",
+      "pattern": "^ST-[A-Z0-9]+-[A-Za-z0-9_-]+$"
+    },
+    "canonical_name": {
+      "type": "string"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "tier": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5
+    },
+    "council": {
+      "type": "string"
+    },
+    "department": {
+      "type": "string"
+    },
+    "parent_agent_id": {
+      "type": "string"
+    },
+    "authority_level": {
+      "type": "string",
+      "enum": ["STRATEGIC_COMMAND", "COUNCIL_GOVERNANCE", "DEPARTMENT_LEAD", "SPECIALIST_JUDGMENT", "DETERMINISTIC_OPERATIONAL"]
+    },
+    "security_class": {
+      "type": "string",
+      "enum": ["PUBLIC", "INTERNAL", "CONFIDENTIAL", "CRITICAL_FINANCIAL_LEGAL", "SYSTEM_ROOT"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["DRAFT", "TESTING", "CERTIFIED", "ACTIVE", "DEGRADED", "SUSPENDED", "DEPRECATED", "ARCHIVED"]
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "model_routing": {
+      "type": "object",
+      "properties": {
+        "preferred_tier": {
+          "type": "string",
+          "enum": ["FAST", "STANDARD", "REASONING", "SPECIALIST_SECURITY", "SPECIALIST_CODING", "LOCAL"]
+        },
+        "max_budget_per_task_zar": {
+          "type": "number"
+        }
+      }
+    },
+    "tools": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "skills": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "responsibilities": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "human_approval_required": {
+      "type": "boolean"
+    }
+  }
+}

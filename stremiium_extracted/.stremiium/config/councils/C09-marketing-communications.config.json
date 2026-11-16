@@ -1,0 +1,29 @@
+{
+  "councilId": "C09",
+  "councilName": "Marketing-Communications-Squad",
+  "tier": "TIER-1-STRATEGIC",
+  "description": "Marketing strategy, communications, branding, public relations, content creation, brand messaging",
+  "captain": {
+    "name": "Chief-Marketing-Officer (The-Amplifier)",
+    "title": "Council Captain",
+    "authority": "Council Captain - Marketing Authority"
+  },
+  "agents": 2,
+  "specialties": ["Brand Communications Manager", "Content Strategy Leader"],
+  "responsibilityAreas": [
+    "Brand Strategy",
+    "Marketing Campaigns",
+    "Communications",
+    "PR",
+    "Content Creation",
+    "Market Messaging"
+  ],
+  "crossCouncilDependencies": {
+    "coordinatesWith": ["C04-Strategy", "C07-Sales", "C08-Design"],
+    "supportsMarketPresence": "Organization-wide messaging"
+  },
+  "sla": {
+    "campaignReview": "10 business days",
+    "contentCreation": "15 business days"
+  }
+}

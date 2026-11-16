@@ -1,0 +1,32 @@
+name: Node.js Frontend CI
+
+on:
+  push:
+    paths:
+      - 'components/**'
+      - 'lib/**'
+      - 'services/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/nodejs.yml'
+  pull_request:
+    paths:
+      - 'components/**'
+      - 'lib/**'
+      - 'services/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Run tests
+        run: pnpm test

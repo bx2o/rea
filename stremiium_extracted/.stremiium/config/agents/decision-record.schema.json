@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stremiium.xyz/schemas/decision-record.schema.json",
+  "title": "Stremiium Decision Record",
+  "type": "object",
+  "required": ["decision_id", "decision", "context", "alternatives", "evidence", "assumptions", "risks", "confidence", "owner", "approval", "expected_outcome"],
+  "properties": {
+    "decision_id": { "type": "string" },
+    "decision": { "type": "string", "minLength": 1 },
+    "context": { "type": "string", "minLength": 1 },
+    "alternatives": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "evidence": { "type": "array", "items": { "type": "object", "required": ["source", "provenance"], "properties": { "source": { "type": "string" }, "provenance": { "type": "string" } }, "additionalProperties": false } },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "risks": { "type": "array", "items": { "type": "string" } },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "owner": { "type": "string" },
+    "approval": { "type": "string" },
+    "expected_outcome": { "type": "string" },
+    "actual_outcome": { "type": ["string", "null"] },
+    "lessons_learned": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

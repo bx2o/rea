@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stremiium.xyz/schemas/context-graph.schema.json",
+  "title": "Stremiium Context Graph",
+  "type": "object",
+  "required": ["version", "nodes", "edges", "provenance_policy"],
+  "properties": {
+    "version": { "type": "string" },
+    "nodes": { "type": "array", "items": { "type": "object", "required": ["node_id", "node_type", "owner", "classification", "provenance"], "properties": { "node_id": { "type": "string" }, "node_type": { "type": "string" }, "owner": { "type": "string" }, "classification": { "type": "string" }, "provenance": { "type": "string" }, "expires_at": { "type": ["string", "null"] } }, "additionalProperties": false } },
+    "edges": { "type": "array", "items": { "type": "object", "required": ["from", "to", "edge_type", "data_dependency"], "properties": { "from": { "type": "string" }, "to": { "type": "string" }, "edge_type": { "type": "string" }, "data_dependency": { "type": "string", "minLength": 1 } }, "additionalProperties": false } },
+    "provenance_policy": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": false
+}

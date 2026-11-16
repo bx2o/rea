@@ -1,0 +1,8 @@
+{
+  "version": "1.0.0",
+  "sources": ["FSCA", "FIC", "SARS", "SARB", "CIPC", "Information_Regulator", "National_Treasury"],
+  "required_record": ["source", "published_at", "effective_date", "summary", "affected_activity", "affected_agents", "affected_workflows", "owner", "legal_review", "implementation_status"],
+  "workflow": ["capture", "triage", "legal_interpretation", "impact_map", "policy_update", "system_change", "validation", "owner_approval", "monitoring"],
+  "escalation": { "critical_hours": 4, "high_hours": 24, "default_owner": "legal_compliance" },
+  "prohibited": ["autonomous_legal_conclusion", "unreviewed_regulatory_submission", "silent_policy_mutation"]
+}

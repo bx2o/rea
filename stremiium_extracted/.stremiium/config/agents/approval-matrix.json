@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "default": { "approval": "human", "audit_required": true },
+  "actions": {
+    "read": { "approval": "policy", "destructive": false },
+    "write": { "approval": "owner", "destructive": false },
+    "execute": { "approval": "owner", "destructive": false },
+    "financial": { "approval": "finance_and_human", "destructive": true },
+    "deploy": { "approval": "release_and_human", "destructive": true },
+    "security_response": { "approval": "security_lead_or_emergency", "destructive": true },
+    "legal_or_regulatory": { "approval": "legal_and_human", "destructive": true },
+    "delete_or_revert": { "approval": "human", "destructive": true },
+    "external_communication": { "approval": "owner", "destructive": false }
+  }
+}

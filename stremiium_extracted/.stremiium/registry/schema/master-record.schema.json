@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "stremiium/saos/master-record.schema.json",
+  "title": "Stremiium Master Agent Record (v2, Prompt 11 canonical)",
+  "type": "object",
+  "required": [
+    "agent_id", "canonical_name", "display_name", "council", "department",
+    "parent", "children", "purpose", "capabilities", "skills", "tools",
+    "plugins", "model_requirements", "memory_requirements",
+    "security_classification", "permissions", "escalation_policy", "version",
+    "lifecycle_status", "owner", "tests", "metrics"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "agent_id": { "type": "string", "pattern": "^[a-z][a-z0-9.-]*$" },
+    "canonical_name": { "type": "string" },
+    "display_name": { "type": "string" },
+    "council": { "type": ["string", "null"], "pattern": "^C\\d{2}$" },
+    "department": { "type": ["string", "null"] },
+    "parent": { "type": ["string", "null"] },
+    "children": { "type": "array", "items": { "type": "string" } },
+    "purpose": { "type": "string" },
+    "capabilities": { "type": "array", "items": { "type": "string" } },
+    "skills": { "type": "array", "items": { "type": "string" } },
+    "tools": { "type": "array", "items": { "type": "string" } },
+    "plugins": { "type": "array", "items": { "type": "string" } },
+    "model_requirements": {
+      "type": "object",
+      "properties": {
+        "class": { "enum": ["FAST", "STANDARD", "REASONING", "SPECIALIST_SECURITY", "SPECIALIST_CODING", "LOCAL"] }
+      }
+    },
+    "memory_requirements": {
+      "type": "object",
+      "properties": { "profile": { "enum": ["minimal", "standard", "elevated", "graph"] } }
+    },
+    "security_classification": {
+      "enum": ["PUBLIC", "INTERNAL", "CONFIDENTIAL", "CRITICAL_FINANCIAL_LEGAL", "SYSTEM_ROOT"]
+    },
+    "permissions": { "type": "array", "items": { "type": "string" } },
+    "escalation_policy": { "type": "string" },
+    "version": { "type": "string" },
+    "lifecycle_status": {
+      "enum": ["PROPOSED", "DESIGNED", "IMPLEMENTED", "TESTED", "VERIFIED", "STAGED", "PRODUCTION", "DEPRECATED", "ARCHIVED"]
+    },
+    "owner": { "type": ["string", "null"] },
+    "tests": { "type": "array", "items": { "type": "string" } },
+    "metrics": { "type": "object" },
+    "kind": { "enum": ["orchestrator", "council", "coordinator", "meta", "specialist", "support"] },
+    "definition_path": { "type": "string" },
+    "legacy_key": { "type": "string" }
+  }
+}

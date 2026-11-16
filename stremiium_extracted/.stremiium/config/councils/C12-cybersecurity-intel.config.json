@@ -1,0 +1,78 @@
+{
+  "councilId": "C12",
+  "councilName": "Cybersecurity-Intel-Squad",
+  "tier": "TIER-2-TECHNICAL",
+  "description": "Cybersecurity, threat detection, compliance monitoring, incident response, security intelligence",
+  "captain": {
+    "name": "Cybersecurity-Intelligence-Squad-Captain",
+    "title": "Council Captain",
+    "authority": "Council Captain - Security Authority",
+    "escalationPath": "Sparkling Curious (security-incident)"
+  },
+  "agents": 2,
+  "specialties": ["Security Compliance Officer", "Threat Intelligence Lead"],
+  "primaryDomain": "Cybersecurity & Compliance",
+  "responsibilityAreas": [
+    "Threat Detection",
+    "Security Compliance",
+    "Incident Response",
+    "Vulnerability Management",
+    "Access Control",
+    "Encryption Standards",
+    "Audit & Logging"
+  ],
+  "authority": {
+    "security-veto": true,
+    "description": "C12 has veto authority on security-related decisions across all councils",
+    "coordinatesWith": ["C01-Legal", "C06-Engineering", "C11-Dev"],
+    "requiredApprovalOn": [
+      "external-integrations",
+      "data-handling-changes",
+      "access-control-changes",
+      "encryption-standards"
+    ]
+  },
+  "crossCouncilDependencies": {
+    "dependsOn": ["C06-Infrastructure", "C11-Dev"],
+    "securityOversightOf": "All 15 other councils",
+    "escalationAuthority": "Immediate escalation for security breaches"
+  },
+  "communicationPreferences": {
+    "async": true,
+    "channel": "Notion - C12-Cybersecurity-Intel Hub",
+    "responseTime": "1 hour for security incidents, 8 hours for reviews",
+    "escalationThreshold": "security-breach OR vulnerability-cvss-9+"
+  },
+  "sla": {
+    "securityReview": "3-5 business days",
+    "vulnerabilityResponse": "24 hours for CVSS 9+",
+    "incidentResponse": "15 minutes for active breach",
+    "complianceAudit": "10 business days"
+  },
+  "standardsEnforced": {
+    "tlsVersion": "1.2+",
+    "encryptionAlgorithm": "AES-256+",
+    "passwordPolicy": "12+ chars, mixed",
+    "mfaRequirement": "All admin accounts",
+    "secretsManagement": "No hardcoded secrets, use env vars"
+  },
+  "notionDatabases": [
+    "Council Dashboard",
+    "Council Members",
+    "Security Incidents",
+    "Vulnerability Registry",
+    "Compliance Checklist",
+    "Access Control Matrix"
+  ],
+  "artifacts": {
+    "rulesLocation": ".github/rules/github-copilot-workspace.md",
+    "workflowLocation": ".github/workflows/agent-workflows/ (custom-security-workflows)",
+    "standardsLocation": ".github/skills/security-compliance/SKILL.md"
+  },
+  "performanceMetrics": {
+    "mttrMeanTimeToResponse": "45 minutes avg",
+    "incidentDetectionRate": 98,
+    "complianceScore": 92,
+    "vulnerabilityFixRate": 95
+  }
+}

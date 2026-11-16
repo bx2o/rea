@@ -1,0 +1,37 @@
+{
+  "councilId": "C05",
+  "councilName": "HR-Culture-Squad",
+  "tier": "TIER-1-STRATEGIC",
+  "description": "Human resources, talent acquisition, culture, team development, conflict resolution, performance management",
+  "captain": {
+    "name": "Chief-People-Officer / Chief-Human-Resources-Officer (The-Guardian)",
+    "title": "Council Captain",
+    "authority": "Council Captain - People Authority"
+  },
+  "agents": 13,
+  "specialties": [
+    "Recruiter",
+    "Culture Manager",
+    "Development Director",
+    "Conflict Mediator",
+    "Mentors",
+    "Performance Managers"
+  ],
+  "responsibilityAreas": [
+    "Recruitment",
+    "Culture Development",
+    "Team Development",
+    "Conflict Resolution",
+    "Performance Management",
+    "Compensation Strategy"
+  ],
+  "crossCouncilDependencies": {
+    "supportsAll": "All councils with people matters",
+    "integrationWith": "All councils"
+  },
+  "sla": {
+    "recruitment": "20 business days",
+    "conflictResolution": "5 business days",
+    "developmentPlanning": "10 business days"
+  }
+}

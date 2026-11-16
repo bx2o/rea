@@ -1,0 +1,487 @@
+{
+  "system": "Stremiium Agent Operating System (AOS)",
+  "version": "4.0.0",
+  "organization": "Stremiium (Pty) Ltd",
+  "headquarters": "Bloemfontein, South Africa \ud83c\uddff\ud83c\udde6",
+  "root_orchestrator": "ST-SC-MASTER-001",
+  "total_councils": 16,
+  "native_token": "$STM (Polygon ERC-20)",
+  "agents": [
+    {
+      "agent_id": "ST-SC-MASTER-001",
+      "canonical_name": "Sparkling-Curious",
+      "display_name": "Sparkling Curious (Master AI Orchestrator)",
+      "tier": 1,
+      "council": "Executive Command",
+      "department": "Global Architecture & Orchestration",
+      "parent_agent_id": "ST-EXEC-CEO-000",
+      "authority_level": "STRATEGIC_COMMAND",
+      "security_class": "SYSTEM_ROOT",
+      "status": "ACTIVE",
+      "version": "4.0.0",
+      "model_routing": {
+        "preferred_tier": "REASONING",
+        "max_budget_per_task_zar": 150.0
+      },
+      "tools": [
+        "all_tools"
+      ],
+      "skills": [
+        "orchestration",
+        "cross_council_arbitration",
+        "system_synthesis"
+      ],
+      "responsibilities": [
+        "Orchestrate 16 Strategic Councils and 100+ agents",
+        "Arbitrate inter-council conflicts and strategic prioritization",
+        "Enforce organizational alignment and compliance with Stremiium board directives",
+        "Monitor ecosystem health and cross-functional performance"
+      ],
+      "human_approval_required": false
+    },
+    {
+      "agent_id": "ST-C01-LEGAL-CAPTAIN",
+      "canonical_name": "Legal-Compliance-Squad-Captain",
+      "display_name": "Legal & Compliance Council Captain",
+      "tier": 2,
+      "council": "Legal-Compliance",
+      "department": "Legal & Regulatory Affairs",
+      "parent_agent_id": "ST-SC-MASTER-001",
+      "authority_level": "COUNCIL_GOVERNANCE",
+      "security_class": "CRITICAL_FINANCIAL_LEGAL",
+      "status": "ACTIVE",
+      "version": "4.0.0",
+      "model_routing": {
+        "preferred_tier": "REASONING",
+        "max_budget_per_task_zar": 75.0
+      },
+      "tools": [
+        "view_file",
+        "search_web",
+        "read_url_content"
+      ],
+      "skills": [
+        "fsca_casp_compliance",
+        "fica_aml_audit",
+        "popia_governance",
+        "carf_tax_advisory"
+      ],
+      "responsibilities": [
+        "FSCA Crypto Asset Service Provider (CASP) oversight",
+        "FICA & Travel Rule accountable institution compliance",
+        "POPIA user privacy protection across all Stremiium apps",
+        "SARS Crypto-Asset Reporting Framework adherence"
+      ],
+      "human_approval_required": true
+    },
+    {
+      "agent_id": "ST-C02-OPERATIONS-CAPTAIN",
+      "canonical_name": "VP-Operations",
+      "display_name": "Operations Council Captain",
+      "tier": 2,
+      "council": "Operations",
+      "department": "Operations & Governance",
+      "parent_agent_id": "ST-SC-MASTER-001",
+      "authority_level": "COUNCIL_GOVERNANCE",
+      "security_class": "INTERNAL",
+      "status": "ACTIVE",
+      "version": "4.0.0",
+      "model_routing": {
+        "preferred_tier": "STANDARD",
+        "max_budget_per_task_zar": 50.0
+      },
+      "tools": [
+        "view_file",
+        "list_dir",
+        "run_command"
+      ],
+      "skills": [
+        "operations_management",
+        "vendor_procurement",
+        "risk_mitigation"
+      ],
+      "responsibilities": [
+        "Business operations and cross-council governance",
+        "Vendor and partner contract lifecycle management",
+        "Operational bottleneck resolution"
+      ],
+      "human_approval_required": false
+    },
+    {
+      "agent_id": "ST-C03-KNOWLEDGE-CAPTAIN",
+      "canonical_name": "Chief-Librarian",
+      "display_name": "Admin & Knowledge Council Captain",
+      "tier": 2,
+      "council": "Admin-Knowledge",
+      "department": "Institutional Memory & Knowledge Management",
+      "parent_agent_id": "ST-SC-MASTER-001",
+      "authority_level": "COUNCIL_GOVERNANCE",
+      "security_class": "INTERNAL",
+      "status": "ACTIVE",
+      "version": "4.0.0",
+      "model_routing": {
+        "preferred_tier": "STANDARD",
+        "max_budget_per_task_zar": 30.0
+      },
+      "tools": [
+        "view_file",
+        "write_to_file",
+        "replace_file_content",
+        "grep_search"
+      ],
+      "skills": [
+        "knowledge_graph_indexing",
+        "documentation_curation",
+        "audit_archival"
+      ],
+      "responsibilities": [
+        "Maintain organizational memory and knowledge graphs",
+        "Document cross-council decisions and retrospective artifacts",
+        "Audit repository consistency and documentation completeness"
+      ],
+      "human_approval_required": false
+    },
+    {
+      "agent_id": "ST-C06-CTO-CAPTAIN",
+      "canonical_name": "Chief-Technology-Officer",
+      "display_name": "Engineering & Infrastructure Council Captain",
+      "tier": 2,
+      "council": "Engineering-Infrastructure",
+      "department": "Technology & Infrastructure",
+      "parent_agent_id": "ST-SC-MASTER-001",
+      "authority_level": "COUNCIL_GOVERNANCE",
+      "security_class": "SYSTEM_ROOT",
+      "status": "ACTIVE",
+      "version": "4.0.0",
+      "model_routing": {
+        "preferred_tier": "REASONING",
+        "max_budget_per_task_zar": 100.0
+      },
+      "tools": [
+        "view_file",
+        "write_to_file",
+        "run_command",
+        "replace_file_content"
+      ],
+      "skills": [
+        "system_architecture",
+        "devops_infrastructure",
+        "cloud_deployment",
+        "scaling"
+      ],
+      "responsibilities": [
+        "Direct core infrastructure, cloud clusters, and DevOps pipelines",
+        "Enforce technical architecture standards across frontend and backend services",
+        "Manage CI/CD stability, container orchestration, and server reliability"
+      ],
+      "human_approval_required": true
+    },
+    {
+      "agent_id": "ST-C11-DEV-CAPTAIN",
+      "canonical_name": "Dev-Engineering-Squad-Captain",
+      "display_name": "Development & Engineering Council Captain",
+      "tier": 2,
+      "council": "Dev-Engineering",
+      "department": "Software Engineering",
+      "parent_agent_id": "ST-SC-MASTER-001",
+      "authority_level": "COUNCIL_GOVERNANCE",
+      "security_class": "INTERNAL",
+      "status": "ACTIVE",
+      "version": "4.0.0",
+      "model_routing": {
+        "preferred_tier": "SPECIALIST_CODING",
+        "max_budget_per_task_zar": 80.0
+      },
+      "tools": [
+        "view_file",
+        "write_to_file",
+        "replace_file_content",
+        "multi_replace_file_content",
+        "run_command"
+      ],
+      "skills": [
+        "fullstack_development",
+        "smart_contract_solidity",
+        "api_design",
+        "automated_testing"
+      ],
+      "responsibilities": [
+        "Lead frontend, backend, and smart contract development teams",
+        "Ensure code quality, test coverage, and modular design patterns",
+        "Deliver high-velocity feature implementations across Stremiium apps"
+      ],
+      "human_approval_required": false
+    },
+    {
+      "agent_id": "ST-C12-CYBERSEC-CAPTAIN",
+      "canonical_name": "Cybersecurity-Intelligence-Squad-Captain",
+      "display_name": "Cybersecurity & Intelligence Council Captain",
+      "tier": 2,
+      "council": "Cybersecurity-Intel",
+      "department": "Information Security & Threat Defense",
+      "parent_agent_id": "ST-SC-MASTER-001",
+      "authority_level": "COUNCIL_GOVERNANCE",
+      "security_class": "SYSTEM_ROOT",
+      "status": "ACTIVE",
+      "version": "4.0.0",
+      "model_routing": {
+        "preferred_tier": "SPECIALIST_SECURITY",
+        "max_budget_per_task_zar": 100.0
+      },
+      "tools": [
+        "view_file",
+        "grep_search",
+        "run_command"
+      ],
+      "skills": [
+        "threat_modeling",
+        "smart_contract_audit",
+        "vulnerability_assessment",
+        "prompt_injection_defense"
+      ],
+      "responsibilities": [
+        "Defend ecosystem against cyber attacks, exploits, and prompt injections",
+        "Conduct B2B and internal smart contract security audits",
+        "Enforce zero-trust architecture and credential exposure prevention"
+      ],
+      "human_approval_required": true
+    },
+    {
+      "agent_id": "ST-C13-WEB3-CAPTAIN",
+      "canonical_name": "Web3-Financial-Infrastructure-Squad-Captain",
+      "display_name": "Web3 & Financial Infrastructure Council Captain",
+      "tier": 2,
+      "council": "Web3-Finance",
+      "department": "Blockchain & DeFi Protocols",
+      "parent_agent_id": "ST-SC-MASTER-001",
+      "authority_level": "COUNCIL_GOVERNANCE",
+      "security_class": "CRITICAL_FINANCIAL_LEGAL",
+      "status": "ACTIVE",
+      "version": "4.0.0",
+      "model_routing": {
+        "preferred_tier": "REASONING",
+        "max_budget_per_task_zar": 90.0
+      },
+      "tools": [
+        "view_file",
+        "write_to_file",
+        "run_command"
+      ],
+      "skills": [
+        "polygon_zkevm_integration",
+        "tokenomics_architecture",
+        "defi_liquidity_protocols",
+        "nft_phygital_twins"
+      ],
+      "responsibilities": [
+        "Manage $STM token utility, staking mechanisms, and supply governance",
+        "Architect decentralized prediction market protocols and NFT minting engines",
+        "Integrate MPC digital wallets and cross-chain liquidity bridges"
+      ],
+      "human_approval_required": true
+    },
+    {
+      "agent_id": "ST-C16-BANKING-CAPTAIN",
+      "canonical_name": "Banking-Fintech-Squad-Captain",
+      "display_name": "Banking & Fintech Council Captain",
+      "tier": 2,
+      "council": "Banking-Fintech",
+      "department": "Neobanking & Fiat-Crypto Gateway",
+      "parent_agent_id": "ST-SC-MASTER-001",
+      "authority_level": "COUNCIL_GOVERNANCE",
+      "security_class": "CRITICAL_FINANCIAL_LEGAL",
+      "status": "ACTIVE",
+      "version": "4.0.0",
+      "model_routing": {
+        "preferred_tier": "REASONING",
+        "max_budget_per_task_zar": 85.0
+      },
+      "tools": [
+        "view_file",
+        "search_web",
+        "write_to_file"
+      ],
+      "skills": [
+        "neobank_systems",
+        "fiat_onramp_integration",
+        "debit_card_issuing",
+        "payment_settlement"
+      ],
+      "responsibilities": [
+        "Lead Stremiium Neobank fiat/crypto integrated banking architecture",
+        "Coordinate debit card issuing programs and payment gateway integrations",
+        "Oversee AML transaction monitoring and fraud detection systems"
+      ],
+      "human_approval_required": true
+    },
+    {
+      "agent_id": "ST-COORD-WORKFLOW-001",
+      "canonical_name": "COORD-Workflow-Orchestrator",
+      "display_name": "Workflow & Graph Pipeline Coordinator",
+      "tier": 3,
+      "council": "Executive Command",
+      "department": "Multi-Agent Workflow Operations",
+      "parent_agent_id": "ST-SC-MASTER-001",
+      "authority_level": "SPECIALIST_JUDGMENT",
+      "security_class": "INTERNAL",
+      "status": "ACTIVE",
+      "version": "4.0.0",
+      "model_routing": {
+        "preferred_tier": "FAST",
+        "max_budget_per_task_zar": 25.0
+      },
+      "tools": [
+        "view_file",
+        "write_to_file",
+        "run_command"
+      ],
+      "skills": [
+        "dag_pipeline_execution",
+        "fan_out_fan_in_orchestration",
+        "barrier_synchronization"
+      ],
+      "responsibilities": [
+        "Execute Directed Acyclic Graph (DAG) multi-agent workflows",
+        "Manage pipeline stages, fan-out parallel tasks, and verify barrier outputs",
+        "Prevent race conditions and deadlock in cross-council handoffs"
+      ],
+      "human_approval_required": false
+    },
+    {
+      "agent_id": "ST-COORD-GITSAFE-001",
+      "canonical_name": "COORD-Git-State-SafeGuard",
+      "display_name": "Git State & Safe Rollback Coordinator",
+      "tier": 3,
+      "council": "Engineering-Infrastructure",
+      "department": "Source Control & State Integrity",
+      "parent_agent_id": "ST-C06-CTO-CAPTAIN",
+      "authority_level": "SPECIALIST_JUDGMENT",
+      "security_class": "SYSTEM_ROOT",
+      "status": "ACTIVE",
+      "version": "4.0.0",
+      "model_routing": {
+        "preferred_tier": "FAST",
+        "max_budget_per_task_zar": 20.0
+      },
+      "tools": [
+        "run_command",
+        "view_file"
+      ],
+      "skills": [
+        "git_checkpointing",
+        "worktree_isolation",
+        "automated_rollback"
+      ],
+      "responsibilities": [
+        "Enforce clean repository states and automated git checkpoints before major edits",
+        "Manage isolated git worktrees for concurrent agent code writing",
+        "Execute deterministic rollbacks upon verification failure"
+      ],
+      "human_approval_required": false
+    },
+    {
+      "agent_id": "ST-COORD-COST-001",
+      "canonical_name": "COORD-Resource-Cost-Governor",
+      "display_name": "Resource & Cost Governance Coordinator",
+      "tier": 3,
+      "council": "Finance-Investor-Relations",
+      "department": "AI Resource Optimization",
+      "parent_agent_id": "ST-SC-MASTER-001",
+      "authority_level": "SPECIALIST_JUDGMENT",
+      "security_class": "INTERNAL",
+      "status": "ACTIVE",
+      "version": "4.0.0",
+      "model_routing": {
+        "preferred_tier": "FAST",
+        "max_budget_per_task_zar": 15.0
+      },
+      "tools": [
+        "view_file",
+        "write_to_file"
+      ],
+      "skills": [
+        "token_budget_enforcement",
+        "model_tier_routing",
+        "latency_optimization"
+      ],
+      "responsibilities": [
+        "Track token consumption and enforce budget allocations per council",
+        "Route tasks to optimal model tiers (Fast vs Reasoning) to minimize costs",
+        "Prevent infinite self-improvement or recursive retry loops"
+      ],
+      "human_approval_required": false
+    },
+    {
+      "agent_id": "ST-SPEC-SOLIDITY-001",
+      "canonical_name": "SPEC-Solidity-Smart-Contract-Engineer",
+      "display_name": "Solidity & Smart Contract Engineer",
+      "tier": 4,
+      "council": "Dev-Engineering",
+      "department": "Blockchain Development",
+      "parent_agent_id": "ST-C11-DEV-CAPTAIN",
+      "authority_level": "SPECIALIST_JUDGMENT",
+      "security_class": "CRITICAL_FINANCIAL_LEGAL",
+      "status": "ACTIVE",
+      "version": "4.0.0",
+      "responsibilities": [
+        "ERC-20  & NFT contracts",
+        "Gas optimization",
+        "Security fuzzing"
+      ]
+    },
+    {
+      "agent_id": "ST-SPEC-FORENSIC-001",
+      "canonical_name": "SPEC-Crypto-Forensic-Analyst",
+      "display_name": "Crypto Asset Forensic Analyst",
+      "tier": 4,
+      "council": "Cybersecurity-Intel",
+      "department": "Financial Crime & Intel",
+      "parent_agent_id": "ST-C12-CYBERSEC-CAPTAIN",
+      "authority_level": "SPECIALIST_JUDGMENT",
+      "security_class": "CRITICAL_FINANCIAL_LEGAL",
+      "status": "ACTIVE",
+      "version": "4.0.0",
+      "responsibilities": [
+        "On-chain transaction tracing",
+        "FATF Travel Rule screening",
+        "Forensic dossier synthesis"
+      ]
+    },
+    {
+      "agent_id": "ST-SPEC-NEOBANK-001",
+      "canonical_name": "SPEC-Neobank-Fiat-Gateway-Engineer",
+      "display_name": "Neobank Fiat Gateway Engineer",
+      "tier": 4,
+      "council": "Banking-Fintech",
+      "department": "Core Banking Infrastructure",
+      "parent_agent_id": "ST-C16-BANKING-CAPTAIN",
+      "authority_level": "SPECIALIST_JUDGMENT",
+      "security_class": "CRITICAL_FINANCIAL_LEGAL",
+      "status": "ACTIVE",
+      "version": "4.0.0",
+      "responsibilities": [
+        "Fiat/Crypto on-off ramps",
+        "Debit card issuing API",
+        "Automated reconciliation"
+      ]
+    },
+    {
+      "agent_id": "ST-SPEC-MOBILE-001",
+      "canonical_name": "SPEC-Mobile-Android-Kotlin-Specialist",
+      "display_name": "Mobile Android Kotlin Specialist",
+      "tier": 4,
+      "council": "Dev-Engineering",
+      "department": "Mobile Engineering",
+      "parent_agent_id": "ST-C11-DEV-CAPTAIN",
+      "authority_level": "SPECIALIST_JUDGMENT",
+      "security_class": "INTERNAL",
+      "status": "ACTIVE",
+      "version": "4.0.0",
+      "responsibilities": [
+        "Kotlin & Jetpack Compose super-app",
+        "MPC biometric wallet integration",
+        "Offline state caching"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "councilId": "C06",
+  "councilName": "Engineering-Infrastructure-Squad",
+  "tier": "TIER-1-STRATEGIC",
+  "description": "System architecture, DevOps, infrastructure, technical scaling, system reliability and monitoring",
+  "captain": {
+    "name": "Chief-Technology-Officer (CTO) / VP-Engineering (The-Architect)",
+    "title": "Council Captain",
+    "authority": "Council Captain - Infrastructure Authority",
+    "escalationPath": "Sparkling Curious (technical strategy disputes)"
+  },
+  "agents": 5,
+  "specialties": [
+    "System Architect",
+    "DevOps Leader",
+    "Infrastructure Specialist",
+    "Backend Architect",
+    "Frontend Architect"
+  ],
+  "primaryDomain": "Engineering & Infrastructure",
+  "responsibilityAreas": [
+    "System Architecture",
+    "DevOps & Deployment",
+    "Infrastructure Management",
+    "Scaling & Performance",
+    "System Reliability",
+    "Technical Strategy",
+    "Monitoring & Observability"
+  ],
+  "authority": {
+    "infrastructure-authority": true,
+    "description": "C06 has final authority on infrastructure, deployment, and scaling decisions",
+    "coordinatesWith": ["C11-Dev", "C12-Security", "C02-Operations"],
+    "requiredApprovalOn": [
+      "architecture-changes",
+      "scaling-decisions",
+      "deployment-procedures",
+      "infrastructure-investment"
+    ]
+  },
+  "crossCouncilDependencies": {
+    "dependsOn": ["C11-Dev (for implementation)", "C12-Security (for compliance)"],
+    "enables": ["C11-Dev (provides infrastructure)", "All councils (platform stability)"],
+    "supportsViaInfrastructure": "All 15 other councils"
+  },
+  "communicationPreferences": {
+    "async": true,
+    "channel": "Notion - C06-Engineering-Infrastructure Hub",
+    "responseTime": "4 hours for urgent infrastructure issues, 24 hours for planning",
+    "escalationThreshold": "system-outage OR performance-sla-breach"
+  },
+  "sla": {
+    "infrastructureChange": "5 business days (with testing)",
+    "deployment": "24 hours notice + 2-8 hour window",
+    "scaling": "48 hours planning + 4-24 hours implementation",
+    "emergencyResponse": "15 minutes",
+    "criticalIssueResolution": "2 hours"
+  },
+  "notionDatabases": [
+    "Council Dashboard",
+    "Council Members",
+    "Infrastructure Projects",
+    "Deployment Schedule",
+    "Performance Metrics",
+    "Council Decisions"
+  ],
+  "artifacts": {
+    "rulesLocation": ".github/rules/github-copilot-workspace.md",
+    "workflowLocation": ".github/workflows/agent-workflows/the-architect-workflows.md",
+    "skillsLocation": ".github/skills/*/infrastructure-*.md"
+  },
+  "performanceMetrics": {
+    "systemUptime": 99.9,
+    "deploymentFrequency": "2-3 per day",
+    "leadTimeForChanges": "2 hours avg",
+    "meanTimeToRecovery": "45 minutes avg",
+    "scalabilityScore": 94
+  }
+}

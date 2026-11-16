@@ -1,0 +1,38 @@
+{
+  "system": "Stremiium Agent Observability & Telemetry Framework",
+  "version": "4.0.0",
+  "organization": "Stremiium (Pty) Ltd",
+  "metrics_tracked": [
+    {
+      "metric_name": "agent_execution_latency_ms",
+      "type": "HISTOGRAM",
+      "threshold_alert_ms": 15000,
+      "description": "Roundtrip latency for individual agent reasoning and tool invocation"
+    },
+    {
+      "metric_name": "token_consumption_count",
+      "type": "COUNTER",
+      "cost_conversion_currency": "ZAR",
+      "description": "Cumulative prompt, prefill, and completion tokens per council"
+    },
+    {
+      "metric_name": "tool_call_error_rate",
+      "type": "GAUGE",
+      "threshold_alert_percent": 5.0,
+      "description": "Percentage of tool invocations resulting in failure or retry"
+    },
+    {
+      "metric_name": "hallucination_drift_score",
+      "type": "GAUGE",
+      "threshold_alert_score": 0.85,
+      "description": "Semantic consistency and factual alignment with Stremiium ground truth"
+    },
+    {
+      "metric_name": "human_approval_latency_hours",
+      "type": "GAUGE",
+      "threshold_alert_hours": 24.0,
+      "description": "Turnaround time for pending human executive authorization gates"
+    }
+  ],
+  "log_exporters": ["STRUCTURED_JSON_CONSOLE", "PERSISTENT_DISK_STORE", "OTEL_COLLECTOR"]
+}

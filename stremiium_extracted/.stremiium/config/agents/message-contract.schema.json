@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stremiium.xyz/schemas/message-contract.schema.json",
+  "type": "object",
+  "required": ["message_id", "sender", "receiver", "task_id", "context_id", "schema_version", "timestamp", "type", "provenance", "payload"],
+  "properties": {
+    "message_id": { "type": "string", "minLength": 1 },
+    "sender": { "type": "string", "minLength": 1 },
+    "receiver": { "type": "string", "minLength": 1 },
+    "task_id": { "type": "string", "minLength": 1 },
+    "context_id": { "type": "string", "minLength": 1 },
+    "schema_version": { "type": "string", "minLength": 1 },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "type": { "enum": ["request", "response", "handoff", "event", "finding", "decision", "approval", "escalation", "failure", "status"] },
+    "priority": { "enum": ["critical", "high", "medium", "low"] },
+    "provenance": { "type": "array", "items": { "type": "string" } },
+    "security_classification": { "type": "string" },
+    "payload": {}
+  },
+  "additionalProperties": false
+}

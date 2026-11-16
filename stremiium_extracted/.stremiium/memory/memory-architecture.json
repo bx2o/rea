@@ -1,0 +1,36 @@
+{
+  "system": "Stremiium Agent Memory & RAG Architecture",
+  "version": "4.0.0",
+  "organization": "Stremiium (Pty) Ltd",
+  "memory_tiers": {
+    "TIER_1_WORKING_CONTEXT": {
+      "type": "Ephemerally Cached Active Session",
+      "persistence": "Turn-level",
+      "scope": "Current user session & task chain",
+      "zero_exposure_enforced": true
+    },
+    "TIER_2_EPISODIC_MEMORY": {
+      "type": "Append-Only Event Store",
+      "persistence": "Cross-session persistent",
+      "storage_location": ".stremiium/memory/events/",
+      "scope": "Past decisions, task outcomes, bug resolutions"
+    },
+    "TIER_3_SEMANTIC_VECTOR_MEMORY": {
+      "type": "Domain Embeddings & RAG",
+      "persistence": "Persistent Vector Index",
+      "storage_location": ".stremiium/memory/rag_indexes/",
+      "scope": "Stremiium Web3 documentation, whitepapers, code patterns, regulatory acts"
+    },
+    "TIER_4_INSTITUTIONAL_KNOWLEDGE_GRAPH": {
+      "type": "Entity-Relationship Graph",
+      "persistence": "Persistent Graph Index",
+      "storage_location": ".stremiium/memory/context_graph/",
+      "scope": "Council relationships, smart contracts, tokenomics parameters, employee permissions"
+    }
+  },
+  "retrieval_rules": {
+    "cache_invalidation_ttl_seconds": 86400,
+    "pii_redaction_before_indexing": true,
+    "immutable_provenance_tracking": true
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "scope": "T30-T39",
+  "execution_mode": "sequential_contract_and_runtime-boundary_checks",
+  "entries": [
+    { "prompt": "T30", "status": "executed", "evidence": ["graph-contract.schema.json", "examples/research-graph.json", "3 graph nodes", "2 data-dependent edges"], "finding": "Graph contract and data-dependency rule validated", "gated_work": "runtime graph executor and workflow migration" },
+    { "prompt": "T31", "status": "partial", "evidence": ["implementation/t30-t40-unconsolidated-implementation-plan.md", "graph-contract.schema.json"], "finding": "Roadmap is defined but no production graph benchmark exists", "gated_work": "sequential-versus-graph benchmark and rollout" },
+    { "prompt": "T32", "status": "executed", "evidence": ["loop-policy.json", "bounded mode", "max_iterations=5"], "finding": "Loop limits, convergence, escalation, and audit requirements validated", "gated_work": "reusable loop runtime" },
+    { "prompt": "T33", "status": "partial", "evidence": ["harness-policy.json", "five sandbox levels", "foundation validator"], "finding": "Harness requirements validate; no deployed sandbox runner", "gated_work": "control/data plane runtime and kill-switch integration" },
+    { "prompt": "T34", "status": "executed", "evidence": ["memory-policy.json", "rag-policy.json", "7 memory requirements", "5 retrieval layers"], "finding": "Provenance, quarantine, ownership, expiration, and reviewed writes validated", "gated_work": "memory/RAG storage and retrieval service" },
+    { "prompt": "T35", "status": "partial", "evidence": ["cache-policy.json", "KV request-bound invalidation policy"], "finding": "Cache policy is present; empirical cross-model KV benchmarking is absent", "gated_work": "benchmark harness and cache runtime" },
+    { "prompt": "T36", "status": "executed", "evidence": ["state-policy.json", "shared_state=forbidden", "canonical serialization policy"], "finding": "Shared mutation boundary and versioned event requirement validated", "gated_work": "event-sourced runtime implementation" },
+    { "prompt": "T37", "status": "partial", "evidence": ["context-graph.schema.json", "context-graph policy references"], "finding": "Graph schema exists; no graph index/database is activated", "gated_work": "permission-aware graph store and traversal API" },
+    { "prompt": "T38", "status": "partial", "evidence": ["plugin-registry.json", "plugin-manifest.schema.json", "active_plugins=0"], "finding": "Plugin registration is deny-by-default and empty", "gated_work": "sandboxed plugin gateway and reviewed first plugin" },
+    { "prompt": "T39", "status": "partial", "evidence": ["oauth-policy.json", "oauth-grant.schema.json", "3 declared providers", "token exclusion checks"], "finding": "OAuth policy and grant contract validate; credential gateway is not active", "gated_work": "encrypted resolver, provider revocation, tenant-isolation tests" }
+  ],
+  "completion_rule": "Executed means contract and local evidence checks ran. Partial means the contract is implemented but the runtime, benchmark, storage, or external integration is not activated."
+}

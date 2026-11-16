@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0",
+  "default_mode": "read_only",
+  "protected_operations": ["reset", "clean", "force_push", "delete_branch", "delete_file", "merge", "deploy"],
+  "requirements": {
+    "dirty_worktree_preservation": true,
+    "isolated_worktree_for_parallel_writers": true,
+    "secret_scan_before_commit": true,
+    "rollback_reference_required": true,
+    "human_approval_for_protected_operations": true,
+    "audit_event_required": true
+  },
+  "checkpoint": { "required_before_protected_operation": true, "verification": ["target_path_resolved", "diff_reviewed", "tests_passed"] }
+}

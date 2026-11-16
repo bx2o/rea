@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "mode": "deny-by-default",
+  "defaults": {
+    "data_classifications": ["public", "internal"],
+    "tools": [],
+    "write_scopes": [],
+    "approval": "human",
+    "tenant_isolation": true,
+    "audit_required": true,
+    "financial_authority": false,
+    "deployment_authority": false,
+    "secret_access": false
+  },
+  "exceptions": [],
+  "rule": "An agent has no additional authority until an explicit reviewed exception is registered by agent_id."
+}

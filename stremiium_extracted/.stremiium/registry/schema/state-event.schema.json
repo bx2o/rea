@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "stremiium/saos/state-event.schema.json",
+  "title": "SAOS State Event Envelope (SESS v1)",
+  "type": "object",
+  "required": ["event_id", "ts", "domain", "type", "actor", "schema_version"],
+  "additionalProperties": false,
+  "properties": {
+    "event_id": { "type": "string", "pattern": "^EV-[0-9]{8}-[0-9]{6}$" },
+    "ts": { "type": "string", "format": "date-time" },
+    "domain": {
+      "enum": [
+        "compliance-ops", "council-liaison", "data-governance", "knowledge-flow",
+        "agent-lifecycle", "project-sync", "deployment", "incident-response",
+        "research-ops", "executive-liaison", "governance"
+      ]
+    },
+    "type": { "type": "string", "pattern": "^[a-z][a-z0-9.-]+$" },
+    "actor": { "type": "string" },
+    "correlation": { "type": ["string", "null"] },
+    "payload_ref": { "type": ["string", "null"] },
+    "payload": { "type": ["object", "null"] },
+    "schema_version": { "const": "1.0" }
+  }
+}

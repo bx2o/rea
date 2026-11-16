@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "planes": ["control", "data", "runtime", "sandbox", "policy", "state", "evaluation", "observability", "deployment"],
+  "sandbox_levels": {
+    "trusted_internal": { "network": "restricted", "filesystem": "scoped" },
+    "developer": { "network": "allowlisted", "filesystem": "worktree" },
+    "security_testing": { "network": "sandbox_only", "filesystem": "ephemeral" },
+    "third_party_plugin": { "network": "deny_by_default", "filesystem": "ephemeral" },
+    "untrusted_code": { "network": "denied", "filesystem": "ephemeral" }
+  },
+  "requirements": ["identity", "policy_check", "audit_event", "timeout", "kill_switch", "resource_limits", "secret_isolation"]
+}

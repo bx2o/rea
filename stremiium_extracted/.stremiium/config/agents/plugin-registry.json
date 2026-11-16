@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "mode": "deny-by-default",
+  "plugins": [],
+  "registration_requirements": [
+    "owner_assigned",
+    "manifest_validated",
+    "scopes_declared",
+    "credentials_externalized",
+    "sandbox_reviewed",
+    "security_reviewed",
+    "health_check_defined",
+    "revocation_defined"
+  ]
+}

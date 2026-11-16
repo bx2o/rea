@@ -1,0 +1,15 @@
+# REA installed tool — build artifacts & deps are not source
+rea/node_modules/
+rea/dist/
+rea/.cache/
+rea/website/node_modules/
+rea/**/*.log
+
+# Local scratch
+.cache/
+*.tmp
+tmp/
+node_modules/
+
+# OS
+.DS_Store

@@ -1,0 +1,20 @@
+{
+  "version": "1.0.0",
+  "source_root": ".github/agents",
+  "registry": ".github/config/agents/agent-registry.json",
+  "mode": "dry-run-until-approved",
+  "steps": [
+    { "id": "census", "depends_on": [], "reversible": true },
+    { "id": "identity_registry", "depends_on": ["census"], "reversible": true },
+    { "id": "reference_reconciliation", "depends_on": ["identity_registry"], "reversible": true },
+    { "id": "permission_review", "depends_on": ["identity_registry"], "reversible": true },
+    { "id": "prompt_evaluation", "depends_on": ["identity_registry"], "reversible": true },
+    { "id": "runtime_activation", "depends_on": ["reference_reconciliation", "permission_review", "prompt_evaluation"], "reversible": true },
+    { "id": "projection_reconciliation", "depends_on": ["runtime_activation"], "reversible": true }
+  ],
+  "rollback": {
+    "triggers": ["identity_collision", "policy_bypass", "missing_provenance", "quality_regression", "security_finding", "regulatory_failure"],
+    "actions": ["suspend_activation", "restore_previous_registry", "disable_projection_writes", "preserve_audit_events", "notify_owner_and_security"]
+  },
+  "prohibited_paths": [".trae", ".Codex", ".gemini", ".windsurf"]
+}

@@ -1,0 +1,79 @@
+{
+  "councilId": "C01",
+  "councilName": "Legal-Compliance-Squad",
+  "tier": "TIER-1-STRATEGIC",
+  "description": "Legal compliance, IP protection, regulatory adherence, risk management",
+  "captain": {
+    "name": "Legal-Compliance-Squad-Captain",
+    "title": "Council Captain",
+    "authority": "Council Captain - Legal Authority",
+    "escalationPath": "Sparkling Curious (multi-council decisions)"
+  },
+  "agents": 6,
+  "specialties": [
+    "Privacy-Law Officer",
+    "Contract-Management Officer",
+    "Regulatory-Affairs Officer",
+    "IP & Contracts Counsel",
+    "Employment & Labor Counsel",
+    "Compliance-Officer"
+  ],
+  "agentCount": 6,
+  "primaryDomain": "Legal & Compliance",
+  "responsibilityAreas": [
+    "GDPR/CCPA Compliance",
+    "Intellectual Property Protection",
+    "Contract Management",
+    "Regulatory Adherence",
+    "Risk Management",
+    "Compliance Auditing"
+  ],
+  "authority": {
+    "vetoAuthority": true,
+    "description": "C01 has veto authority on all multi-council decisions affecting compliance, privacy, or legal liability",
+    "requiresApprovalOn": [
+      "data-collection-changes",
+      "new-external-partnerships",
+      "service-level-commitments",
+      "customer-contracts",
+      "ip-creation",
+      "legal-disputes"
+    ]
+  },
+  "crossCouncilDependencies": {
+    "dependsOn": ["C02-Operations", "C03-Admin"],
+    "supportsWithAuthority": "All 15 other councils (legal review authority)",
+    "blocksWithoutApproval": ["All multi-council decisions with legal risk"]
+  },
+  "communicationPreferences": {
+    "async": true,
+    "channel": "Notion - C01-Legal-Compliance Hub",
+    "responseTime": "24 hours for standard, 4 hours for urgent",
+    "escalationThreshold": "legal-liability OR multi-council impact"
+  },
+  "sla": {
+    "contractReview": "5 business days",
+    "complianceAudit": "10 business days",
+    "urgentReview": "4 business hours",
+    "escalationToCapitain": "2 hours"
+  },
+  "notionDatabases": [
+    "Council Dashboard",
+    "Council Members",
+    "Council Tasks",
+    "Council Decisions",
+    "Compliance Checklist",
+    "Contract Registry"
+  ],
+  "artifacts": {
+    "rulesLocation": ".github/rules/github-copilot-workspace.md",
+    "workflowLocation": ".github/workflows/agent-workflows/veritas-workflows.md",
+    "skillsLocation": ".github/skills/*/legal-*.md"
+  },
+  "performanceMetrics": {
+    "complianceScore": 88,
+    "contractTurnaroundTime": "4.2 days avg",
+    "auditPassRate": "100%",
+    "riskCatchRate": "98%"
+  }
+}

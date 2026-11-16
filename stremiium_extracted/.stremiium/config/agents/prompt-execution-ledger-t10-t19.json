@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "scope": "T10-T19",
+  "execution_mode": "sequential_evidence_and_gated_implementation",
+  "entries": [
+    { "prompt": "T10", "status": "executed", "evidence": ["18 council-agent files", "16/16 council validation", "audit/t10-council-agent-architecture.md"], "gated_work": "role-specific council expansion" },
+    { "prompt": "T11", "status": "executed", "evidence": ["context/t11-council-folder-standard.md"], "gated_work": "physical council migration" },
+    { "prompt": "T12", "status": "executed", "evidence": ["5 Sparkling Curious/master-orchestrator candidates", "root prompt version and authority scan", "audit/t12-sparkling-curious-architecture-audit.md"], "gated_work": "canonical prompt rewrite and runtime authority binding" },
+    { "prompt": "T13", "status": "executed", "evidence": ["57 prompt completeness candidates", "scripts/audit-agent-prompts.js"], "gated_work": "role-specific prompt remediation" },
+    { "prompt": "T14", "status": "partial", "evidence": ["prompt-standard.schema.json", "context/t14-production-agent-prompt-standard.md"], "gated_work": "metadata adoption across all active agents" },
+    { "prompt": "T15", "status": "executed", "evidence": ["prompt-remediation-plan.json", "implementation/t15-agent-prompt-completion-program.md"], "gated_work": "owner-reviewed prompt updates" },
+    { "prompt": "T16", "status": "executed", "evidence": ["agent-registry.schema.json", "default-permission-policy.json", "context/t16-agent-identity-authority-model.md"], "gated_work": "per-agent permission exceptions and runtime enforcement" },
+    { "prompt": "T17", "status": "executed", "evidence": ["agent-registry.json with 277 definitions", "implementation/t17-agent-capability-registry.md"], "gated_work": "runtime discovery projection" },
+    { "prompt": "T18", "status": "executed", "evidence": ["lifecycle-policy.json", "lifecycle.schema.json", "context/t18-agent-lifecycle-architecture.md"], "gated_work": "runtime lifecycle service" },
+    { "prompt": "T19", "status": "partial", "evidence": ["git-safety-policy.json", "audit/t19-git-safe-state-agent.md"], "gated_work": "bounded Git service and human approval integration" }
+  ],
+  "completion_rule": "Executed means the prompt's audit/design/check ran and evidence exists. Partial means the control exists but production adoption or runtime activation is not complete."
+}

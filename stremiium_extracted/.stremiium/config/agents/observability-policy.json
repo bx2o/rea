@@ -1,0 +1,31 @@
+{
+  "version": "1.0.0",
+  "required_dimensions": [
+    "agent_id",
+    "task_id",
+    "context_id",
+    "prompt_version",
+    "model",
+    "tool",
+    "policy_decision",
+    "latency_ms",
+    "token_usage",
+    "cost",
+    "outcome",
+    "error_class"
+  ],
+  "redaction": ["credentials", "access_tokens", "private_keys", "personal_data", "regulated_payloads"],
+  "retention": {
+    "audit_events_days": 365,
+    "debug_payloads_days": 30,
+    "metrics_days": 400
+  },
+  "alerts": {
+    "policy_denial_spike": true,
+    "repeated_tool_failure": true,
+    "budget_exceeded": true,
+    "latency_regression": true,
+    "unbounded_loop": true,
+    "missing_provenance": true
+  }
+}

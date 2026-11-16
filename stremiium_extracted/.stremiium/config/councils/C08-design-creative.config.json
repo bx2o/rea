@@ -1,0 +1,29 @@
+{
+  "councilId": "C08",
+  "councilName": "Design-Creative-Squad",
+  "tier": "TIER-1-STRATEGIC",
+  "description": "Design strategy, UX/UI, creative direction, visual identity, user experience, design systems",
+  "captain": {
+    "name": "Chief-Design-Officer (The-Artisan)",
+    "title": "Council Captain",
+    "authority": "Council Captain - Design Authority"
+  },
+  "agents": 2,
+  "specialties": ["UX-Design Leader", "Brand-Creative Director"],
+  "responsibilityAreas": [
+    "UX/UI Design",
+    "Design Systems",
+    "Brand Strategy",
+    "Creative Direction",
+    "Design Research",
+    "Accessibility"
+  ],
+  "crossCouncilDependencies": {
+    "coordinatesWith": ["C15-Product", "C09-Marketing", "C11-Dev"],
+    "enablesExperience": "All customer-facing aspects"
+  },
+  "sla": {
+    "designReview": "5 business days",
+    "designSystem": "10 business days"
+  }
+}

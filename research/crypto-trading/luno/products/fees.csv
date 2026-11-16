@@ -1,0 +1,17 @@
+entity,product,charge_type,fee_value,unit,notes,source,date_captured,tag
+Luno,Bank transfer EFT,deposit,0,%,free no limit,https://guide.luno.com/hc/en-gb/articles/14158595648541-Luno-fees-and-limits-in-South-Africa,2026-10-16,OBS
+Luno,Instant deposit,deposit,1.4,%,limit R100000,https://guide.luno.com/hc/en-gb/articles/14158595648541-Luno-fees-and-limits-in-South-Africa,2026-10-16,OBS
+Luno,Absa Pay,deposit,1.4,%,limit R100000,https://guide.luno.com/hc/en-gb/articles/14158595648541-Luno-fees-and-limits-in-South-Africa,2026-10-16,OBS
+Luno,Capitec Pay,deposit,1.25,%,under R1000; R9 over R1000,https://guide.luno.com/hc/en-gb/articles/14158595648541-Luno-fees-and-limits-in-South-Africa,2026-10-16,OBS
+Luno,Apple Pay,deposit,2.5,%,R50-R30000,https://guide.luno.com/hc/en-gb/articles/14158595648541-Luno-fees-and-limits-in-South-Africa,2026-10-16,OBS
+Luno,Cash deposit,deposit,R20+5%,R,prohibited by ToU,https://guide.luno.com/hc/en-gb/articles/14158595648541-Luno-fees-and-limits-in-South-Africa,2026-10-16,OBS
+Luno,Normal withdrawal,withdrawal,0,%,free,https://guide.luno.com/hc/en-gb/articles/14158595648541-Luno-fees-and-limits-in-South-Africa,2026-10-16,OBS
+Luno,Express withdrawal RTC,withdrawal,20,R,real-time clearing bank,https://guide.luno.com/hc/en-gb/articles/14158595648541-Luno-fees-and-limits-in-South-Africa,2026-10-16,OBS
+Luno,Express withdrawal non-RTC,withdrawal,80,R,non RTC bank,https://guide.luno.com/hc/en-gb/articles/14158595648541-Luno-fees-and-limits-in-South-Africa,2026-10-16,OBS
+Luno,Instant buy/sell,buy,2,%,- ,https://guide.luno.com/hc/en-gb/articles/14158595648541-Luno-fees-and-limits-in-South-Africa,2026-10-16,OBS
+Luno,Instant buy/sell,sell,2,%,- ,https://guide.luno.com/hc/en-gb/articles/14158595648541-Luno-fees-and-limits-in-South-Africa,2026-10-16,OBS
+Luno,Instant buy with card,buy,3.9,%,currently unavailable,https://guide.luno.com/hc/en-gb/articles/14158595648541-Luno-fees-and-limits-in-South-Africa,2026-10-16,OBS
+Luno,ZAR Supercoin (ZARSC),buy,0,%,- ,https://guide.luno.com/hc/en-gb/articles/14158595648541-Luno-fees-and-limits-in-South-Africa,2026-10-16,OBS
+Luno,ZAR Supercoin (ZARSC),sell,3,%,- ,https://guide.luno.com/hc/en-gb/articles/14158595648541-Luno-fees-and-limits-in-South-Africa,2026-10-16,OBS
+Luno,Exchange maker,trading,0.4 to -0.02,%,volume tiered,https://www.moneyweb.co.za/moneyweb-crypto/which-sa-crypto-exchange-is-the-cheapest/,2026-10-16,OBS
+Luno,Exchange taker,trading,0.6 to 0.05,%,volume tiered,https://www.moneyweb.co.za/moneyweb-crypto/which-sa-crypto-exchange-is-the-cheapest/,2026-10-16,OBS

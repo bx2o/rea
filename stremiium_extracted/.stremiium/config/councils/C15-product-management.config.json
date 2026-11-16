@@ -1,0 +1,77 @@
+{
+  "councilId": "C15",
+  "councilName": "Product-Management-Squad",
+  "tier": "TIER-3-CUSTOMER-PRODUCT",
+  "description": "Product strategy, roadmap management, user research, analytics, feature prioritization, product-market fit",
+  "captain": {
+    "name": "Product-Management-Squad-Captain",
+    "title": "Council Captain",
+    "authority": "Council Captain - Product Authority",
+    "escalationPath": "Sparkling Curious (product strategy disputes)"
+  },
+  "agents": 5,
+  "specialties": [
+    "Product Strategy Manager",
+    "Product Roadmap Manager",
+    "Product Analytics Lead",
+    "User Research Manager",
+    "Product Operations Manager"
+  ],
+  "primaryDomain": "Product Management & Strategy",
+  "responsibilityAreas": [
+    "Product Strategy",
+    "Roadmap Management",
+    "User Research",
+    "Product Analytics",
+    "Feature Prioritization",
+    "Product-Market Fit",
+    "User Feedback Integration"
+  ],
+  "authority": {
+    "product-vision": true,
+    "description": "C15 owns product vision and roadmap (coordinated with C04-Strategy)",
+    "coordinatesWith": ["C04-Strategy", "C14-Customer", "C11-Dev", "C08-Design"],
+    "requiredApprovalOn": [
+      "feature-prioritization",
+      "product-roadmap-changes",
+      "user-research-decisions",
+      "product-pivot"
+    ]
+  },
+  "crossCouncilDependencies": {
+    "dependsOn": ["C04-Strategy (business goals)", "C14-Customer (user feedback)"],
+    "enables": ["C11-Dev (features)", "C08-Design (user experience)", "C07-Sales (go-to-market)"],
+    "coordinatesMulti": true
+  },
+  "communicationPreferences": {
+    "async": true,
+    "channel": "Notion - C15-Product-Management Hub",
+    "responseTime": "48 hours for roadmap questions, 24 hours for urgent",
+    "escalationThreshold": "product-strategy OR market-opportunity"
+  },
+  "sla": {
+    "featurePrioritization": "5 business days",
+    "roadmapUpdate": "10 business days",
+    "userResearchCycle": "20 business days",
+    "analyticsReport": "3 business days"
+  },
+  "notionDatabases": [
+    "Council Dashboard",
+    "Council Members",
+    "Product Roadmap",
+    "Feature Backlog",
+    "User Research Findings",
+    "Product Analytics"
+  ],
+  "artifacts": {
+    "rulesLocation": ".github/rules/github-copilot-workspace.md",
+    "roadmapLocation": ".github/plans/product-roadmap.md",
+    "skillsLocation": ".github/skills/*/product-*.md"
+  },
+  "performanceMetrics": {
+    "roadmapAccuracy": 82,
+    "userNPS": 72,
+    "featureLaunchOnTime": 89,
+    "userResearchQuality": 88
+  }
+}

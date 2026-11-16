@@ -1,0 +1,33 @@
+{
+  "version": "1.0.0",
+  "capabilities": {
+    "judgment": {
+      "description": "Requires domain reasoning, synthesis, interpretation, or accountable decision-making.",
+      "execution": "agent"
+    },
+    "coordination": {
+      "description": "Routes bounded work, escalations, approvals, and result synthesis.",
+      "execution": "coordinator"
+    },
+    "validation": {
+      "description": "Deterministic schema, policy, path, or quality checks.",
+      "execution": "service"
+    },
+    "authorization": {
+      "description": "Deterministic identity, scope, ABAC, and approval enforcement.",
+      "execution": "service"
+    },
+    "synchronization": {
+      "description": "Projection and reconciliation with Notion or other external systems.",
+      "execution": "workflow"
+    },
+    "storage": {
+      "description": "Persistence, retrieval, cache, and event storage.",
+      "execution": "service"
+    },
+    "cryptography": {
+      "description": "Key, certificate, signing, hashing, and verification operations.",
+      "execution": "service"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stremiium.xyz/schemas/evaluation-contract.schema.json",
+  "title": "Stremiium Agent Evaluation Contract",
+  "type": "object",
+  "required": ["agent_id", "suite_version", "benchmarks", "thresholds", "regression_policy"],
+  "properties": {
+    "agent_id": { "type": "string" },
+    "suite_version": { "type": "string" },
+    "benchmarks": { "type": "array", "items": { "enum": ["correctness", "reliability", "security", "compliance", "latency", "cost", "tool_use", "memory", "handoff", "instruction_adherence", "adversarial", "regression"] }, "minItems": 1 },
+    "thresholds": { "type": "object", "additionalProperties": { "type": ["number", "string"] } },
+    "regression_policy": { "type": "object", "required": ["block_on_critical", "baseline_required"], "properties": { "block_on_critical": { "type": "boolean" }, "baseline_required": { "type": "boolean" } }, "additionalProperties": false }
+  },
+  "additionalProperties": false
+}

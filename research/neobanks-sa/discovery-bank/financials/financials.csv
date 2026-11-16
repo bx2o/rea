@@ -1,0 +1,15 @@
+metric,value,unit,period,status,source
+profit_operations_normalised,370000000,ZAR,FY2026 (yr to 30 Jun 2026),OBS,https://www.discovery.co.za/assets/discoverycoza/corporate/investor-relations/2026/annual-results.pdf
+loss_operations_normalised,-68000000,ZAR,FY2025,OBS,https://www.discovery.co.za/assets/discoverycoza/corporate/investor-relations/2026/annual-results.pdf
+clients,1570000,count,FY2026,OBS,https://www.discovery.co.za/assets/discoverycoza/corporate/investor-relations/2026/annual-results.pdf
+clients_yoy_growth,26,percent,FY2026,OBS,https://www.discovery.co.za/assets/discoverycoza/corporate/investor-relations/2026/annual-results.pdf
+total_accounts,3770000,count,FY2026,OBS,https://www.discovery.co.za/assets/discoverycoza/corporate/investor-relations/2026/annual-results.pdf
+loss_overall_improvement_fy25,386000000,ZAR,FY2025,OBS,https://mso.discoveryholdings.com/wcm/discoverycoza/assets/investor-relations/2025/results-booklet-fy-2025.pdf
+op_loss_before_nbac_improvement_fy25,420000000,ZAR,FY2025,OBS,https://mso.discoveryholdings.com/wcm/discoverycoza/assets/investor-relations/2025/results-booklet-fy-2025.pdf
+clients_yoy_growth,30,percent,FY2025,OBS,https://mso.discoveryholdings.com/wcm/discoverycoza/assets/investor-relations/2025/results-booklet-fy-2025.pdf
+daily_sales,1400,count,Jun 2025,OBS,https://mso.discoveryholdings.com/wcm/discoverycoza/assets/investor-relations/2025/results-booklet-fy-2025.pdf
+h1_fy2026_profit,220000000,ZAR,H1 FY2026,OBS,https://the-banking-brief.beehiiv.com/p/discovery-adding-1500-customers-daily
+new_customers_daily,1500,count,H1 FY2026,OBS,https://the-banking-brief.beehiiv.com/p/discovery-adding-1500-customers-daily
+group_normalised_headline_earnings,11795000000,ZAR,FY2026,OBS,https://www.discovery.co.za/corporate/investor-relations
+group_normalised_operating_profit,17750000000,ZAR,FY2026,OBS,https://www.discovery.co.za/corporate/investor-relations
+cumulative_group_investment_estimate,15000000000,ZAR,to FY2026,EST,https://dailyinvestor.com/banking/152648/discovery-bank-enters-a-new-era-with-600-profit-jump/

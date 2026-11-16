@@ -1,0 +1,12 @@
+entity,product,charge_type,fee_value,unit,notes,source,date_captured,tag
+VALR,Spot trading,maker,0,%,marketing best-case tier,https://ngllaw.net/valr-crypto-exchange-review-fees-safety-and-real-user-experience,2026-10-16,UNVERIFIED
+VALR,Spot trading,taker,0.05,%,marketing best-case tier,https://ngllaw.net/valr-crypto-exchange-review-fees-safety-and-real-user-experience,2026-10-16,UNVERIFIED
+VALR,Spot trading (alt review),maker,0.08,%,- ,https://beincrypto.com/top-picks/crypto-trading-platforms-in-africa/,2026-10-16,UNVERIFIED
+VALR,Spot trading (alt review),taker,0.10,%,- ,https://beincrypto.com/top-picks/crypto-trading-platforms-in-africa/,2026-10-16,UNVERIFIED
+VALR,Futures,maker,0,%,- ,https://ngllaw.net/valr-crypto-exchange-review-fees-safety-and-real-user-experience,2026-10-16,UNVERIFIED
+VALR,Futures,taker,0.04,%,- ,https://ngllaw.net/valr-crypto-exchange-review-fees-safety-and-real-user-experience,2026-10-16,UNVERIFIED
+VALR,Simple Buy/Sell,transaction,1.6,%,- ,https://www.moneyweb.co.za/moneyweb-crypto/which-sa-crypto-exchange-is-the-cheapest/,2026-10-16,OBS
+VALR,Spot fiat tiered,maker,-0.01 to 0.18,%,volume tiered,https://www.moneyweb.co.za/moneyweb-crypto/which-sa-crypto-exchange-is-the-cheapest/,2026-10-16,OBS
+VALR,Spot fiat tiered,taker,0.05 to 0.35,%,volume tiered,https://www.moneyweb.co.za/moneyweb-crypto/which-sa-crypto-exchange-is-the-cheapest/,2026-10-16,OBS
+VALR,Spot crypto tiered,maker,0 to 0.08,%,volume tiered,https://www.moneyweb.co.za/moneyweb-crypto/which-sa-crypto-exchange-is-the-cheapest/,2026-10-16,OBS
+VALR,Spot crypto tiered,taker,0.035 to 0.1,%,volume tiered,https://www.moneyweb.co.za/moneyweb-crypto/which-sa-crypto-exchange-is-the-cheapest/,2026-10-16,OBS

@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0",
+  "stages": ["brief", "research", "draft", "fact_check", "copyright", "accessibility", "brand", "compliance", "approval", "distribution", "analytics", "correction"],
+  "regulated_claims_require": ["legal_review", "compliance_review", "source_evidence", "human_approval"],
+  "publication_default": "human_approval",
+  "correction_policy": "versioned_takedown_or_replacement"
+}

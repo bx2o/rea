@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0",
+  "required_checks": ["source_verification", "copyright_review", "brand_review", "legal_compliance_review", "accessibility_review", "analytics_tags"],
+  "approval": { "internal": "content_owner", "regulated_claim": "legal_and_compliance", "external_campaign": "owner_and_marketing" },
+  "prohibited": ["fabricated_sources", "unreviewed_regulatory_claims", "secret_disclosure", "unauthorized_personal_data"],
+  "retention": { "source_evidence_days": 365, "published_revision_history": true }
+}

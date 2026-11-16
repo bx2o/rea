@@ -1,0 +1,14 @@
+{
+  "graph_id": "research_with_verification",
+  "version": "1.0.0",
+  "nodes": [
+    { "node_id": "research", "kind": "agent", "input_contract": "task-contract.schema.json", "output_contract": "research-findings.v1" },
+    { "node_id": "verify", "kind": "verify", "input_contract": "research-findings.v1", "output_contract": "verified-findings.v1" },
+    { "node_id": "approval", "kind": "approval", "input_contract": "verified-findings.v1", "output_contract": "approved-findings.v1" }
+  ],
+  "edges": [
+    { "from": "research", "to": "verify", "data_dependency": "research findings require source and provenance validation" },
+    { "from": "verify", "to": "approval", "data_dependency": "only verified findings may enter approval" }
+  ],
+  "failure_policy": { "retry_limit": 2, "isolation": "node_level", "escalation": "workflow_owner" }
+}

@@ -1,0 +1,327 @@
+{
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-08-22T12:10:07.105Z",
+  "mode": "read-only taxonomy (P19)",
+  "d_c_queue": [
+    "ico-launchpad",
+    "crypto-mining",
+    "academy",
+    "digital-services"
+  ],
+  "summary": {
+    "total_lines": 18,
+    "EXISTS": 5,
+    "PARTIAL": 5,
+    "MISSING": 1,
+    "PLANNING": 2,
+    "DEFERRED": 1,
+    "UNKNOWN_PENDING_RULING": 4
+  },
+  "lines": [
+    {
+      "service_link": "SVC-01",
+      "council_owner": "C16",
+      "status": "PARTIAL",
+      "note": "banking agents exist; wallet-specific risk/fraud specialist missing",
+      "department_agents": 2,
+      "subagents": 0,
+      "slots": {
+        "product_pm": null,
+        "ops": null,
+        "compliance": null,
+        "support": null,
+        "data": null
+      },
+      "specialists": [
+        "agt-banking-architect-agent.c16-banking-fintech"
+      ]
+    },
+    {
+      "service_link": "SVC-01",
+      "council_owner": "C16",
+      "status": "EXISTS",
+      "note": "captain+dept present",
+      "department_agents": 2,
+      "subagents": 0,
+      "slots": {
+        "product_pm": null,
+        "ops": null,
+        "compliance": null,
+        "support": null,
+        "data": null
+      },
+      "specialists": []
+    },
+    {
+      "service_link": "SVC-01",
+      "council_owner": "C16",
+      "status": "PARTIAL",
+      "note": "payment-service exists in services/; no dedicated agent",
+      "department_agents": 2,
+      "subagents": 0,
+      "slots": {
+        "product_pm": null,
+        "ops": null,
+        "compliance": null,
+        "support": null,
+        "data": null
+      },
+      "specialists": []
+    },
+    {
+      "service_link": "SVC-08",
+      "council_owner": "C13",
+      "status": "EXISTS",
+      "note": "web3-finance owns tokenomics",
+      "department_agents": 4,
+      "subagents": 0,
+      "slots": {
+        "product_pm": null,
+        "ops": null,
+        "compliance": null,
+        "support": null,
+        "data": null
+      },
+      "specialists": []
+    },
+    {
+      "service_link": "SVC-09",
+      "council_owner": "C15",
+      "status": "EXISTS",
+      "note": "dedicated BLT squad migrated",
+      "department_agents": 6,
+      "subagents": 0,
+      "slots": {
+        "product_pm": null,
+        "ops": null,
+        "compliance": null,
+        "support": "agt-blts-engagement-agent.c15-products-blt",
+        "data": null
+      },
+      "specialists": []
+    },
+    {
+      "service_link": "SVC-08/SVC-02",
+      "council_owner": "C15",
+      "status": "EXISTS",
+      "note": "",
+      "department_agents": 5,
+      "subagents": 0,
+      "slots": {
+        "product_pm": null,
+        "ops": null,
+        "compliance": null,
+        "support": "agt-fan-engagement-agent.c15-products-fan-tokens",
+        "data": "agt-match-statistics-agent.c15-products-fan-tokens"
+      },
+      "specialists": [
+        "agt-match-statistics-agent.c15-products-fan-tokens",
+        "agt-player-performance-agent.c15-products-fan-tokens",
+        "agt-fan-engagement-agent.c15-products-fan-tokens"
+      ]
+    },
+    {
+      "service_link": "SVC-03",
+      "council_owner": "C13/C15",
+      "status": "PARTIAL",
+      "note": "no dedicated dept; workspace-only coverage",
+      "department_agents": 0,
+      "subagents": 0,
+      "slots": {
+        "product_pm": null,
+        "ops": null,
+        "compliance": null,
+        "support": null,
+        "data": null
+      },
+      "specialists": []
+    },
+    {
+      "service_link": "SVC-03",
+      "council_owner": "C13",
+      "status": "PARTIAL",
+      "note": "no marketplace agent found",
+      "department_agents": 0,
+      "subagents": 0,
+      "slots": {
+        "product_pm": null,
+        "ops": null,
+        "compliance": null,
+        "support": null,
+        "data": null
+      },
+      "specialists": []
+    },
+    {
+      "service_link": "enabling",
+      "council_owner": "C13",
+      "status": "DEFERRED",
+      "note": "contracts deferred until tooling ready (T-SAOS-001)",
+      "department_agents": 4,
+      "subagents": 0,
+      "slots": {
+        "product_pm": null,
+        "ops": null,
+        "compliance": null,
+        "support": null,
+        "data": null
+      },
+      "specialists": [
+        "spec-solidity-smart-contract-engineer"
+      ]
+    },
+    {
+      "service_link": "UNKNOWN(D-C)",
+      "council_owner": "C13/C15",
+      "status": "UNKNOWN-PENDING-RULING",
+      "note": "workspace stub only; D-C queue C15/C10/C01",
+      "department_agents": 0,
+      "subagents": 0,
+      "slots": {
+        "product_pm": null,
+        "ops": null,
+        "compliance": null,
+        "support": null,
+        "data": null
+      },
+      "specialists": []
+    },
+    {
+      "service_link": "SVC-07",
+      "council_owner": "C12/C13",
+      "status": "PARTIAL",
+      "note": "audit service B2B; no audit-delivery agent",
+      "department_agents": 8,
+      "subagents": 0,
+      "slots": {
+        "product_pm": null,
+        "ops": null,
+        "compliance": null,
+        "support": null,
+        "data": "agt-cybersecurity-intelligence-squad-captain.alt.c12-cybersecurity-intel"
+      },
+      "specialists": [
+        "agt-security-architect-agent.alt.c12-cybersecurity-intel",
+        "agt-security-architect-agent.c12-cybersecurity-intel"
+      ]
+    },
+    {
+      "service_link": "UNKNOWN(D-C)",
+      "council_owner": "UNASSIGNED",
+      "status": "UNKNOWN-PENDING-RULING",
+      "note": "absent from canon; energy/regulatory screen required",
+      "department_agents": 0,
+      "subagents": 0,
+      "slots": {
+        "product_pm": null,
+        "ops": null,
+        "compliance": null,
+        "support": null,
+        "data": null
+      },
+      "specialists": []
+    },
+    {
+      "service_link": "workspaces/trading-firm",
+      "council_owner": "C10",
+      "status": "EXISTS",
+      "note": "full subagent bench migrated",
+      "department_agents": 4,
+      "subagents": 4,
+      "slots": {
+        "product_pm": null,
+        "ops": null,
+        "compliance": null,
+        "support": null,
+        "data": null
+      },
+      "specialists": [
+        "sub-executioner.c10-algo-trading",
+        "sub-risk-manager.c10-algo-trading",
+        "agt-market-analyst-operations-optimizer.c04-strategy-growth",
+        "sub-market-analyst.c10-algo-trading",
+        "sub-strategy-selector.c10-algo-trading"
+      ]
+    },
+    {
+      "service_link": "sub-company",
+      "council_owner": "C04",
+      "status": "MISSING",
+      "note": "no agency-management agents",
+      "department_agents": 0,
+      "subagents": 0,
+      "slots": {
+        "product_pm": null,
+        "ops": null,
+        "compliance": null,
+        "support": null,
+        "data": null
+      },
+      "specialists": []
+    },
+    {
+      "service_link": "SVC-11",
+      "council_owner": "C15",
+      "status": "PLANNING",
+      "note": "service planning; fantasy-service exists code-side",
+      "department_agents": 0,
+      "subagents": 0,
+      "slots": {
+        "product_pm": null,
+        "ops": null,
+        "compliance": null,
+        "support": null,
+        "data": null
+      },
+      "specialists": []
+    },
+    {
+      "service_link": "SVC-10",
+      "council_owner": "C16/C15",
+      "status": "PLANNING",
+      "note": "odds-engineer specialist missing",
+      "department_agents": 0,
+      "subagents": 0,
+      "slots": {
+        "product_pm": null,
+        "ops": null,
+        "compliance": null,
+        "support": null,
+        "data": null
+      },
+      "specialists": []
+    },
+    {
+      "service_link": "UNKNOWN(D-C)",
+      "council_owner": "UNASSIGNED",
+      "status": "UNKNOWN-PENDING-RULING",
+      "note": "overlaps training (docs/saos/training); ruling needed",
+      "department_agents": 0,
+      "subagents": 0,
+      "slots": {
+        "product_pm": null,
+        "ops": null,
+        "compliance": null,
+        "support": null,
+        "data": null
+      },
+      "specialists": []
+    },
+    {
+      "service_link": "UNKNOWN(D-C)",
+      "council_owner": "UNASSIGNED",
+      "status": "UNKNOWN-PENDING-RULING",
+      "note": "umbrella term undefined",
+      "department_agents": 0,
+      "subagents": 0,
+      "slots": {
+        "product_pm": null,
+        "ops": null,
+        "compliance": null,
+        "support": null,
+        "data": null
+      },
+      "specialists": []
+    }
+  ]
+}

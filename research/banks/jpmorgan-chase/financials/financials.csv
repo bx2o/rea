@@ -1,0 +1,23 @@
+bank,fiscal_year,metric,value,unit,source,tag
+JPMorgan Chase,FY2023,Total net revenue (reported),158100,USD millions,https://www.jpmorganchase.com/content/dam/jpmc/jpmorgan-chase-and-co/investor-relations/documents/annualreport-2025.pdf,OBS
+JPMorgan Chase,FY2023,Employees,309926,count,https://www.jpmorganchase.com/content/dam/jpmc/jpmorgan-chase-and-co/investor-relations/documents/annualreport-2025.pdf,OBS
+JPMorgan Chase,FY2024,Total net revenue (managed),180600,USD millions,https://www.jpmorgan.com/about-us/corporate-news/2025/2024-annual-report,OBS
+JPMorgan Chase,FY2024,Total net revenue (reported),177556,USD millions,https://www.jpmorganchase.com/content/dam/jpmc/jpmorgan-chase-and-co/investor-relations/documents/annualreport-2025.pdf,OBS
+JPMorgan Chase,FY2024,Net income,58500,USD millions,https://www.jpmorgan.com/about-us/corporate-news/2025/2024-annual-report,OBS
+JPMorgan Chase,FY2024,Net interest income,92600,USD millions,https://visuwire.com/companies/jpmorgan/,OBS
+JPMorgan Chase,FY2024,ROTCE,20,percent,https://www.jpmorgan.com/about-us/corporate-news/2025/2024-annual-report,OBS
+JPMorgan Chase,FY2024,Employees,317233,count,https://www.jpmorganchase.com/content/dam/jpmc/jpmorgan-chase-and-co/investor-relations/documents/annualreport-2025.pdf,OBS
+JPMorgan Chase,FY2025,Total net revenue (managed),185600,USD millions,https://www.jpmorganchase.com/ir/annual-report/2025/ar-ceo-letters,OBS
+JPMorgan Chase,FY2025,Total net revenue (reported),182447,USD millions,https://www.jpmorganchase.com/content/dam/jpmc/jpmorgan-chase-and-co/investor-relations/documents/annualreport-2025.pdf,OBS
+JPMorgan Chase,FY2025,Net income,57000,USD millions,https://www.jpmorganchase.com/ir/annual-report/2025/ar-ceo-letters,OBS
+JPMorgan Chase,FY2025,Diluted EPS,20.02,USD,https://www.jpmorganchase.com/content/dam/jpmc/jpmorgan-chase-and-co/investor-relations/documents/quarterly-earnings/2025/4th-quarter/d868c7ef-1670-465d-ba75-c2b36ddbcc6b.pdf,OBS
+JPMorgan Chase,FY2025,ROTCE,20,percent,https://www.jpmorganchase.com/ir/annual-report/2025/ar-ceo-letters,OBS
+JPMorgan Chase,FY2025,ROE,17,percent,https://uk.investing.com/news/company-news/jpmorgan-q4-2025-presentation-reveals-earnings-beat-projects-103b-nii-for-2026-93CH-4451751,OBS
+JPMorgan Chase,FY2025,Net interest income,95900,USD millions,https://jpmorganchaseco.gcs-web.com/node/838396/html,OBS
+JPMorgan Chase,FY2025,Compensation expense,54487,USD millions,https://www.jpmorganchase.com/content/dam/jpmc/jpmorgan-chase-and-co/investor-relations/documents/managements-discussion-analysis-2025.pdf,OBS
+JPMorgan Chase,FY2025,Employees,318512,count,https://www.jpmorganchase.com/content/dam/jpmc/jpmorgan-chase-and-co/investor-relations/documents/annualreport-2025.pdf,OBS
+JPMorgan Chase,4Q25,CET1 capital ratio (standardized),14.6,percent,https://jpmorganchaseco.gcs-web.com/node/902791/ixbrl-viewer,OBS
+JPMorgan Chase,FY2024,Segment net income CCB (aggregator),17600,USD millions,https://stockanalysis.com/stocks/jpm/metrics/earnings-by-segment/,UNVERIFIED
+JPMorgan Chase,FY2024,Segment net income CIB (aggregator),4750,USD millions,https://stockanalysis.com/stocks/jpm/metrics/earnings-by-segment/,UNVERIFIED
+JPMorgan Chase,FY2024,Segment net income AWM (aggregator),1520,USD millions,https://stockanalysis.com/stocks/jpm/metrics/earnings-by-segment/,UNVERIFIED
+JPMorgan Chase,FY2024,Segment net income Commercial Banking (aggregator),1870,USD millions,https://stockanalysis.com/stocks/jpm/metrics/earnings-by-segment/,UNVERIFIED

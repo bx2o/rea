@@ -1,0 +1,43 @@
+{
+  "system": "Stremiium Agent Plugin & Tool Subsystem",
+  "version": "4.0.0",
+  "organization": "Stremiium (Pty) Ltd",
+  "plugins": [
+    {
+      "plugin_id": "PLUG-POLYGON-RPC",
+      "name": "Polygon PoS / ZK-EVM RPC Bridge",
+      "category": "BLOCKCHAIN",
+      "allowed_councils": ["Web3-Finance", "Dev-Engineering", "Cybersecurity-Intel"],
+      "auth_type": "SERVER_ENCRYPTED_VAULT",
+      "methods": ["eth_blockNumber", "eth_call", "eth_estimateGas", "eth_sendRawTransaction"],
+      "requires_human_approval_for_write": true
+    },
+    {
+      "plugin_id": "PLUG-NOTION-WORKSPACE",
+      "name": "Notion Institutional Workspace Sync",
+      "category": "KNOWLEDGE",
+      "allowed_councils": ["Admin-Knowledge", "Strategy-Growth", "Operations"],
+      "auth_type": "PER_USER_OAUTH2",
+      "scopes": ["pages:read", "pages:write", "databases:read"],
+      "requires_human_approval_for_write": false
+    },
+    {
+      "plugin_id": "PLUG-GITHUB-AUTOMATION",
+      "name": "GitHub CI/CD & Repository Control",
+      "category": "DEV_INFRASTRUCTURE",
+      "allowed_councils": ["Engineering-Infrastructure", "Dev-Engineering"],
+      "auth_type": "APP_INSTALLATION_TOKEN",
+      "scopes": ["repo", "workflow", "pull_requests"],
+      "requires_human_approval_for_write": true
+    },
+    {
+      "plugin_id": "PLUG-SARS-CARF-GATEWAY",
+      "name": "SARS Crypto-Asset Reporting Framework Exchanger",
+      "category": "REGULATORY",
+      "allowed_councils": ["Legal-Compliance", "Finance-Investor-Relations"],
+      "auth_type": "MTLS_ENTERPRISE_CERTIFICATE",
+      "methods": ["submit_annual_report", "verify_taxpayer_tin"],
+      "requires_human_approval_for_write": true
+    }
+  ]
+}

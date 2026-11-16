@@ -1,0 +1,6 @@
+{
+  "version": "1.0.0",
+  "approved_agent_ids": [],
+  "required_signatures": ["owner", "council", "security", "evaluation"],
+  "note": "An empty approval list intentionally blocks all content rewrites until role-specific replacements are reviewed."
+}

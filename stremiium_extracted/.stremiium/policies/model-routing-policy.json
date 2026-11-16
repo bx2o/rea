@@ -1,0 +1,36 @@
+{
+  "routing_policy_version": "4.0.0",
+  "default_tier": "FAST",
+  "tiers": {
+    "FAST": {
+      "description": "High-speed, low-latency execution for syntax formatting, indexing, and small diffs",
+      "max_context_tokens": 16000,
+      "cost_tier": "LOW",
+      "target_tasks": ["linting", "schema_validation", "file_indexing", "state_checkpointing"]
+    },
+    "STANDARD": {
+      "description": "Balanced general reasoning for documentation, task breakdowns, and standard business logic",
+      "max_context_tokens": 32000,
+      "cost_tier": "MEDIUM",
+      "target_tasks": ["documentation_generation", "departmental_coordination", "standard_feature_dev"]
+    },
+    "SPECIALIST_CODING": {
+      "description": "Deep coding intelligence for fullstack architecture, Solidity contracts, and refactoring",
+      "max_context_tokens": 64000,
+      "cost_tier": "HIGH",
+      "target_tasks": ["solidity_development", "core_backend_refactor", "complex_api_integration"]
+    },
+    "SPECIALIST_SECURITY": {
+      "description": "Adversarial security analysis, vulnerability testing, and contract auditing",
+      "max_context_tokens": 64000,
+      "cost_tier": "HIGH",
+      "target_tasks": ["smart_contract_audit", "threat_modeling", "secret_leak_scanning"]
+    },
+    "REASONING": {
+      "description": "Maximum reasoning depth for strategic command, legal arbitration, and executive governance",
+      "max_context_tokens": 128000,
+      "cost_tier": "PREMIUM",
+      "target_tasks": ["strategic_orchestration", "regulatory_filings", "cross_council_arbitration"]
+    }
+  }
+}

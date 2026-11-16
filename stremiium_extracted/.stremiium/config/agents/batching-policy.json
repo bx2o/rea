@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0",
+  "eligible_workloads": ["classification", "evaluation", "security_scan", "metadata_extraction", "embedding", "regression", "analytics"],
+  "defaults": { "max_batch_size": 32, "max_wait_ms": 2000, "partial_results_allowed": true, "ordering": "stable_input_order" },
+  "requirements": ["tenant_isolation", "item_level_failure", "retry_isolation", "cost_attribution", "audit_event"],
+  "prohibited": ["mixed_data_classifications_without_policy", "cross_tenant_batch", "unbounded_queue"]
+}

@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "monitors": [
+    { "monitor_id": "agent_health", "dimensions": ["status", "heartbeat", "error_rate"], "owner": "C06" },
+    { "monitor_id": "workflow_health", "dimensions": ["state", "latency", "retry_count", "stuck_nodes"], "owner": "C06" },
+    { "monitor_id": "model_usage", "dimensions": ["model", "tokens", "latency", "cost", "fallback"], "owner": "C06" },
+    { "monitor_id": "security_policy", "dimensions": ["denials", "violations", "tool_abuse", "injection_findings"], "owner": "C12" },
+    { "monitor_id": "compliance", "dimensions": ["review_state", "regulatory_change", "exceptions"], "owner": "C01" },
+    { "monitor_id": "memory_and_cache", "dimensions": ["provenance", "hit_rate", "invalidation", "poisoning"], "owner": "C03" },
+    { "monitor_id": "cost_budget", "dimensions": ["agent", "task", "department", "council", "variance"], "owner": "C10" }
+  ],
+  "required_alerts": ["critical_error", "policy_violation", "budget_exceeded", "provenance_missing", "latency_regression", "stuck_workflow"]
+}

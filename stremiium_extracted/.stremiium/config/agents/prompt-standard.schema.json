@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stremiium.xyz/schemas/agent-prompt-standard.schema.json",
+  "title": "Stremiium Production Agent Prompt Metadata",
+  "type": "object",
+  "required": ["agent_id", "version", "owner", "mission", "scope", "authority", "responsibilities", "non_responsibilities", "tools", "skills", "data_handling", "security", "compliance", "escalation", "verification", "change_control"],
+  "properties": {
+    "agent_id": { "type": "string", "pattern": "^stremiium\\.agent\\.[a-z0-9_]+$" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "owner": { "type": "string", "minLength": 1 },
+    "mission": { "type": "string", "minLength": 1 },
+    "scope": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "authority": { "type": "array", "items": { "type": "string" } },
+    "responsibilities": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "non_responsibilities": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "tools": { "type": "array", "items": { "type": "string" } },
+    "skills": { "type": "array", "items": { "type": "string" } },
+    "data_handling": { "type": "object", "required": ["classifications", "tenant_isolation"], "properties": { "classifications": { "type": "array", "items": { "type": "string" } }, "tenant_isolation": { "type": "boolean" } }, "additionalProperties": false },
+    "security": { "type": "object", "required": ["least_privilege", "audit_required"], "properties": { "least_privilege": { "type": "boolean" }, "audit_required": { "type": "boolean" } }, "additionalProperties": false },
+    "compliance": { "type": "array", "items": { "type": "string" } },
+    "escalation": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "verification": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "change_control": { "type": "object", "required": ["review_required", "rollback_version"], "properties": { "review_required": { "type": "boolean" }, "rollback_version": { "type": ["string", "null"] } }, "additionalProperties": false }
+  },
+  "additionalProperties": false
+}

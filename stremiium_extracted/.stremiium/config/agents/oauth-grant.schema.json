@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stremiium.xyz/schemas/oauth-grant.schema.json",
+  "title": "Stremiium Per-User OAuth Grant",
+  "type": "object",
+  "required": ["user_id", "tenant_id", "agent_id", "provider", "scopes", "issued_at", "expires_at", "status"],
+  "properties": {
+    "user_id": { "type": "string", "minLength": 1 },
+    "tenant_id": { "type": "string", "minLength": 1 },
+    "agent_id": { "type": "string" },
+    "provider": { "type": "string" },
+    "scopes": { "type": "array", "items": { "type": "string" } },
+    "issued_at": { "type": "string", "format": "date-time" },
+    "expires_at": { "type": "string", "format": "date-time" },
+    "revoked_at": { "type": ["string", "null"], "format": "date-time" },
+    "status": { "enum": ["active", "expired", "revoked"] }
+  },
+  "additionalProperties": false
+}

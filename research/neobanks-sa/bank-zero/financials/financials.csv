@@ -1,0 +1,11 @@
+metric,value,unit,period,status,source
+first_break_even_month,Aug-2026,date,2026,OBS,https://techcabal.com/2026/09/22/bank-zero-break-even-alliance-partnerships/
+months_to_breakeven,58,count,since public opening 2021,OBS,https://www.itnewsafrica.com/industries/fintech_news/bank-zero-profit/
+original_breakeven_projection,Dec-2026,date,projected,OBS,https://en.wikipedia.org/wiki/Bank_Zero
+deposits,400000000,ZAR,end April 2025,OBS,https://www.itnewsafrica.com/industries/fintech_news/bank-zero-profit/
+deposits,860000000,ZAR,2026,OBS,https://www.itnewsafrica.com/industries/fintech_news/bank-zero-profit/
+customers_target_for_profitability,100000,count,original design,OBS,https://techcabal.com/2026/09/22/bank-zero-break-even-alliance-partnerships/
+mukuru_customers_migrated,500000,count,Aug 2026,OBS,https://www.itnewsafrica.com/industries/fintech_news/bank-zero-profit/
+alliance_banking_live,Jan-2026,date,2026,OBS,https://techcabal.com/2026/09/22/bank-zero-break-even-alliance-partnerships/
+acquisition_price,1100000000,ZAR,June 2025 agreed,OBS,https://lesakatech.com/newsroom-all/bank-zero-snapped-up-for-r1-1-billion
+acquisition_cash_component_max,91000000,ZAR,2025,OBS,https://www.ainvest.com/news/bank-profit-turnaround-story-side-effect-incomplete-deal-2609/

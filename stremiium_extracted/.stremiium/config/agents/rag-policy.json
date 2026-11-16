@@ -1,0 +1,8 @@
+{
+  "version": "1.0.0",
+  "retrieval_order": ["task_context", "approved_project_memory", "council_knowledge", "organizational_knowledge", "external_reference"],
+  "chunk_requirements": ["source_uri", "source_hash", "owner", "classification", "retrieved_at", "confidence"],
+  "untrusted_behavior": "quarantine_and_label",
+  "write_policy": "reviewed_projection_only",
+  "invalidation": ["source_revoked", "source_changed", "expiration", "poisoning_finding", "access_revoked"]
+}

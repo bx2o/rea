@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "contracts": {
+    "task": ".github/config/agents/task-contract.schema.json",
+    "message": ".github/config/agents/message-contract.schema.json",
+    "permission": ".github/config/agents/permission-policy.schema.json",
+    "registry": ".github/config/agents/agent-registry.schema.json"
+  },
+  "required_message_fields": [
+    "message_id", "sender", "receiver", "task_id", "context_id",
+    "schema_version", "timestamp", "type", "provenance", "payload"
+  ],
+  "state_domains": [
+    "immutable_configuration",
+    "identity",
+    "task",
+    "workflow",
+    "conversation_context",
+    "memory",
+    "external_state",
+    "event_history",
+    "metrics"
+  ],
+  "shared_state_policy": "No shared mutable orchestration state without a versioned event and an owning context_id."
+}

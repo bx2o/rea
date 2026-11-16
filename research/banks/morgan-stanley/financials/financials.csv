@@ -1,0 +1,15 @@
+bank,fiscal_year,metric,value,unit,source,tag
+Morgan Stanley,FY2022,Net revenues,53700,USD millions,https://puffling.co/companies/ms/,OBS
+Morgan Stanley,FY2023,Net revenues,54100,USD millions,https://www.morganstanley.com/content/dam/msdotcom/en/about-us-ir/shareholder/4q2024.pdf,OBS
+Morgan Stanley,FY2023,Net income,9100,USD millions,https://www.morganstanley.com/content/dam/msdotcom/en/about-us-ir/shareholder/4q2024.pdf,OBS
+Morgan Stanley,FY2023,Diluted EPS,5.18,USD,https://www.morganstanley.com/content/dam/msdotcom/en/about-us-ir/shareholder/4q2024.pdf,OBS
+Morgan Stanley,FY2024,Net revenues,61800,USD millions,https://www.morganstanley.com/content/dam/msdotcom/en/about-us-ir/shareholder/4q2024.pdf,OBS
+Morgan Stanley,FY2024,Net income,13400,USD millions,https://www.morganstanley.com/content/dam/msdotcom/en/about-us-ir/shareholder/4q2024.pdf,OBS
+Morgan Stanley,FY2024,Diluted EPS,7.95,USD,https://www.morganstanley.com/content/dam/msdotcom/en/about-us-ir/shareholder/4q2024.pdf,OBS
+Morgan Stanley,FY2024,Worldwide employees,80478,count,https://www.morganstanley.com/content/dam/msdotcom/en/about-us-ir/shareholder/4q2024.pdf,OBS
+Morgan Stanley,3Q2024,ROTCE,17.5,percent,https://www.morganstanley.com/content/dam/msdotcom/en/about-us-ir/shareholder/3q2024.pdf,OBS
+Morgan Stanley,2Q2024,Segment net revenues Institutional Securities,6982,USD millions,https://www.morganstanley.com/about-us-ir/finsup2q2024/finsup2q2024.pdf,OBS
+Morgan Stanley,2Q2024,Segment net revenues Wealth Management,6792,USD millions,https://www.morganstanley.com/about-us-ir/finsup2q2024/finsup2q2024.pdf,OBS
+Morgan Stanley,4Q2024,Investment banking net revenues,1791,USD millions,https://www.morganstanley.com/content/dam/msdotcom/en/about-us-ir/shareholder/4q2024.pdf,OBS
+Morgan Stanley,Q42024,Total client assets (Wealth + IM),7900000000000,USD,https://dcfmodeling.com/products/ms-vrio-analysis,UNVERIFIED
+Morgan Stanley,FY2025,Net revenues (aggregator),70600,USD millions,https://puffling.co/companies/ms/,UNVERIFIED
