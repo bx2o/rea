@@ -4,7 +4,7 @@
 Master orchestrator: **Sparkling Curious** (`SC-MASTER-001`)  
 Workspace status: **unified, zone-organised** (2026-11-16)
 
-This repository contains the complete program workspace: canonical agent operating system, task breakdown structure, 17-entity reverse-engineering dossiers, target NeoBank architecture, REA engineering substrate, synthesised deliverables, and preserved archives. All four `trae/agent-*` branches are integrated into `main`; no folders or files were deleted in consolidation or reorganisation.
+This repository contains the complete program workspace: canonical agent operating system, task breakdown structure, 30-entity reverse-engineering dossiers (grouped by domain), target NeoBank architecture, reusable platform design, REA engineering substrate, synthesised deliverables, and preserved archives. All four `trae/agent-*` branches are integrated into `main`; no folders or files were deleted in consolidation or reorganisation.
 
 ---
 
@@ -25,11 +25,12 @@ This repository contains the complete program workspace: canonical agent operati
 | **Canonical surfaces** | [`.github/`](.github/) | Agent roster, skills, and orchestration workflows |
 | **00 — Governance** | [`00-governance/`](00-governance/) | Orchestration plan, execution records, and derived `UnConsolidated/` knowledge view |
 | **01 — Program** | [`01-program/`](01-program/) | TBS (`tbs/`), NeoBank ZA plan/councils/delivery/artifacts/skills/templates/workflows |
-| **02 — Research** | [`02-research/`](02-research/) | 17 reverse-engineering dossiers, market/regulatory landscape, source library |
-| **03 — Architecture** | [`03-architecture/`](03-architecture/) | Target-system specs (core banking, rails, Web3, compliance) and platform design |
+| **02 — Research** | [`02-research/`](02-research/) | 30 reverse-engineering dossiers across 6 domain groups, market/regulatory landscape, source library |
+| **03 — Architecture** | [`03-architecture/`](03-architecture/) | NeoBank target-system specs (core banking, rails, Web3, compliance) |
+| **06 — Architecture** | [`06-architecture/`](06-architecture/) | Reusable platform design (system design, domain model, integrations, security, data, platform) |
 | **04 — Engineering** | [`04-engineering/`](04-engineering/) | REA toolkit & reverse-engineering playbooks/targets (`rea/` engine remains at root for compatibility) |
-| **05 — Deliverables** | [`05-deliverables/`](05-deliverables/) | Synthesised journey summaries and charts |
-| **99 — Archive** | [`99-archive/`](99-archive/) | Preserved duplicates and source snapshots (no deletions): `stremiium.zip`, full `.stremiium` backup, Trae scratch packages |
+| **05 — Deliverables** | [`05-deliverables/`](05-deliverables/) | Per-entity journey summaries, cross-cutting synthesis, and charts |
+| **99 — Archive** | [`99-archive/`](99-archive/) | Preserved duplicates and source snapshots (no deletions): `stremiium.zip`, full `.stremiium` backup, canonical backup, Trae scratch packages |
 | **REA engine** | [`rea/`](rea/) | `morluto/rea` checkout (v6.5.0, 207 MCP tools / 153 CLI commands). **Present but not installed** (`node_modules` absent). Kept at root for vendor/test path compatibility. |
 
 ## Evidentiary rule

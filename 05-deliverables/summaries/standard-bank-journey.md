@@ -16,7 +16,7 @@ last_updated: "2026-10-16"
 
 # Standard Bank Group — Consolidated Journey (UnConsolidated)
 
-> Self-contained synthesis of the Standard Bank research set (`/workspace/app/02-research/dossiers/banks/standard-bank/`).
+> Self-contained synthesis of the Standard Bank research set (`/workspace/app/02-research/dossiers/01-sa-traditional-banking/standard-bank/`).
 > Every figure is traceable to a source already cited in that research set. Tags: `[OBS]` observed/
 > filing-stated, `[INF]` inference, `[DER]` derived, `[EST]` estimate, `[UNK]` unknown, `[UNVERIFIED]`
 > single/low-authority. **Entity note:** **Standard Bank Group Limited** (JSE: SBK) is the listed holding

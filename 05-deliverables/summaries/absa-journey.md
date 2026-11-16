@@ -17,7 +17,7 @@ last_updated: "2026-10-16"
 
 # Absa Group — Consolidated Journey (UnConsolidated)
 
-> Self-contained synthesis of the Absa research set (`/workspace/app/02-research/dossiers/banks/absa/`). Every figure is
+> Self-contained synthesis of the Absa research set (`/workspace/app/02-research/dossiers/01-sa-traditional-banking/absa/`). Every figure is
 > traceable to a source already cited in that research set. Tags: `[OBS]` observed/filing-stated,
 > `[INF]` inference, `[DER]` derived, `[EST]` estimate, `[UNK]` unknown, `[UNVERIFIED]` single/low-authority.
 

@@ -11,7 +11,7 @@
 ## Workspace reorganisation (2026-11-16)
 
 Repository restructured into numbered zones with no deletions (Sparkling Curious design, P0â€“P6):
-- `00-governance/` (orchestration, execution-records, UnConsolidated), `01-program/` (tbs, plan, delivery, councils, artifacts, skills, templates, workflows), `02-research/` (dossiers, landscape, source-library), `03-architecture/` (target-system, platform-design), `04-engineering/` (rea-toolkit, reverse-engineering), `05-deliverables/` (summaries, charts), `99-archive/` (source-bundles, extracted-snapshots, tooling-scratch).
+- `00-governance/` (orchestration, execution-records, UnConsolidated), `01-program/` (tbs, plan, delivery, councils, artifacts, skills, templates, workflows), `02-research/` (dossiers across 6 domain groups, landscape, source-library, synthesis), `03-architecture/` (target-system), `04-engineering/` (rea-toolkit, reverse-engineering), `05-deliverables/` (summaries, synthesis, charts), `06-architecture/` (platform-design), `99-archive/` (source-bundles, extracted-snapshots, canonical-backups, tooling-scratch).
 - Canonical roots preserved: `.stremiium/`, `.github/`, `rea/` (compat). All duplicates retained in `99-archive/`.
 - Path references in docs updated to new layout; see root `README.md` for zone map.
 
@@ -49,29 +49,29 @@ file carries the mandatory four-bucket split (Evidence/Seen Â· Recovered Graph Â
 | **T1.0** | **Environment & REA Setup** | Engineering-Infra (C06) | PARTIAL | `rea doctor` contract; MCP toolchain spec (REA binary not yet installed) |
 | T1.1 | REA Doctor & Provider Verification | Dev-Engineering (C11) | PENDING | `01-program/tbs/T1-infrastructure-setup/implementation/rea-doctor-contract.md` |
 | T1.2 | Custom Banking REA Tool Engine | Dev-Engineering (C11) | ACTIVE | `03-architecture/target-system/core-banking/stremiium-rea-banking-plugin.ts` |
-| **T2.0** | **SA Big Four Reverse Engineering** | Multi-Squad Taskforce | ACTIVE | Dossiers in `02-research/dossiers/banks/` |
-| T2.1 | Standard Bank Systems & Shyft Reversing | Banking-Fintech (C16) | ACTIVE | `02-research/dossiers/banks/standard-bank/` |
-| T2.2 | FNB App & eBucks Algorithmic Deconstruction | Marketing (C09) / Dev (C11) | ACTIVE | `02-research/dossiers/banks/fnb/` |
-| T2.3 | ABSA Systems & Cloud Migration Analysis | Engineering-Infra (C06) | ACTIVE | `02-research/dossiers/banks/absa/` |
-| T2.4 | Nedbank Money App & Avo Ecosystem Reversing | Product (C15) | ACTIVE | `02-research/dossiers/banks/nedbank/` |
-| **T3.0** | **SA NeoBank & Challenger Analysis** | Multi-Squad Taskforce | ACTIVE | Dossiers in `02-research/dossiers/banks/` |
-| T3.1 | TymeBank Kiosk & Mambu CBS Forensics | Banking-Fintech (C16) | ACTIVE | `02-research/dossiers/banks/tymebank/` |
-| T3.2 | Discovery Bank Vitality Behavioural Engine | Strategy (C04) / Dev (C11) | ACTIVE | `02-research/dossiers/banks/discovery-bank/` |
-| T3.3 | African Bank MyWorld & Tap2Glass SoftPOS | Dev-Engineering (C11) | ACTIVE | `02-research/dossiers/banks/african-bank/` |
-| **T4.0** | **CASPs & Crypto Wallets Forensics** | Web3-Finance (C13) | ACTIVE | Dossiers in `02-research/dossiers/casps-and-wallets/` |
-| T4.1 | Luno Merkle PoR & ZAR Orderbook Dissection | Web3-Finance (C13) | ACTIVE | `02-research/dossiers/casps-and-wallets/luno/` |
-| T4.2 | VALR High-Frequency Exchange Architecture | Web3-Finance (C13) | ACTIVE | `02-research/dossiers/casps-and-wallets/valr/` |
-| T4.3 | Flex.one Crypto Card Issuance & Settlement | Banking-Fintech (C16) | ACTIVE | `02-research/dossiers/casps-and-wallets/flex-one/` |
-| **T5.0** | **Global Benchmarks Dissection** | Strategy-Growth (C04) | ACTIVE | Dossiers in `02-research/dossiers/global-benchmarks/` |
-| T5.1 | JPMorgan Chase Kinexys / JPM Coin Analysis | Web3-Finance (C13) | ACTIVE | `02-research/dossiers/global-benchmarks/jpmorgan-chase/` |
-| T5.2 | Morgan Stanley Wealth Management Systems | Finance-IR (C10) | ACTIVE | `02-research/dossiers/global-benchmarks/morgan-stanley/` |
-| **T6.0** | **Stremiium Competitor Dissection** | Product (C15) / Web3 (C13) | ACTIVE | Dossiers in `02-research/dossiers/web3-competitors/` |
-| T6.1 | Sorare StarkEx L2 & NFT Fantasy Mechanics | Web3-Finance (C13) | ACTIVE | `02-research/dossiers/web3-competitors/sorare/` |
-| T6.2 | Socios / Chiliz Fan Token Generation Events | Web3-Finance (C13) | ACTIVE | `02-research/dossiers/web3-competitors/socios-chiliz/` |
-| T6.3 | Polymarket Gnosis CTF & UMA Settlement | Web3-Finance (C13) | ACTIVE | `02-research/dossiers/web3-competitors/polymarket/` |
-| T6.4 | FanDuel DFS Real-Time Engine & Odds Ingestion | Dev-Engineering (C11) | ACTIVE | `02-research/dossiers/web3-competitors/fanduel/` |
-| T6.5 | Fanatics Collectibles & FanCash Ecosystem | Strategy-Growth (C04) | ACTIVE | `02-research/dossiers/web3-competitors/fanatics/` |
-| **T7.0** | **Stremiium NeoBank Unified Blueprint** | Sparkling Curious (C00) | ACTIVE | `03-architecture/` |
+| **T2.0** | **SA Big Four Reverse Engineering** | Multi-Squad Taskforce | ACTIVE | Dossiers in `02-research/dossiers/01-sa-traditional-banking/` |
+| T2.1 | Standard Bank Systems & Shyft Reversing | Banking-Fintech (C16) | ACTIVE | `02-research/dossiers/01-sa-traditional-banking/standard-bank/` |
+| T2.2 | FNB App & eBucks Algorithmic Deconstruction | Marketing (C09) / Dev (C11) | ACTIVE | `02-research/dossiers/01-sa-traditional-banking/fnb/` |
+| T2.3 | ABSA Systems & Cloud Migration Analysis | Engineering-Infra (C06) | ACTIVE | `02-research/dossiers/01-sa-traditional-banking/absa/` |
+| T2.4 | Nedbank Money App & Avo Ecosystem Reversing | Product (C15) | ACTIVE | `02-research/dossiers/01-sa-traditional-banking/nedbank/` |
+| **T3.0** | **SA NeoBank & Challenger Analysis** | Multi-Squad Taskforce | ACTIVE | Dossiers in `02-research/dossiers/01-sa-traditional-banking/` |
+| T3.1 | TymeBank Kiosk & Mambu CBS Forensics | Banking-Fintech (C16) | ACTIVE | `02-research/dossiers/01-sa-traditional-banking/tymebank/` |
+| T3.2 | Discovery Bank Vitality Behavioural Engine | Strategy (C04) / Dev (C11) | ACTIVE | `02-research/dossiers/01-sa-traditional-banking/discovery-bank/` |
+| T3.3 | African Bank MyWorld & Tap2Glass SoftPOS | Dev-Engineering (C11) | ACTIVE | `02-research/dossiers/01-sa-traditional-banking/african-bank/` |
+| **T4.0** | **CASPs & Crypto Wallets Forensics** | Web3-Finance (C13) | ACTIVE | Dossiers in `02-research/dossiers/04-sa-casps-crypto-exchanges/` |
+| T4.1 | Luno Merkle PoR & ZAR Orderbook Dissection | Web3-Finance (C13) | ACTIVE | `02-research/dossiers/04-sa-casps-crypto-exchanges/luno/` |
+| T4.2 | VALR High-Frequency Exchange Architecture | Web3-Finance (C13) | ACTIVE | `02-research/dossiers/04-sa-casps-crypto-exchanges/valr/` |
+| T4.3 | Flex.one Crypto Card Issuance & Settlement | Banking-Fintech (C16) | ACTIVE | `02-research/dossiers/04-sa-casps-crypto-exchanges/flex-one/` |
+| **T5.0** | **Global Benchmarks Dissection** | Strategy-Growth (C04) | ACTIVE | Dossiers in `02-research/dossiers/02-global-banking-wealth/` |
+| T5.1 | JPMorgan Chase Kinexys / JPM Coin Analysis | Web3-Finance (C13) | ACTIVE | `02-research/dossiers/02-global-banking-wealth/jpmorgan-chase/` |
+| T5.2 | Morgan Stanley Wealth Management Systems | Finance-IR (C10) | ACTIVE | `02-research/dossiers/02-global-banking-wealth/morgan-stanley/` |
+| **T6.0** | **Stremiium Competitor Dissection** | Product (C15) / Web3 (C13) | ACTIVE | Dossiers in `02-research/dossiers/06-global-web3-fan-engagement/` |
+| T6.1 | Sorare StarkEx L2 & NFT Fantasy Mechanics | Web3-Finance (C13) | ACTIVE | `02-research/dossiers/06-global-web3-fan-engagement/sorare/` |
+| T6.2 | Socios / Chiliz Fan Token Generation Events | Web3-Finance (C13) | ACTIVE | `02-research/dossiers/06-global-web3-fan-engagement/socios-chiliz/` |
+| T6.3 | Polymarket Gnosis CTF & UMA Settlement | Web3-Finance (C13) | ACTIVE | `02-research/dossiers/06-global-web3-fan-engagement/polymarket/` |
+| T6.4 | FanDuel DFS Real-Time Engine & Odds Ingestion | Dev-Engineering (C11) | ACTIVE | `02-research/dossiers/06-global-web3-fan-engagement/fanduel/` |
+| T6.5 | Fanatics Collectibles & FanCash Ecosystem | Strategy-Growth (C04) | ACTIVE | `02-research/dossiers/06-global-web3-fan-engagement/fanatics/` |
+| **T7.0** | **Stremiium NeoBank Unified Blueprint** | Sparkling Curious (C00) | ACTIVE | `03-architecture/`, `06-architecture/` |
 | T7.1 | Core Banking & PayShap Integration Specs | Banking-Fintech (C16) | ACTIVE | `03-architecture/target-system/core-banking/`, `03-architecture/target-system/payment-rails/` |
 | T7.2 | $STM Token Utility & MPC Wallet System | Web3-Finance (C13) | ACTIVE | `03-architecture/target-system/web3-bridge/` |
 | T7.3 | Regulatory Dossier for FSCA & SARB | Legal-Compliance (C01) | ACTIVE | `03-architecture/target-system/regulatory-compliance/` |
@@ -82,7 +82,7 @@ file carries the mandatory four-bucket split (Evidence/Seen Â· Recovered Graph Â
 | Register | Path |
 |---|---|
 | Program brief & rules | [`01-program/tbs/PROGRAM_BRIEF.md`](PROGRAM_BRIEF.md) |
-| UnConsolidated format definition | [`UnConsolidated/README.md`](../UnConsolidated/README.md) |
+| UnConsolidated format definition | [`00-governance/UnConsolidated/README.md`](../../00-governance/UnConsolidated/README.md) |
 | Agent/coordinator prompts | [`.github/agents/`](../.github/agents/) |
 | Skills & tooling | [`.github/skills/`](../.github/skills/) |
 | Orchestration workflows | [`.github/workflows/`](../.github/workflows/) |

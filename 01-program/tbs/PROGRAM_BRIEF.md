@@ -65,23 +65,23 @@ Council definitions live in `.stremiium/agents/council-agents/`. Machine-readabl
 
 | # | Entity | Folder | Lead council(s) |
 |---|---|---|---|
-| 1 | Standard Bank Group | `research/banks/standard-bank/` | C16, C10 |
-| 2 | First National Bank (FirstRand) | `research/banks/fnb/` | C16, C09, C11 |
-| 3 | ABSA Group | `research/banks/absa/` | C16, C06 |
-| 4 | Nedbank Group | `research/banks/nedbank/` | C15, C16 |
-| 5 | Discovery Bank | `research/banks/discovery-bank/` | C04, C11 |
-| 6 | TymeBank / GoTymeBank | `research/banks/tymebank/` | C16, C06 |
-| 7 | African Bank | `research/banks/african-bank/` | C11, C16 |
-| 8 | Luno | `research/casps-and-wallets/luno/` | C13, C01 |
-| 9 | VALR | `research/casps-and-wallets/valr/` | C13 |
-| 10 | Flex.one | `research/casps-and-wallets/flex-one/` | C16, C13 |
-| 11 | JPMorgan Chase (Kinexys) | `research/global-benchmarks/jpmorgan-chase/` | C13, C10 |
-| 12 | Morgan Stanley | `research/global-benchmarks/morgan-stanley/` | C10 |
-| 13 | Sorare | `research/web3-competitors/sorare/` | C13 |
-| 14 | Socios.com / Chiliz | `research/web3-competitors/socios-chiliz/` | C13 |
-| 15 | Polymarket | `research/web3-competitors/polymarket/` | C13 |
-| 16 | FanDuel / DraftKings | `research/web3-competitors/fanduel/` | C11, C01 |
-| 17 | Fanatics | `research/web3-competitors/fanatics/` | C04, C15 |
+| 1 | Standard Bank Group | `02-research/dossiers/01-sa-traditional-banking/standard-bank/` | C16, C10 |
+| 2 | First National Bank (FirstRand) | `02-research/dossiers/01-sa-traditional-banking/fnb/` | C16, C09, C11 |
+| 3 | ABSA Group | `02-research/dossiers/01-sa-traditional-banking/absa/` | C16, C06 |
+| 4 | Nedbank Group | `02-research/dossiers/01-sa-traditional-banking/nedbank/` | C15, C16 |
+| 5 | Discovery Bank | `02-research/dossiers/03-sa-neobanks-digital/discovery-bank/` | C04, C11 |
+| 6 | TymeBank / GoTymeBank | `02-research/dossiers/03-sa-neobanks-digital/tymebank/` | C16, C06 |
+| 7 | African Bank | `02-research/dossiers/01-sa-traditional-banking/african-bank/` | C11, C16 |
+| 8 | Luno | `02-research/dossiers/04-sa-casps-crypto-exchanges/luno/` | C13, C01 |
+| 9 | VALR | `02-research/dossiers/04-sa-casps-crypto-exchanges/valr/` | C13 |
+| 10 | Flex.one | `02-research/dossiers/04-sa-casps-crypto-exchanges/flex-one/` | C16, C13 |
+| 11 | JPMorgan Chase (Kinexys) | `02-research/dossiers/02-global-banking-wealth/jpmorgan-chase/` | C13, C10 |
+| 12 | Morgan Stanley | `02-research/dossiers/02-global-banking-wealth/morgan-stanley/` | C10 |
+| 13 | Sorare | `02-research/dossiers/06-global-web3-fan-engagement/sorare/` | C13 |
+| 14 | Socios.com / Chiliz | `02-research/dossiers/06-global-web3-fan-engagement/socios-chiliz/` | C13 |
+| 15 | Polymarket | `02-research/dossiers/06-global-web3-fan-engagement/polymarket/` | C13 |
+| 16 | FanDuel / DraftKings | `02-research/dossiers/06-global-web3-fan-engagement/fanduel/` | C11, C01 |
+| 17 | Fanatics | `02-research/dossiers/06-global-web3-fan-engagement/fanatics/` | C04, C15 |
 
 ---
 
@@ -90,7 +90,7 @@ Council definitions live in `.stremiium/agents/council-agents/`. Machine-readabl
 Every dossier folder contains these files. Keep each file self-contained and information-dense.
 
 ```
-research/<group>/<entity>/
+02-research/dossiers/<domain>/<entity>/
 ├── README.md                 # index + one-paragraph executive summary + evidence legend
 ├── 01-identity-and-financials.md    # corporate identity, licensing, ownership, financials
 ├── 02-technology-and-systems.md     # CBS signature, cloud, APIs, app stack, auth
@@ -222,11 +222,12 @@ burn until 50% retired; 25% fee discount when fees are settled in `$STM`.
 /                          # root: README.md, .gitignore, .stremiium/ (canonical), .github/, rea/ (compat)
 00-governance/             # orchestration, execution-records, UnConsolidated (derived)
 01-program/                # plan, tbs (TBS), delivery, councils, artifacts, skills, templates, workflows
-02-research/               # dossiers, landscape, source-library
-03-architecture/           # target-system, platform-design
+02-research/               # dossiers (6 domain groups), landscape, source-library, synthesis
+03-architecture/           # target-system (NeoBank-specific contracts)
 04-engineering/            # rea-toolkit, reverse-engineering  (REA engine at root: /rea)
-05-deliverables/           # summaries, charts
-99-archive/                # source-bundles, extracted-snapshots, tooling-scratch (no deletions)
+05-deliverables/           # summaries, synthesis, charts
+06-architecture/           # platform-design (reusable patterns)
+99-archive/                # source-bundles, extracted-snapshots, canonical-backups, tooling-scratch (no deletions)
 ```
 
 **TBS task folder (within `01-program/tbs/`):**

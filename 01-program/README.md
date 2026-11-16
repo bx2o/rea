@@ -14,6 +14,6 @@ Single home for program governance, task breakdown, NeoBank ZA plan, and council
 | [`skills/`](skills/) | Program-local skills (e.g. SA banking domain, REA reverse-engineering, AML/FICA) |
 | [`templates/`](templates/) | Decision, evidence, feature-spec, research, risk templates |
 | [`workflows/`](workflows/) | Agent routing and onboarding workflows |
-| [`neobank-za.README.md`](neobank-za.README.md) | Preserved NeoBank ZA program index (original; links updated in-place where applicable) |
+| [`plan/NEOBANK-ZA-INDEX.md`](plan/NEOBANK-ZA-INDEX.md) | Preserved NeoBank ZA program index (original; links updated in-place where applicable) |
 
 **Canonical agent OS:** [`.stremiium/`](../.stremiium/) · **Agent surfaces:** [`.github/`](../.github/) · **Research:** [`02-research/`](../02-research/) · **Architecture:** [`03-architecture/`](../03-architecture/)
