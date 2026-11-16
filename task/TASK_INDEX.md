@@ -3,10 +3,39 @@
 **Program:** `SC-REA-NEOBANK-5.0`
 **Owner:** Sparkling Curious (`SC-MASTER-001`)
 **Brief:** [`PROGRAM_BRIEF.md`](PROGRAM_BRIEF.md)
-**Last updated:** 2026-10-19
+**Last updated:** 2026-11-16
 
 > Status vocabulary: `COMPLETED` · `ACTIVE` · `PENDING` · `PARTIAL` · `BLOCKED`.
 > A task is `COMPLETED` only when its evidence artefacts exist in this workspace.
+
+## Consolidation log (2026-11-16)
+
+All four unmerged `trae/agent-*` remote branches have been integrated into the single
+`main` lineage on session branch `kilo/candid-token-zm1`. Working tree is clean; A1–A3
+merged without conflict and A4 required the three manual resolutions documented below.
+
+| # | Branch | Tip | Merge commit | Notes |
+|---|---|---|---|---|
+| A1 | `origin/trae/agent-vOC0E6` | `1bd1382` | fast-forward | `UnConsolidated/README.md` v5.0 enrichment; 4 `.zip` templates |
+| A2 | `origin/trae/agent-D7hbv6` | `2bfc21d` | `4eb6d72` | `task/PROGRAM_BRIEF.md` §4.0 depth bar |
+| A3 | `origin/trae/agent-9l0OdM` | `e0c9fcd` | `16a7780` | wave-1 research scaffold, UnConsolidated, REA business toolkit, `.stremiium/` |
+| A4 | `origin/trae/agent-08wapu` | `a4dac91` | `367f0ed` | 17 SA bank/neobank dossiers, REA analysis playbooks, pre-termination backup |
+
+**Conflict resolution notes (A4):**
+1. `README.md` — two divergent root indexes (HEAD's `rea` program index vs A4's
+   `/workspace` index). Resolved by keeping the unified-repo `rea` program index; the
+   A4 content describing `rea/`, `_stremiium/` and `neobank-za/` is superseded by the
+   canonical paths already present in `main`.
+2. `rea/` — A4 carried a stale submodule gitlink (`c884864…`, an object not present in
+   this repo). The real `morluto/rea` checkout already exists as a tracked directory tree
+   (4,068 files, v6.5.0) in `main`. Kept the directory tree; discarded the gitlink.
+3. `_stremiium/` — A4 staged a duplicate copy of the agent OS nested under a wrapper
+   directory (`_stremiium/.stremiium/`, 2,150 files, byte-identical to `.stremiium/`).
+   Removed the redundant wrapper; canonical `.stremiium/` retained.
+
+**Result:** 6,788 files changed, +2,229,298 / −51 vs the pre-merge `main` tip `6a901c0`.
+All 17 `evidence-ledger.json` files validate against the §6 schema; every `07-rea-reverse-engineering.md`
+file carries the mandatory four-bucket split (Evidence/Seen · Recovered Graph · Limitations · Unknowns).
 
 | Task ID | Task Description | Assigned Council | Status | Deliverables |
 |---|---|---|---|---|
@@ -39,7 +68,7 @@
 | T7.1 | Core Banking & PayShap Integration Specs | Banking-Fintech (C16) | ACTIVE | `architecture/core-banking/`, `architecture/payment-rails/` |
 | T7.2 | $STM Token Utility & MPC Wallet System | Web3-Finance (C13) | ACTIVE | `architecture/web3-bridge/` |
 | T7.3 | Regulatory Dossier for FSCA & SARB | Legal-Compliance (C01) | ACTIVE | `architecture/regulatory-compliance/` |
-| **T8.0** | **Code Mode Execution & Repo Commit** | Sparkling Curious (C00) | ACTIVE | `.github/`, `UnConsolidated/`, git history |
+| **T8.0** | **Code Mode Execution & Repo Commit** | Sparkling Curious (C00) | COMPLETED | `.github/`, `UnConsolidated/`, git history — consolidation complete 2026-11-16 |
 
 ## Cross-cutting registers
 

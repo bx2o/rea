@@ -7,7 +7,15 @@
 **Execution Modality:** Two-Phase Dual Engine (Plan Mode ➔ Code Mode)
 **Tooling Anchor:** REA (`morluto/rea`) Binary & Application Analysis Engine
 **Brief status:** locked for Code-Mode execution
-**Last updated:** 2026-10-19
+**Last updated:** 2026-11-16
+
+> **Repository consolidation (2026-11-16).** All four `trae/agent-*` remote branches
+> (`agent-vOC0E6`, `agent-D7hbv6`, `agent-9l0OdM`, `agent-08wapu`) are now integrated into
+> the single `main` lineage. The repo is one unified working tree with a clean status; see
+> [`task/TASK_INDEX.md`](TASK_INDEX.md) "Consolidation log" for the merge record and the
+> three conflict resolutions (root `README.md`, stale `rea/` submodule gitlink, redundant
+> `_stremiium/` wrapper). All 17 dossiers, their `evidence-ledger.json` files, and the
+> four-bucket evidentiary rule were re-verified after the final merge.
 
 ---
 
