@@ -16,7 +16,7 @@ last_updated: "2026-10-16"
 
 # FNB / FirstRand — Consolidated Journey (UnConsolidated)
 
-> Self-contained synthesis of the FNB research set (`/workspace/research/banks/fnb/`). Every figure is
+> Self-contained synthesis of the FNB research set (`/workspace/app/research/banks/fnb/`). Every figure is
 > traceable to a source already cited in that research set. Tags: `[OBS]` observed/filing-stated,
 > `[INF]` inference, `[DER]` derived, `[EST]` estimate, `[UNK]` unknown, `[UNVERIFIED]` single/low-authority.
 > **Entity note:** FNB is **a division of FirstRand Bank Limited** (not a separate legal entity); financial

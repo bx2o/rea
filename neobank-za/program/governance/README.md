@@ -5,7 +5,7 @@
 **Authority model:** Sparkling Curious (Executive) → Council Captains (Command) → Agents (Operational) → Subagents
 **Version:** 1.0 · **Date:** 2026-10-16 · **Status:** Active (proposed founds, see [`decision-log.md`](./decision-log.md))
 
-> This directory is the **governance spine** of the NeoBank ZA program. It is modelled on the Stremiium Agent Operating System (SAOS) governance files — specifically [`workflow-routing.md`](file:///workspace/_stremiium/.stremiium/governance/workflow-routing.md) and [`sparkling-curious-instructions.md`](file:///workspace/_stremiium/.stremiium/governance/rules/sparkling-curious-instructions.md). Where those files say "Squad", this program says **Council** (vocabulary law — see below).
+> This directory is the **governance spine** of the NeoBank ZA program. It is modelled on the Stremiium Agent Operating System (SAOS) governance files — specifically [`workflow-routing.md`](file:///workspace/app/.stremiium/governance/workflow-routing.md) and [`sparkling-curious-instructions.md`](file:///workspace/app/.stremiium/governance/rules/sparkling-curious-instructions.md). Where those files say "Squad", this program says **Council** (vocabulary law — see below).
 
 ---
 
@@ -117,7 +117,7 @@ Full triggers, ladder, formats and post-incident review are in [`escalation-prot
 
 | SAOS file | What it governs |
 |---|---|
-| [`workflow-routing.md`](file:///workspace/_stremiium/.stremiium/governance/workflow-routing.md) | Canonical hierarchy, routing contract, vocabulary law |
-| [`rules/sparkling-curious-instructions.md`](file:///workspace/_stremiium/.stremiium/governance/rules/sparkling-curious-instructions.md) | Orchestration, escalation tiers, quality gates |
-| [`rules/agent-authority-framework.md`](file:///workspace/_stremiium/.stremiium/governance/rules/agent-authority-framework.md) | 5-tier agent authority |
-| [`rules/council-governance-framework.md`](file:///workspace/_stremiium/.stremiium/governance/rules/council-governance-framework.md) | Decision categories, special authorities |
+| [`workflow-routing.md`](file:///workspace/app/.stremiium/governance/workflow-routing.md) | Canonical hierarchy, routing contract, vocabulary law |
+| [`rules/sparkling-curious-instructions.md`](file:///workspace/app/.stremiium/governance/rules/sparkling-curious-instructions.md) | Orchestration, escalation tiers, quality gates |
+| [`rules/agent-authority-framework.md`](file:///workspace/app/.stremiium/governance/rules/agent-authority-framework.md) | 5-tier agent authority |
+| [`rules/council-governance-framework.md`](file:///workspace/app/.stremiium/governance/rules/council-governance-framework.md) | Decision categories, special authorities |

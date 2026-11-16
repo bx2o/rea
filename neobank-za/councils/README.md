@@ -11,7 +11,7 @@ Back-links: [program governance](../program/governance/README.md) · [roadmaps](
 
 ## 1. Vocabulary law (binding)
 
-> **"Council" is the sole canonical collective noun. "Squad" is retired entirely** — it must not appear in any NeoBank ZA artifact (structural or lexical). This program follows SAOS [`workflow-routing.md §5`](file:///workspace/_stremiium/.stremiium/governance/workflow-routing.md).
+> **"Council" is the sole canonical collective noun. "Squad" is retired entirely** — it must not appear in any NeoBank ZA artifact (structural or lexical). This program follows SAOS [`workflow-routing.md §5`](file:///workspace/app/.stremiium/governance/workflow-routing.md).
 
 - Valid node prefixes: `AGT` (agent), `SUB` (subagent), `CRD` (coordinator staff), `META` (advisory), `EXEC` (executive), `Cnn` (council), `SPEC`, `SC`.
 - Council IDs are `C01`–`C16`; directory slugs are `cNN-name`.

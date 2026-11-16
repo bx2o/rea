@@ -1,6 +1,6 @@
 # REA Business Toolkit
 
-Custom tooling that turns the REA reverse-engineering engine (`/workspace/rea`) into
+Custom tooling that turns the REA reverse-engineering engine (`/workspace/app/rea`) into
 **business-question** primitives for the NeoBank intelligence programme.
 
 > REA answers *"how is this software built?"*. This toolkit answers
@@ -24,7 +24,7 @@ tools/rea-business-toolkit/
 ## Prerequisites
 
 ```bash
-cd /workspace/rea && npm install --engine-strict=false && npm run build:cached
+cd /workspace/app/rea && npm install --engine-strict=false && npm run build:cached
 ```
 
 Native targets need a caller-supplied decompiler (Ghidra/Hopper/IDA); web targets need a

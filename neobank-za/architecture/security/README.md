@@ -112,7 +112,7 @@ flowchart TB
 ## 4. Mapping to Stremiium quality gates
 
 The gate language is inherited from the program's governor documents
-([`../../PLAN.md`](../../PLAN.md) §4; the 16-council operating instructions and the compliance-sentinel enforcement rules under `/workspace/_stremiium/.stremiium/`).
+([`../../PLAN.md`](../../PLAN.md) §4; the 16-council operating instructions and the compliance-sentinel enforcement rules under `/workspace/app/.stremiium/`).
 The **critical gate** for this bank is the `security-compliance-sentinel` interception: *no service touching money, data or regulated surfaces ships without the C01/C12 binding rules passing.*
 
 | # | Stremiium quality gate | Meaning | Where satisfied in this pack | Evidence artefact |

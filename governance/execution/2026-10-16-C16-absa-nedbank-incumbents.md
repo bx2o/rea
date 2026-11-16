@@ -29,6 +29,6 @@ last_updated: "2026-10-16"
 - Both banks flagged `[UNK]` where public data is unavailable (e.g., NPS/CSAT, exact marketing budgets, core-ledger vendors).
 
 **EVIDENCE:**
-- Files: `/workspace/research/banks/absa/**` and `/workspace/research/banks/nedbank/**`.
+- Files: `/workspace/app/research/banks/absa/**` and `/workspace/app/research/banks/nedbank/**`.
 - Primary sources: Absa FY25 SENS/results booklet/integrated report; Nedbank FY25 highlights/booklet/analyst presentation/transcript; SARB (PA functions, PayShap roadmap, interchange paper); JSE/BusinessTech market comparison.
 - Full source lists embedded in each artifact's front-matter and "Sources" section.

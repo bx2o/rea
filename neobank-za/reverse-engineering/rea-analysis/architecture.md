@@ -1,9 +1,9 @@
 # REA Architecture
 
 This document describes how REA is structured internally, based on read-only inspection
-of `/workspace/rea`. The authoritative visual reference is
-`/workspace/rea/docs/architecture.mermaid`; the layering rule is stated in
-`/workspace/rea/AGENTS.md`.
+of `/workspace/app/rea`. The authoritative visual reference is
+`/workspace/app/rea/docs/architecture.mermaid`; the layering rule is stated in
+`/workspace/app/rea/AGENTS.md`.
 
 ## 1. Layering rule
 

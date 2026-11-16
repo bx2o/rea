@@ -3,7 +3,7 @@
 Five concrete candidate tools, designed (not implemented) for NeoBank ZA's reverse-
 engineering tasks. Each entry gives: **analyst question · inputs · outputs · evidence
 produced · limitations · existing REA layers/contracts to reuse**. These follow the rules in
-[`authoring-guide.md`](./authoring-guide.md) and `/workspace/rea/docs/tool-design.md`
+[`authoring-guide.md`](./authoring-guide.md) and `/workspace/app/rea/docs/tool-design.md`
 (start from the analyst question; prefer composition; preserve caller choices; fail closed).
 
 > **Reality check:** every candidate below is a **design**. Before building one, verify no

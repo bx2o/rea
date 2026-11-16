@@ -13,7 +13,7 @@
 ## 1. What "UnConsolidated" means
 
 The Stremiium agent operating system already exists in a **consolidated** form under
-`/workspace/.stremiium/`. "Consolidated" here is a *structural* property, not a quality
+`/workspace/app/.stremiium/`. "Consolidated" here is a *structural* property, not a quality
 judgement:
 
 - Knowledge is packed into **large monolithic prompt files** (e.g. the master orchestrator
@@ -30,7 +30,7 @@ judgement:
 **Un-consolidation is the inverse operation.** It takes the same verified knowledge and
 splits it into **atomic, richly detailed, independently readable documents**:
 
-| Property | Consolidated (`.stremiium/`) | UnConsolidated (`/workspace/UnConsolidated/`) |
+| Property | Consolidated (`.stremiium/`) | UnConsolidated (`/workspace/app/UnConsolidated/`) |
 |---|---|---|
 | Unit of change | Whole monolith | Single atomic section/document |
 | Optimised for | Runtime loading (one file = whole context) | Reading, diffing, review, maintenance |
@@ -44,7 +44,7 @@ splits it into **atomic, richly detailed, independently readable documents**:
 > the UnConsolidated document must be regenerated. No agent should execute from
 > `UnConsolidated/` in place of the consolidated prompt.
 
-This mirrors the workspace philosophy recorded in `/workspace/.stremiium/README.md`:
+This mirrors the workspace philosophy recorded in `/workspace/app/.stremiium/README.md`:
 *"Physical workspace evidence overrides stale task reports."* UnConsolidated documents cite
 physical workspace evidence; they do not replace it.
 
@@ -74,7 +74,7 @@ verified and inherits `[INFERRED]`/`[UNKNOWN]` per the evidence protocol.
 
 ## 3. Relationship to `.stremiium/` (verified topology)
 
-The two planes defined by `/workspace/.stremiium/config/council-department-mapping.json`
+The two planes defined by `/workspace/app/.stremiium/config/council-department-mapping.json`
 (`"model": "two-plane-hierarchy"`) are the backbone of this folder:
 
 | Plane | Root (verified to exist) | Role | UnConsolidated coverage |
@@ -168,7 +168,7 @@ number means the same thing everywhere:
 Un-consolidation is an act of **re-writing**, so it is an opportunity to fabricate. It is
 forbidden. Every UnConsolidated document obeys the same four-bucket evidentiary model that the
 Program Brief mandates for reverse-engineering dossiers
-([`/workspace/task/PROGRAM_BRIEF.md`:119-135]) and that v5.0 §3.2 re-states as the **Four
+([`/workspace/app/task/PROGRAM_BRIEF.md`:119-135]) and that v5.0 §3.2 re-states as the **Four
 Evidentiary Outputs** (Evidence/Seen · Recovered Graph/Synthesised · Limitations · Unknowns):
 
 1. **Seen (Evidence)** — verifiable in an artefact or public source we actually hold.
@@ -203,7 +203,7 @@ Un-consolidation is a deterministic projection of its sources, so it is regenera
 3. **Re-derive the aggregates** for `03-registry/` with `jq`:
    ```bash
    jq -r '.records | group_by(.council) | map({c:(.[0].council), n:length}) | .[] | "\(.c) \(.n)"' \
-      /workspace/.stremiium/registry/master-registry.json
+      /workspace/app/.stremiium/registry/master-registry.json
    ```
 4. **Diff against the last UnConsolidated run** (line-range anchors make this mechanical).
 5. **Re-tag evidence classes** — anything that was `[UNKNOWN]` because an artefact was absent

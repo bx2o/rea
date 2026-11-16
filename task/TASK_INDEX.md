@@ -24,13 +24,13 @@ merged without conflict and A4 required the three manual resolutions documented 
 **Conflict resolution notes (A4):**
 1. `README.md` — two divergent root indexes (HEAD's `rea` program index vs A4's
    `/workspace` index). Resolved by keeping the unified-repo `rea` program index; the
-   A4 content describing `rea/`, `_stremiium/` and `neobank-za/` is superseded by the
+   A4 content describing `rea/`, `_stremiium_canonical/` and `neobank-za/` is superseded by the
    canonical paths already present in `main`.
 2. `rea/` — A4 carried a stale submodule gitlink (`c884864…`, an object not present in
    this repo). The real `morluto/rea` checkout already exists as a tracked directory tree
    (4,068 files, v6.5.0) in `main`. Kept the directory tree; discarded the gitlink.
-3. `_stremiium/` — A4 staged a duplicate copy of the agent OS nested under a wrapper
-   directory (`_stremiium/.stremiium/`, 2,150 files, byte-identical to `.stremiium/`).
+3. `_stremiium_canonical/` — A4 staged a duplicate copy of the agent OS nested under a wrapper (renamed 2026-11-16)
+   directory (`_stremiium_canonical/.stremiium/`, 2,150 files, byte-identical to `.stremiium/`).
    Removed the redundant wrapper; canonical `.stremiium/` retained.
 
 **Result:** 6,788 files changed, +2,229,298 / −51 vs the pre-merge `main` tip `6a901c0`.

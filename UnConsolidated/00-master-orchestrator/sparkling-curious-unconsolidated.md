@@ -1,6 +1,6 @@
 # Sparkling Curious — Master Orchestrator (UnConsolidated, Section-by-Section)
 
-**Derived from:** `/workspace/.stremiium/agents/sparkling-curious.agent.md` (v4.0, "Complete 16-Section Unconsolidated Format", ~3,060 lines)
+**Derived from:** `/workspace/app/.stremiium/agents/sparkling-curious.agent.md` (v4.0, "Complete 16-Section Unconsolidated Format", ~3,060 lines)
 **Agent ID:** `SC-MASTER-001` [SEEN — `.stremiium/agents/sparkling-curious.agent.md`:119]
 **Classification:** Master Orchestrator (Parent Architecture) [SEEN — `:120`]
 **Reports to:** Mychael (CEO & Founder) → Executive Board → Shareholders [SEEN — `:124-125`]

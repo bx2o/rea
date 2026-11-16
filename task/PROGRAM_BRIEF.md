@@ -14,7 +14,7 @@
 > the single `main` lineage. The repo is one unified working tree with a clean status; see
 > [`task/TASK_INDEX.md`](TASK_INDEX.md) "Consolidation log" for the merge record and the
 > three conflict resolutions (root `README.md`, stale `rea/` submodule gitlink, redundant
-> `_stremiium/` wrapper). All 17 dossiers, their `evidence-ledger.json` files, and the
+> `_stremiium_canonical/` wrapper renamed 2026-11-16). All 17 dossiers, their `evidence-ledger.json` files, and the
 > four-bucket evidentiary rule were re-verified after the final merge.
 
 ---

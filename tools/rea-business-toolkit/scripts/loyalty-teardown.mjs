@@ -12,7 +12,7 @@
  *
  * Usage:
  *   node loyalty-teardown.mjs --entity fnb --from research/banks/fnb [--out dir]
- *   node loyalty-teardown.mjs --entity capitec                 # auto-locates folder under /workspace/research
+ *   node loyalty-teardown.mjs --entity capitec                 # auto-locates folder under /workspace/app/research
  */
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync } from 'node:fs';
 import { resolve, dirname, join, basename } from 'node:path';
@@ -20,7 +20,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const TOOLKIT_ROOT = resolve(__dirname, '..');
-const RESEARCH_ROOT = process.env.RESEARCH_ROOT || '/workspace/research';
+const RESEARCH_ROOT = process.env.RESEARCH_ROOT || '/workspace/app/research';
 
 function arg(name, def = null) {
   const i = process.argv.indexOf(`--${name}`);

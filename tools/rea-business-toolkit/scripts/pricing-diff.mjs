@@ -11,7 +11,7 @@
  * CSV values are copied verbatim (no invented numbers). No network access.
  *
  * Usage:
- *   node pricing-diff.mjs [--root /workspace/research] [--out dir]
+ *   node pricing-diff.mjs [--root /workspace/app/research] [--out dir]
  */
 import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs';
 import { resolve, dirname, join, relative } from 'node:path';
@@ -25,7 +25,7 @@ function arg(name, def = null) {
   return i >= 0 ? process.argv[i + 1] : def;
 }
 
-const root = resolve(arg('root', '/workspace/research'));
+const root = resolve(arg('root', '/workspace/app/research'));
 const outDir = resolve(arg('out', resolve(TOOLKIT_ROOT, 'out/pricing')));
 mkdirSync(outDir, { recursive: true });
 

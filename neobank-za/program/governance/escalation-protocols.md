@@ -3,7 +3,7 @@
 **Owner:** C02 Operations · **Assured by:** C12 Cybersecurity-Intel (Critical path) and C01 Legal-Compliance (regulatory path)
 **Version:** 1.0 · **Date:** 2026-10-16 · **Status:** Active
 
-> How issues climb the chain, what triggers them, how fast they must be answered, and in what format. Inherits SAOS [`escalation-protocols`](file:///workspace/_stremiium/.stremiium/governance/rules/sparkling-curious-instructions.md) and the SLAs in [`workflow-routing.md §4`](file:///workspace/_stremiium/.stremiium/governance/workflow-routing.md).
+> How issues climb the chain, what triggers them, how fast they must be answered, and in what format. Inherits SAOS [`escalation-protocols`](file:///workspace/app/.stremiium/governance/rules/sparkling-curious-instructions.md) and the SLAs in [`workflow-routing.md §4`](file:///workspace/app/.stremiium/governance/workflow-routing.md).
 
 Back-links: [governance overview](./README.md) · [authority matrix](./authority-matrix.md) · [RACI](./raci.md).
 

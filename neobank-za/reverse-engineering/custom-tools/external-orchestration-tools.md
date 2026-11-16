@@ -12,7 +12,7 @@ is "custom tooling" in the second sense described in [`README.md`](./README.md).
 
 ## 0. Why the CLI is a good orchestration surface
 
-From `/workspace/rea/docs/cli.md` and [`../rea-analysis/mcp-vs-cli.md`](../rea-analysis/mcp-vs-cli.md):
+From `/workspace/app/rea/docs/cli.md` and [`../rea-analysis/mcp-vs-cli.md`](../rea-analysis/mcp-vs-cli.md):
 
 - One process per command; **`--json`** returns the Evidence record directly (indented on a
   TTY, compact when piped).

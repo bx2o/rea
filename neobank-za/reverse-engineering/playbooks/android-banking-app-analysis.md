@@ -20,7 +20,7 @@ APK and never verifies signatures (`src/contracts/android/androidToolContracts.t
 ## 1. Prerequisites (bring-your-own)
 
 REA installs **none** of these; it only uses what you point it at
-(`references/android-applications.md`, `/workspace/rea/docs/android-analysis.md`):
+(`references/android-applications.md`, `/workspace/app/rea/docs/android-analysis.md`):
 
 | Need | Why | Setting |
 | --- | --- | --- |

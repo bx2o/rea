@@ -1,7 +1,7 @@
 # REA Tool Contract — Skeleton Template
 
 A TypeScript skeleton for a new REA tool, consistent with the real conventions in
-`/workspace/rea/src/contracts/**`. Fill in the `<ANGLE_BRACKET>` placeholders. This mirrors
+`/workspace/app/rea/src/contracts/**`. Fill in the `<ANGLE_BRACKET>` placeholders. This mirrors
 `src/contracts/android/androidToolContracts.ts` and
 `src/contracts/flutter/flutterToolContracts.ts`, which are the canonical small examples.
 
@@ -189,4 +189,4 @@ contract sketch:
 
 **Related:** [`authoring-guide.md`](./authoring-guide.md) ·
 [`example-banking-tools.md`](./example-banking-tools.md) ·
-`/workspace/rea/docs/tool-design.md`
+`/workspace/app/rea/docs/tool-design.md`

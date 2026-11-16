@@ -10,7 +10,7 @@ results: we have not analysed any real bank app on this page.
 > [`../rea-analysis/mcp-tool-names.tsv`](../rea-analysis/mcp-tool-names.tsv) and
 > [`../rea-analysis/tool-catalog.md`](../rea-analysis/tool-catalog.md). Every tool and CLI
 > command named in these playbooks is a real REA identifier. Tool semantics are summarised
-> from the REA source contracts under `/workspace/rea/src/contracts/**`; consult the
+> from the REA source contracts under `/workspace/app/rea/src/contracts/**`; consult the
 > analysis set for the underlying evidence.
 
 ---
@@ -111,7 +111,7 @@ Adjacent material:
 ## Prerequisite summary
 
 Install once (see [`../rea-analysis/mcp-vs-cli.md`](../rea-analysis/mcp-vs-cli.md) §4 and
-`/workspace/rea/docs/installation.md`):
+`/workspace/app/rea/docs/installation.md`):
 
 ```bash
 # Register the MCP server with your agent and install the bundled skill

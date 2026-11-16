@@ -1,7 +1,7 @@
 # REA Tooling Analysis — `morluto/rea` ("Reverse Engineer Anything")
 
 > Reverse-engineering **engine** for the NeoBank competitive-intelligence programme.
-> Installed at [`/workspace/rea`](../rea) · version **6.5.0** · MIT licence.
+> Installed at [`/workspace/app/rea`](../rea) · version **6.5.0** · MIT licence.
 
 ---
 
@@ -28,8 +28,8 @@ Dependencies flow **inward**; engine protocols stay out of domain/application la
 ## 2. Installation Performed (this workspace)
 
 ```bash
-git clone --depth 1 https://github.com/morluto/rea.git      # → /workspace/rea
-cd /workspace/rea
+git clone --depth 1 https://github.com/morluto/rea.git      # → /workspace/app/rea
+cd /workspace/app/rea
 npm install --engine-strict=false      # sandbox Node v24.1.0 < required ^24.11.0
 npm run build:cached                   # compiles dist/ (tsc + bundle-runtime)
 node scripts/rea.mjs --help            # verified: 100+ commands
@@ -185,7 +185,7 @@ See `queries/business-question-matrix.md` for the full matrix and
 ## 7. Reproduction Commands
 
 ```bash
-cd /workspace/rea
+cd /workspace/app/rea
 node scripts/rea.mjs doctor
 node scripts/rea.mjs capabilities
 node scripts/rea.mjs --llms-full | head -200      # LLM-readable manifest

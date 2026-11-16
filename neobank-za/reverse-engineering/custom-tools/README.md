@@ -6,7 +6,7 @@ you should be explicit about which one you mean.
 
 > **Install of REA itself:** this repo assumes `rea-agents` v6.5.0 is installed/registered
 > (see [`../playbooks/README.md`](../playbooks/README.md)). Tool semantics are inventoried
-> in [`../rea-analysis/`](../rea-analysis/README.md); the source is at `/workspace/rea`.
+> in [`../rea-analysis/`](../rea-analysis/README.md); the source is at `/workspace/app/rea`.
 
 ---
 
@@ -16,7 +16,7 @@ you should be explicit about which one you mean.
 
 You add a first-class tool to REA's single application core, so it appears on **both**
 surfaces (MCP `tools/list` and the `rea` CLI) with the same Evidence contract. This is the
-highest-fidelity option and the one REA's own design guide ([`/workspace/rea/docs/tool-design.md`](../../../rea/docs/tool-design.md))
+highest-fidelity option and the one REA's own design guide ([`/workspace/app/rea/docs/tool-design.md`](../../../rea/docs/tool-design.md))
 targets. It requires touching the layered codebase:
 
 | Layer | Directory | Responsibility |
@@ -29,7 +29,7 @@ targets. It requires touching the layered codebase:
 | Composition | `src/server/createServer.ts` | build providers, register tools |
 
 Follow the repository's dependency invariant: **"dependencies flow inward"** — domain →
-contracts → providers → application → CLI/MCP adapters (`/workspace/rea/AGENTS.md`).
+contracts → providers → application → CLI/MCP adapters (`/workspace/app/rea/AGENTS.md`).
 
 → Step-by-step: [`authoring-guide.md`](./authoring-guide.md)
 → Skeleton: [`tool-contract-template.md`](./tool-contract-template.md)
@@ -88,4 +88,4 @@ custom-tools/
 
 **Related:** [`../rea-analysis/architecture.md`](../rea-analysis/architecture.md) ·
 [`../rea-analysis/tool-catalog.md`](../rea-analysis/tool-catalog.md) ·
-`/workspace/rea/docs/tool-design.md` · `/workspace/rea/AGENTS.md`
+`/workspace/app/rea/docs/tool-design.md` · `/workspace/app/rea/AGENTS.md`

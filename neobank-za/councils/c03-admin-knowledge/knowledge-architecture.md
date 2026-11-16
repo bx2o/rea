@@ -35,7 +35,7 @@ A program that consolidates early loses the ability to:
 ## 2. Workspace taxonomy
 
 ```text
-/workspace/neobank-za/
+/workspace/app/neobank-za/
 ├── PLAN.md                     # master plan (UnConsolidated)
 ├── README.md                   # master index (SC)
 ├── program/                    # governance, roadmaps, risk, delivery

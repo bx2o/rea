@@ -1,6 +1,6 @@
 # Evidence Protocol — UnConsolidated
 
-**Derived from:** `/workspace/task/PROGRAM_BRIEF.md` §5 (four evidentiary outputs) and §6 (evidence-ledger format), §7 (strategic filter)
+**Derived from:** `/workspace/app/task/PROGRAM_BRIEF.md` §5 (four evidentiary outputs) and §6 (evidence-ledger format), §7 (strategic filter)
 **Applies to:** every dossier (`research/<group>/<entity>/07-rea-reverse-engineering.md`), every `evidence-ledger.json`, and every UnConsolidated document in this folder.
 **Canonical status:** the Program Brief is authoritative; this is a rigorous, reusable expansion.
 

@@ -2,7 +2,7 @@
 /**
  * tools-catalogue.mjs — REA tool inventory → business-question catalogue.
  *
- * Runs `node /workspace/rea/scripts/rea.mjs --llms` and `--help`, parses the
+ * Runs `node /workspace/app/rea/scripts/rea.mjs --llms` and `--help`, parses the
  * full command inventory, then maps every REA command to the business-question
  * categories defined in queries/business-question-matrix.md.
  *
@@ -26,7 +26,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const TOOLKIT_ROOT = resolve(__dirname, '..');
 
-const REA_ROOT = process.env.REA_ROOT || '/workspace/rea';
+const REA_ROOT = process.env.REA_ROOT || '/workspace/app/rea';
 const REA = resolve(REA_ROOT, 'scripts/rea.mjs');
 
 function arg(name, def = null) {

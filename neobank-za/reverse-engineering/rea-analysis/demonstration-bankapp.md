@@ -4,7 +4,7 @@
 - **Purpose:** prove the REA toolchain works end-to-end on a *self-owned* app, and model the exact method we will use on authorised bank-app targets.
 - **Status:** ✅ executed, real output captured.
 
-> **Ethics & scope.** This demonstration analyses a fixture **we wrote ourselves**. Per [playbooks/README.md](file:///workspace/neobank-za/reverse-engineering/playbooks/README.md), we only analyse software we own or are explicitly authorised to examine. No real bank app was analysed, and no findings about any real institution are claimed here.
+> **Ethics & scope.** This demonstration analyses a fixture **we wrote ourselves**. Per [playbooks/README.md](file:///workspace/app/neobank-za/reverse-engineering/playbooks/README.md), we only analyse software we own or are explicitly authorised to examine. No real bank app was analysed, and no findings about any real institution are claimed here.
 
 ---
 
@@ -24,7 +24,7 @@ A deliberately small **Electron/CommonJS banking prototype** with the four subsy
     └── core/http.js            # shared POST helper -> https://api.demo-bank.co.za
 ```
 
-A copy is kept in the deliverable at [targets/fixtures/demo-bankapp/](file:///workspace/neobank-za/reverse-engineering/targets/fixtures/demo-bankapp).
+A copy is kept in the deliverable at [targets/fixtures/demo-bankapp/](file:///workspace/app/neobank-za/reverse-engineering/targets/fixtures/demo-bankapp).
 
 Deliberate design points (so REA has something real to find):
 - **Electron boundary:** renderer (preload/contextBridge) ↔ main (`ipcMain.handle`), 2 literal channels (`auth:login`, `pay:initiate`).
@@ -37,11 +37,11 @@ Deliberate design points (so REA has something real to find):
 ## 2. Command
 
 ```bash
-cd /workspace/rea
+cd /workspace/app/rea
 node scripts/rea.mjs analyze-javascript-application /tmp/bankapp-demo --json
 ```
 
-REA streamed 20 progress phases to stderr and emitted a single canonical **Evidence** JSON record on stdout (522,787 bytes). Filed at [findings/demo-bankapp/evidence-export.json](file:///workspace/neobank-za/reverse-engineering/targets/findings/demo-bankapp/evidence-export.json).
+REA streamed 20 progress phases to stderr and emitted a single canonical **Evidence** JSON record on stdout (522,787 bytes). Filed at [findings/demo-bankapp/evidence-export.json](file:///workspace/app/neobank-za/reverse-engineering/targets/findings/demo-bankapp/evidence-export.json).
 
 ---
 
@@ -109,8 +109,8 @@ Every value matches the fixture by construction — REA reconstructed the graph 
 |---|---|
 | Static application graph without executing the target | Receiving a supplied/authorised bank app bundle and mapping its modules |
 | Electron/JS boundary reconstruction (preload, contextBridge, IPC) | Desktop/web banking clients |
-| AST-level fact extraction with counts (`findings: 35`) | Secret/endpoint/SDK discovery — see [android-banking-app-analysis.md](file:///workspace/neobank-za/reverse-engineering/playbooks/android-banking-app-analysis.md) |
-| Immutable, hashed, digest-addressed Evidence + declared limitations | Audit trail for every teardown (see [evidence-ledger-template.md](file:///workspace/neobank-za/reverse-engineering/playbooks/evidence-ledger-template.md)) |
+| AST-level fact extraction with counts (`findings: 35`) | Secret/endpoint/SDK discovery — see [android-banking-app-analysis.md](file:///workspace/app/neobank-za/reverse-engineering/playbooks/android-banking-app-analysis.md) |
+| Immutable, hashed, digest-addressed Evidence + declared limitations | Audit trail for every teardown (see [evidence-ledger-template.md](file:///workspace/app/neobank-za/reverse-engineering/playbooks/evidence-ledger-template.md)) |
 | Deterministic re-run (same `subject.sha256` → comparable Evidence) | `compare-application-versions` for competitor version diffs |
 
 ### Findings ledger (demo)
@@ -130,6 +130,6 @@ Every value matches the fixture by construction — REA reconstructed the graph 
 2. `inspect_android_class` / `inspect_android_method` on modules surfaced by the graph.
 3. `decode_android_resources` for strings/flags; `identify_flutter_build` if Dart AOT present.
 4. `inspect_web_network_capture` / `inspect_pcap_capture` on **authorised** captures to recover the live API surface.
-5. File each finding per [findings/README.md](file:///workspace/neobank-za/reverse-engineering/targets/findings/README.md) and log it in the ledger.
+5. File each finding per [findings/README.md](file:///workspace/app/neobank-za/reverse-engineering/targets/findings/README.md) and log it in the ledger.
 
-See [playbooks/](file:///workspace/neobank-za/reverse-engineering/playbooks/README.md) for the full per-platform workflows.
+See [playbooks/](file:///workspace/app/neobank-za/reverse-engineering/playbooks/README.md) for the full per-platform workflows.

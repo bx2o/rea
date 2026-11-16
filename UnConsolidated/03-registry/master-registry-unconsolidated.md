@@ -1,6 +1,6 @@
 # Master Registry — UnConsolidated
 
-**Source of truth:** `/workspace/.stremiium/registry/master-registry.json`
+**Source of truth:** `/workspace/app/.stremiium/registry/master-registry.json`
 **Schema:** `schemaVersion` "2.0", `generatedAt` "2026-08-23T13:32:08.114Z", `source_root` ".stremiium/agents" [SEEN]
 **Related schemas:** `.stremiium/registry/schema/master-record.schema.json`, `…/state-event.schema.json`, `…/agent-manifest.schema.json`
 **Canonical status:** the JSON file is authoritative; this document is a derived view and contains **no full record dump** by design.
@@ -165,13 +165,13 @@ All queries are read-only against the JSON; no writes.
 ```bash
 # Total records + schema
 jq '{schemaVersion, record_count, n: (.records|length)}' \
-   /workspace/.stremiium/registry/master-registry.json
+   /workspace/app/.stremiium/registry/master-registry.json
 
 # Distribution by council
 jq -r '.records | group_by(.council)
         | map({c:(.[0].council), n:length}) | sort_by(-.n)[]
         | "\(.c // "(none)")\t\(.n)"' \
-   /workspace/.stremiium/registry/master-registry.json
+   /workspace/app/.stremiium/registry/master-registry.json
 
 # Distribution by kind and by lifecycle
 jq -r '.records | group_by(.kind) | map("\(.[0].kind)\t\(length)")[]' <file>

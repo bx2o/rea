@@ -23,7 +23,7 @@ last_updated: "2026-10-16"
 > frequently; every value is dated **2026-10-16** and tagged to its source. Card/transaction fees that
 > are scheme- or contract-specific are `[UNK]`.
 >
-> Companion machine-readable file: `/workspace/deliverables/charts/pricing-fee-matrix.csv`.
+> Companion machine-readable file: `/workspace/app/deliverables/charts/pricing-fee-matrix.csv`.
 
 ## 1. Headline monthly account fees (entry to premium)
 

@@ -1,7 +1,7 @@
 # REA Investigation Methodology
 
 How to drive REA effectively. This is distilled from the canonical skill
-`/workspace/rea/.agents/skills/reverse-engineer-anything/SKILL.md` (skill version 42) and
+`/workspace/app/rea/.agents/skills/reverse-engineer-anything/SKILL.md` (skill version 42) and
 its reference guides under `.agents/skills/reverse-engineer-anything/references/`, plus
 the contract docs. Where a rule comes from a specific guide it is cited.
 

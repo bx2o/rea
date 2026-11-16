@@ -2,7 +2,7 @@
 
 Complete inventory of the MCP tools REA registers, grouped by capability, with the CLI
 command equivalents. Every tool name below is quoted from a contract file under
-`/workspace/rea/src/contracts/**` (the authoritative registration source) or from the
+`/workspace/app/rea/src/contracts/**` (the authoritative registration source) or from the
 docs cited inline. **No tool name has been invented**; where a family is gated or
 unverifiable it is stated explicitly.
 

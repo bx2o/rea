@@ -23,7 +23,7 @@ programme across:
 6. Fan-engagement / web3 competitors (Sorare, Socios/Chiliz, Polymarket, FanDuel, Fanatics, Gate.io).
 
 The reverse-engineering **engine** is the open-source repo [`morluto/rea`](https://github.com/morluto/rea)
-("Reverse Engineer Anything"), installed at [`/workspace/rea`](../rea).
+("Reverse Engineer Anything"), installed at [`/workspace/app/rea`](../rea).
 
 ---
 
@@ -43,7 +43,7 @@ Executive node: EXEC-council-ceo (CEO proxy)
 ```
 
 **In this session** the councils map to research **workstreams**; each `Task` sub-agent
-spawned by the orchestrator is a **department agent (AGT-*/SUB-*)**. The `stremiium_extracted/.stremiium`
+spawned by the orchestrator is a **department agent (AGT-*/SUB-*)**. The `stremiium_extracted_full_backup/.stremiium`
 tree is the canonical policy/registry source and is used read-only as the instruction set.
 
 ---
@@ -77,7 +77,7 @@ tree is the canonical policy/registry source and is used read-only as the instru
 /workspace
 ├── README.md                         # master index
 ├── .gitignore
-├── stremiium_extracted/              # SAOS policy/registry source (read-only instruction set)
+├── stremiium_extracted_full_backup/              # SAOS policy/registry source (read-only instruction set)
 ├── rea/                              # REA tool (morluto/rea @ 6.5.0) — installed & built
 ├── architecture/                     # system overview, REA analysis, data-model contracts
 ├── governance/                       # orchestration plan, agent roster, execution ledgers

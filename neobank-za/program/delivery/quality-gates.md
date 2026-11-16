@@ -3,7 +3,7 @@
 **Owner:** C12 Cybersecurity-Intel + C02 Operations · **Assured by:** C01 Legal-Compliance
 **Version:** 1.0 · **Date:** 2026-10-16
 
-> The quality gates every artifact must clear before it is released on `Project Umoya`. Gates map directly to the **Sparkling Curious universal quality standards** ([`sparkling-curious-instructions.md §4.1`](file:///workspace/_stremiium/.stremiium/governance/rules/sparkling-curious-instructions.md)): **80%+ coverage, no secrets, input validation, compliance sign-offs**.
+> The quality gates every artifact must clear before it is released on `Project Umoya`. Gates map directly to the **Sparkling Curious universal quality standards** ([`sparkling-curious-instructions.md §4.1`](file:///workspace/app/.stremiium/governance/rules/sparkling-curious-instructions.md)): **80%+ coverage, no secrets, input validation, compliance sign-offs**.
 
 Back-links: [delivery model](./README.md) · [definition of done](./definition-of-done.md) · [risk appetite](../risk/risk-appetite-statement.md).
 

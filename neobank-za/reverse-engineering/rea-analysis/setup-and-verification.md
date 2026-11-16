@@ -17,11 +17,11 @@ This file is the factual record of what was actually executed. Every command bel
 | Fact | Value | Source |
 |---|---|---|
 | Upstream repo | https://github.com/morluto/rea | `git clone` |
-| Package | `rea-agents` | [package.json](file:///workspace/rea/package.json) |
+| Package | `rea-agents` | [package.json](file:///workspace/app/rea/package.json) |
 | Version | **6.5.0** | `node scripts/rea.mjs --version` |
 | MCP server name | `io.github.morluto/rea` | `package.json` |
-| Licence | MIT (REA-authored code); third-party tools BYO | [LICENSE](file:///workspace/rea/LICENSE) / [THIRD_PARTY_NOTICES.md](file:///workspace/rea/THIRD_PARTY_NOTICES.md) |
-| Runtime required | Node `^22.19.0 \|\| ^24.11.0 \|\| >=26.0.0`, npm | [package.json](file:///workspace/rea/package.json) `engines` |
+| Licence | MIT (REA-authored code); third-party tools BYO | [LICENSE](file:///workspace/app/rea/LICENSE) / [THIRD_PARTY_NOTICES.md](file:///workspace/app/rea/THIRD_PARTY_NOTICES.md) |
+| Runtime required | Node `^22.19.0 \|\| ^24.11.0 \|\| >=26.0.0`, npm | [package.json](file:///workspace/app/rea/package.json) `engines` |
 | Declared surface (from source) | **207 MCP tools**, **153 CLI commands**, **6 MCP prompts** | `rea doctor` identity block |
 
 ---
@@ -34,7 +34,7 @@ This file is the factual record of what was actually executed. Every command bel
 | `.npmrc` | `engine-strict=true` | causes `EBADENGINE` on unsupported Node — observed `npm ci` failure |
 | Host | ubuntu 24.04, 3 vCPU, ~5.9 GiB RAM, 1.2 TB free | adequate |
 
-**Resolution:** installed the repo-pinned toolchain from [.nvmrc](file:///workspace/rea/.nvmrc) (`24.18.0`) via `nvm`, which also provided the pinned `npm@11.16.0` (matches `packageManager`).
+**Resolution:** installed the repo-pinned toolchain from [.nvmrc](file:///workspace/app/rea/.nvmrc) (`24.18.0`) via `nvm`, which also provided the pinned `npm@11.16.0` (matches `packageManager`).
 
 > Note: sandbox egress is proxied (`HTTPS_PROXY=http://127.0.0.1:18080`). All package/binary downloads went through the egress path.
 
@@ -44,14 +44,14 @@ This file is the factual record of what was actually executed. Every command bel
 
 ```bash
 # 1. Clone (shallow)
-git clone --depth 1 https://github.com/morluto/rea.git /workspace/rea        # 4072 files
+git clone --depth 1 https://github.com/morluto/rea.git /workspace/app/rea        # 4072 files
 
 # 2. Install the pinned toolchain
 export NVM_DIR="$HOME/.nvm"; . "$NVM_DIR/nvm.sh"
 nvm install 24.18.0 && nvm use 24.18.0                                        # node v24.18.0, npm 11.16.0
 
 # 3. Install locked dependencies
-cd /workspace/rea && CI=true npm ci --no-audit --no-fund                       # added 548 packages in 10s
+cd /workspace/app/rea && CI=true npm ci --no-audit --no-fund                       # added 548 packages in 10s
 
 # 4. Build the runtime + packaged skill
 CI=true npm run build:cached                                                   # 3 tasks successful, 18.1s
@@ -102,7 +102,7 @@ node scripts/rea.mjs setup --client codex --dry-run --json
 node scripts/rea.mjs setup --client codex --yes
 ```
 
-See [mcp-vs-cli.md](file:///workspace/neobank-za/reverse-engineering/rea-analysis/mcp-vs-cli.md) for the full registration/provider guide.
+See [mcp-vs-cli.md](file:///workspace/app/neobank-za/reverse-engineering/rea-analysis/mcp-vs-cli.md) for the full registration/provider guide.
 
 ---
 
@@ -111,11 +111,11 @@ See [mcp-vs-cli.md](file:///workspace/neobank-za/reverse-engineering/rea-analysi
 Generated from the running build — not scraped from docs:
 
 ```bash
-node scripts/generate-mcp-tool-catalog.mjs      # → /workspace/rea/.cache/mcp-tool-catalog.json
+node scripts/generate-mcp-tool-catalog.mjs      # → /workspace/app/rea/.cache/mcp-tool-catalog.json
 ```
 
 - **207** MCP tools, each entry carrying `name`, `title`, `description`, `inputSchema`, `outputSchema`, `effects`, `annotations`, `requiresSession`, `analysisOperation`.
-- Full extracted list persisted at [mcp-tool-names.tsv](file:///workspace/neobank-za/reverse-engineering/rea-analysis/mcp-tool-names.tsv).
+- Full extracted list persisted at [mcp-tool-names.tsv](file:///workspace/app/neobank-za/reverse-engineering/rea-analysis/mcp-tool-names.tsv).
 - Catalog digests (from `rea doctor identity`): `tools_sha256=abe85163…`, `prompts_sha256=7152916a…`, `combined_sha256=e3cbfdec…`.
 
 Top tool-name verb prefixes: `inspect` (47), `list` (21), `compare` (11), `trace` (10), `procedure` (7), `capture` (6), `set`/`get`/`observe`/`start` (5 each), `read`/`search`/`analyze`/`project`/`close` (4 each).
@@ -124,7 +124,7 @@ Top tool-name verb prefixes: `inspect` (47), `list` (21), `compare` (11), `trace
 
 ## 7. End-to-end functional proof (observed)
 
-See the worked demonstration: [demonstration-bankapp.md](file:///workspace/neobank-za/reverse-engineering/rea-analysis/demonstration-bankapp.md).
+See the worked demonstration: [demonstration-bankapp.md](file:///workspace/app/neobank-za/reverse-engineering/rea-analysis/demonstration-bankapp.md).
 
 Summary: REA statically reconstructed a 7-file banking-app fixture into an authenticated **JavaScript Application Graph**, recovering Electron boundaries, IPC channels and the `contextBridge` API surface, and emitted a sealed Evidence record `ev_cc7266b3c86b2defce6913519bcb1f66b55b9d59688e4cf01ea6723e706b3e64`.
 
@@ -149,6 +149,6 @@ node scripts/rea.mjs analyze-javascript-application /tmp/bankapp-demo --json
 
 ## 9. Traceability
 
-- Build artefacts: `/workspace/rea/dist/` (ignored output), `/workspace/rea/.cache/`.
+- Build artefacts: `/workspace/app/rea/dist/` (ignored output), `/workspace/app/rea/.cache/`.
 - This record satisfies the Stremiium rule *"Every prompt execution has a traceable entry."*
-- Related: [rea-analysis/README.md](file:///workspace/neobank-za/reverse-engineering/rea-analysis/README.md) · [architecture.md](file:///workspace/neobank-za/reverse-engineering/rea-analysis/architecture.md) · [tool-catalog.md](file:///workspace/neobank-za/reverse-engineering/rea-analysis/tool-catalog.md)
+- Related: [rea-analysis/README.md](file:///workspace/app/neobank-za/reverse-engineering/rea-analysis/README.md) · [architecture.md](file:///workspace/app/neobank-za/reverse-engineering/rea-analysis/architecture.md) · [tool-catalog.md](file:///workspace/app/neobank-za/reverse-engineering/rea-analysis/tool-catalog.md)

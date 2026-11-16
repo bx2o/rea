@@ -16,7 +16,7 @@ last_updated: "2026-10-16"
 
 # Capitec — Consolidated Journey (UnConsolidated)
 
-> Self-contained synthesis of the Capitec research set (`/workspace/research/banks/capitec/`). Every figure is
+> Self-contained synthesis of the Capitec research set (`/workspace/app/research/banks/capitec/`). Every figure is
 > traceable to a source already cited in that research set. Tags: `[OBS]` observed/filing-stated,
 > `[INF]` inference, `[DER]` derived, `[EST]` estimate, `[UNK]` unknown, `[UNVERIFIED]` single/low-authority.
 > **Entity note:** the bank is **Capitec Bank Limited**; the holding company **Capitec Bank Holdings

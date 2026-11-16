@@ -3,7 +3,7 @@
 **Owner:** C03 Admin-Knowledge · **Assured by:** C01 Legal-Compliance
 **Version:** 1.0 · **Date:** 2026-10-16 · **Status:** Active
 
-> Defines **who decides, who consults, and the SLA** for every recurring decision class on the NeoBank ZA program. Decision *levels* (1/2/3) follow SAOS [`sparkling-curious-instructions.md §3.1`](file:///workspace/_stremiium/.stremiium/governance/rules/sparkling-curious-instructions.md). Authority *tiers* follow the [hierarchy](../governance/README.md#2-authority-hierarchy).
+> Defines **who decides, who consults, and the SLA** for every recurring decision class on the NeoBank ZA program. Decision *levels* (1/2/3) follow SAOS [`sparkling-curious-instructions.md §3.1`](file:///workspace/app/.stremiium/governance/rules/sparkling-curious-instructions.md). Authority *tiers* follow the [hierarchy](../governance/README.md#2-authority-hierarchy).
 
 Back-links: [governance overview](./README.md) · [RACI](./raci.md) · [escalation](./escalation-protocols.md) · [decision log](./decision-log.md).
 

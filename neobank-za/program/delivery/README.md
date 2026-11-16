@@ -3,7 +3,7 @@
 **Owner:** C02 Operations · **Assured by:** C03 Admin-Knowledge · **Executive:** Sparkling Curious
 **Version:** 1.0 · **Date:** 2026-10-16
 
-> How work moves from idea to shipped artifact on `Project Umoya`. The delivery model is **async-first, artifact-driven, and evidence-over-reports**. It inherits the SAOS routing contract ([`workflow-routing.md §3`](file:///workspace/_stremiium/.stremiium/governance/workflow-routing.md)) and the quality standards in [`sparkling-curious-instructions.md §4`](file:///workspace/_stremiium/.stremiium/governance/rules/sparkling-curious-instructions.md).
+> How work moves from idea to shipped artifact on `Project Umoya`. The delivery model is **async-first, artifact-driven, and evidence-over-reports**. It inherits the SAOS routing contract ([`workflow-routing.md §3`](file:///workspace/app/.stremiium/governance/workflow-routing.md)) and the quality standards in [`sparkling-curious-instructions.md §4`](file:///workspace/app/.stremiium/governance/rules/sparkling-curious-instructions.md).
 
 Back-links: [governance](../governance/README.md) · [roadmaps](../roadmaps/README.md) · [risk](../risk/README.md) · [councils](../../councils/README.md).
 

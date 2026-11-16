@@ -1,6 +1,6 @@
 # REA — Reverse Engineer Anything
 
-Technical analysis of the REA project (MCP server + CLI) as cloned at `/workspace/rea`.
+Technical analysis of the REA project (MCP server + CLI) as cloned at `/workspace/app/rea`.
 The content below is based on read-only inspection of that repository. Every claim is
 tied to a source file path; where a fact could not be confirmed it is marked as such.
 
@@ -130,17 +130,17 @@ Prerequisites:
 
 | Area | Path |
 | --- | --- |
-| Executive overview | `/workspace/rea/README.md` |
-| Repository guidelines | `/workspace/rea/AGENTS.md` |
-| Layered diagram | `/workspace/rea/docs/architecture.mermaid` |
-| MCP contracts | `/workspace/rea/docs/mcp-contracts.md` |
-| CLI guide | `/workspace/rea/docs/cli.md` |
-| Tool design | `/workspace/rea/docs/tool-design.md` |
-| Installation | `/workspace/rea/docs/installation.md` |
-| Client configuration | `/workspace/rea/docs/client-configuration.md` |
-| RE tools (objdump/GDB/Rizin/Cutter) | `/workspace/rea/docs/reverse-engineering-tools.md` |
-| Skill | `/workspace/rea/.agents/skills/reverse-engineer-anything/SKILL.md` |
-| Contracts (tool inventory) | `/workspace/rea/src/contracts/**` |
-| Composition root | `/workspace/rea/src/server/createServer.ts` |
-| MCP server subclass | `/workspace/rea/src/server/EvidenceMcpServer.ts` |
-| CLI command names | `/workspace/rea/src/cliCommandNames.ts` |
+| Executive overview | `/workspace/app/rea/README.md` |
+| Repository guidelines | `/workspace/app/rea/AGENTS.md` |
+| Layered diagram | `/workspace/app/rea/docs/architecture.mermaid` |
+| MCP contracts | `/workspace/app/rea/docs/mcp-contracts.md` |
+| CLI guide | `/workspace/app/rea/docs/cli.md` |
+| Tool design | `/workspace/app/rea/docs/tool-design.md` |
+| Installation | `/workspace/app/rea/docs/installation.md` |
+| Client configuration | `/workspace/app/rea/docs/client-configuration.md` |
+| RE tools (objdump/GDB/Rizin/Cutter) | `/workspace/app/rea/docs/reverse-engineering-tools.md` |
+| Skill | `/workspace/app/rea/.agents/skills/reverse-engineer-anything/SKILL.md` |
+| Contracts (tool inventory) | `/workspace/app/rea/src/contracts/**` |
+| Composition root | `/workspace/app/rea/src/server/createServer.ts` |
+| MCP server subclass | `/workspace/app/rea/src/server/EvidenceMcpServer.ts` |
+| CLI command names | `/workspace/app/rea/src/cliCommandNames.ts` |

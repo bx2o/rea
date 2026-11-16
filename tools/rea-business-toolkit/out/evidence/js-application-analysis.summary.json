@@ -9,7 +9,7 @@
     "digest": {
       "sha256": "f1a47b94e07278710cd90b24aeb3142ba421a92e2d56ca3e5094868016997d07"
     },
-    "local_path": "/workspace/rea/dist",
+    "local_path": "/workspace/app/rea/dist",
     "format": "directory",
     "architecture": null
   },

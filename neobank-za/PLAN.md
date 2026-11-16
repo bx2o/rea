@@ -13,9 +13,9 @@
 
 This program inherits the operating rules extracted from `stremiium.zip` (`.stremiium/`). Authoritative files:
 
-- [sparkling-curious-instructions.md](file:///workspace/_stremiium/.stremiium/governance/rules/sparkling-curious-instructions.md) — orchestration, escalation, quality gates
-- [workflow-routing.md](file:///workspace/_stremiium/.stremiium/governance/workflow-routing.md) — canonical hierarchy + routing contract
-- [sparkling-curious.agent.md](file:///workspace/_stremiium/.stremiium/agents/sparkling-curious.agent.md) — master orchestrator identity (v3.0)
+- [sparkling-curious-instructions.md](file:///workspace/app/.stremiium/governance/rules/sparkling-curious-instructions.md) — orchestration, escalation, quality gates
+- [workflow-routing.md](file:///workspace/app/.stremiium/governance/workflow-routing.md) — canonical hierarchy + routing contract
+- [sparkling-curious.agent.md](file:///workspace/app/.stremiium/agents/sparkling-curious.agent.md) — master orchestrator identity (v3.0)
 - Registries: `.stremiium/registry/*.json`; algorithms: `.stremiium/workflows/algorithms/*`
 
 Stated rules applied in this program: **physical workspace evidence overrides stale reports**; every task has a traceable artifact; observe vs. infer vs. unknown must be distinguished; no secrets/credentials in artifacts.

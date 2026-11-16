@@ -13,7 +13,7 @@ import { spawnSync } from 'node:child_process';
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 
-const REA_ROOT = process.env.REA_ROOT || '/workspace/rea';
+const REA_ROOT = process.env.REA_ROOT || '/workspace/app/rea';
 const REA = resolve(REA_ROOT, 'scripts/rea.mjs');
 
 const argv = process.argv.slice(2);

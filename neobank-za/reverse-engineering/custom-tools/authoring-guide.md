@@ -1,11 +1,11 @@
 # Authoring a New REA Tool — Step-by-Step Guide
 
-How to add a first-class MCP tool **inside the REA source** at `/workspace/rea`, so it is
+How to add a first-class MCP tool **inside the REA source** at `/workspace/app/rea`, so it is
 exposed on both the MCP surface and the `rea` CLI with a shared Evidence contract. This
 guide uses **real file paths** from the v6.5.0 checkout.
 
-> **Read first:** `/workspace/rea/docs/tool-design.md` (the canonical rules) and
-> `/workspace/rea/AGENTS.md` (repo guidelines). The layered architecture is in
+> **Read first:** `/workspace/app/rea/docs/tool-design.md` (the canonical rules) and
+> `/workspace/app/rea/AGENTS.md` (repo guidelines). The layered architecture is in
 > [`../rea-analysis/architecture.md`](../rea-analysis/architecture.md).
 
 ---
@@ -150,7 +150,7 @@ The CLI and MCP use the same application workflows, so a single contract serves 
 
 - Add validated `examples` to the contract (`ToolExample[]`) — they are checked by
   `src/contracts/advertisedInputExamples.ts` / its test.
-- Update the family doc under `/workspace/rea/docs/` (e.g. `docs/android-analysis.md`).
+- Update the family doc under `/workspace/app/rea/docs/` (e.g. `docs/android-analysis.md`).
 - If you changed the advertised surface, regenerate generated artifacts rather than editing
   them (`docs/public/product-catalog.json` and `skills/` are **ignored outputs**;
   `AGENTS.md` says edit source contracts, then regenerate).
@@ -160,7 +160,7 @@ The CLI and MCP use the same application workflows, so a single contract serves 
 Run the checks REA documents (`AGENTS.md`, "Development"):
 
 ```bash
-cd /workspace/rea
+cd /workspace/app/rea
 
 # Fast cached typecheck + lint + pre-push check
 npm run check:fast
@@ -208,20 +208,20 @@ From `docs/tool-design.md` and `AGENTS.md`:
 
 | Purpose | Path |
 | --- | --- |
-| Design rules | `/workspace/rea/docs/tool-design.md` |
-| Repo guidelines | `/workspace/rea/AGENTS.md` |
-| Contract type | `/workspace/rea/src/contracts/toolContractTypes.ts` |
-| Ordered inventory | `/workspace/rea/src/contracts/toolContracts.ts` |
-| Effects audit | `/workspace/rea/src/contracts/toolEffects.ts` |
-| Contract helper | `/workspace/rea/src/contracts/toolContractHelpers.ts` |
-| Example family (contract) | `/workspace/rea/src/contracts/android/androidToolContracts.ts` |
-| Example family (domain) | `/workspace/rea/src/domain/android/androidAnalysis.ts` |
-| Example registrar | `/workspace/rea/src/server/registerAndroidTools.ts` |
-| Composition root | `/workspace/rea/src/server/createServer.ts` |
-| CLI names | `/workspace/rea/src/cliCommandNames.ts` |
-| Registration options | `/workspace/rea/src/server/toolRegistrationOptions.ts` |
-| Testing rules | `/workspace/rea/docs/testing.md` |
-| MCP contracts doc | `/workspace/rea/docs/mcp-contracts.md` |
+| Design rules | `/workspace/app/rea/docs/tool-design.md` |
+| Repo guidelines | `/workspace/app/rea/AGENTS.md` |
+| Contract type | `/workspace/app/rea/src/contracts/toolContractTypes.ts` |
+| Ordered inventory | `/workspace/app/rea/src/contracts/toolContracts.ts` |
+| Effects audit | `/workspace/app/rea/src/contracts/toolEffects.ts` |
+| Contract helper | `/workspace/app/rea/src/contracts/toolContractHelpers.ts` |
+| Example family (contract) | `/workspace/app/rea/src/contracts/android/androidToolContracts.ts` |
+| Example family (domain) | `/workspace/app/rea/src/domain/android/androidAnalysis.ts` |
+| Example registrar | `/workspace/app/rea/src/server/registerAndroidTools.ts` |
+| Composition root | `/workspace/app/rea/src/server/createServer.ts` |
+| CLI names | `/workspace/app/rea/src/cliCommandNames.ts` |
+| Registration options | `/workspace/app/rea/src/server/toolRegistrationOptions.ts` |
+| Testing rules | `/workspace/app/rea/docs/testing.md` |
+| MCP contracts doc | `/workspace/app/rea/docs/mcp-contracts.md` |
 
 ---
 

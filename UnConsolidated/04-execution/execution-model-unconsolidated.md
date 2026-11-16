@@ -1,6 +1,6 @@
 # Execution Model — UnConsolidated
 
-**Derived from:** `/workspace/.stremiium/execution/EXECUTION_STATUS.md`, `/workspace/.stremiium/execution/t0-t80-ledger.json`
+**Derived from:** `/workspace/app/.stremiium/execution/EXECUTION_STATUS.md`, `/workspace/app/.stremiium/execution/t0-t80-ledger.json`
 **Related artefacts:** `.stremiium/config/agents/prompt-execution-ledger.json`, `prompt-execution-ledger-t10-t19.json` … `-t50-t59.json`, `prompt-ownership-map.json`, `prompt-migration-manifest.json`, `prompt-remediation-plan.json`, `production-readiness-gates.json`
 **Canonical status:** the two `.stremiium/execution/` files are authoritative; this is a derived view.
 
