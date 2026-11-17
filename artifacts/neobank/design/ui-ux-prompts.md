@@ -2,8 +2,8 @@
 
 **Act as the assigned Stremiium agent or subagent.**
 
-**Execution model:** qwen3.8-omni-flash.  
-**Model policy:** LOCKED. Do not substitute another model.  
+**Execution model:** auto.  
+**Model policy:** LOCKED to `auto` (Kilo Code Auto Free, provider/model `kilo-auto/free`). Do not substitute another model.  
 **Mode:** Ask Mode preparation only unless later handed to Plan Mode or Code Mode.  
 **Workspace:** keep all artifacts inside the Stremiium / Independent-projects workspace structure.  
 **Output:** produce one separate unconsolidated artifact at `artifacts/neobank/design/ui-ux-prompts.md`.  
@@ -28,7 +28,7 @@ This master prompt instructs SUB-C08-DESIGN-NEO-001 to ingest the NeoBank design
 - UI/UX specifications must be treated as both fixed frontend requirements and testable user-journey hypotheses per global rule 7.
 - Accessibility compliance is mandatory (WCAG, South African accessibility context).
 - No dark patterns, no deceptive marketing, no unverified financial claims in UI/UX (guardrail from MP-BF04/MP-BD03).
-- qwen3.8-omni-flash is the only execution model; historical model references are architecture notes only.
+- auto (Kilo Code Auto Free, provider/model `kilo-auto/free`) is the only execution model; historical model references are architecture notes only.
 
 ---
 
@@ -125,7 +125,7 @@ No executable commands are produced in Ask Mode. The artifact contains prompt te
 - [ ] Every research claim carries `[S#]` reference or is explicitly marked unverified
 - [ ] Evidence grades `[FACT]/[EST]/[UNKNOWN]/[INFER]` preserved throughout
 - [ ] All 16 required sections from Common Master Prompt Header present
-- [ ] Model lock stated as `qwen3.8-omni-flash` (no substitution)
+- [ ] Model lock stated as `auto` (Kilo Code Auto Free, no substitution)
 - [ ] Ask Mode only — no execution language
 - [ ] User journey map included
 - [ ] Accessibility compliance specification included

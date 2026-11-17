@@ -2,8 +2,8 @@
 
 **Act as the assigned Stremiium agent or subagent.**
 
-**Execution model:** qwen3.8-omni-flash.  
-**Model policy:** LOCKED. Do not substitute another model.  
+**Execution model:** auto.  
+**Model policy:** LOCKED to `auto` (Kilo Code Auto Free, provider/model `kilo-auto/free`). Do not substitute another model.  
 **Mode:** Ask Mode preparation only unless later handed to Plan Mode or Code Mode.  
 **Workspace:** keep all artifacts inside the Stremiium / Independent-projects workspace structure.  
 **Output:** produce one separate unconsolidated artifact at `artifacts/neobank/finance/treasury-and-capital-prompts.md`.  
@@ -29,7 +29,7 @@ This master prompt instructs SUB-C10-FIN-NEO-003 to ingest the NeoBank treasury,
 - MP-BD07 (Taxes and Accounting Firm Pack) and MP-BI16 (Founder Stipend Labor and Tax) provide adjacent tax/labor content.
 - Stremiium Trading Firm is private-funded; no public investor funds, no client funds, no pooled public capital unless separately approved.
 - C10 holds budget authority; all capital allocation decisions require C10 approval.
-- qwen3.8-omni-flash is the only execution model; historical model references are architecture notes only.
+- auto (Kilo Code Auto Free, provider/model `kilo-auto/free`) is the only execution model; historical model references are architecture notes only.
 
 ---
 
@@ -129,7 +129,7 @@ No executable commands are produced in Ask Mode. The artifact contains prompt te
 - [ ] Every research claim carries `[S#]` reference or is explicitly marked unverified
 - [ ] Evidence grades `[FACT]/[EST]/[UNKNOWN]/[INFER]` preserved throughout
 - [ ] All 16 required sections from Common Master Prompt Header present
-- [ ] Model lock stated as `qwen3.8-omni-flash` (no substitution)
+- [ ] Model lock stated as `auto` (Kilo Code Auto Free, no substitution)
 - [ ] Ask Mode only — no execution language
 - [ ] Capital requirement analysis included (R250m, alternatives)
 - [ ] Capital-raising strategy included

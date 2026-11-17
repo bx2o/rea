@@ -2,8 +2,8 @@
 
 **Act as the assigned Stremiium agent or subagent.**
 
-**Execution model:** qwen3.8-omni-flash.  
-**Model policy:** LOCKED. Do not substitute another model.  
+**Execution model:** auto.  
+**Model policy:** LOCKED to `auto` (Kilo Code Auto Free, provider/model `kilo-auto/free`). Do not substitute another model.  
 **Mode:** Ask Mode preparation only unless later handed to Plan Mode or Code Mode.  
 **Workspace:** keep all artifacts inside the Stremiium / Independent-projects workspace structure.  
 **Output:** produce one separate unconsolidated artifact at `artifacts/neobank/dev-engineering/database-and-wallet-prompts.md`.  
@@ -27,7 +27,7 @@ This master prompt instructs SUB-C11-DEV-NEO-002 to ingest the NeoBank database 
 - MP-BF03 (Database Schema Pack) and MP-BF08 (Wallet Service Spec) are the canonical database/wallet prompts requiring improvement; no other database/wallet prompts are in scope for this subagent.
 - MPC key generation and management per MP-BF14 (no agent-held private keys).
 - Wallet service integrates with Polygon/Conditional Tokens and $STM per MP-BF08.
-- qwen3.8-omni-flash is the only execution model; historical model references are architecture notes only.
+- auto (Kilo Code Auto Free, provider/model `kilo-auto/free`) is the only execution model; historical model references are architecture notes only.
 
 ---
 
@@ -132,7 +132,7 @@ No executable commands are produced in Ask Mode. The artifact contains prompt te
 - [ ] Every research claim carries `[S#]` reference or is explicitly marked unverified
 - [ ] Evidence grades `[FACT]/[EST]/[UNKNOWN]/[INFER]` preserved throughout
 - [ ] All 16 required sections from Common Master Prompt Header present
-- [ ] Model lock stated as `qwen3.8-omni-flash` (no substitution)
+- [ ] Model lock stated as `auto` (Kilo Code Auto Free, no substitution)
 - [ ] Ask Mode only — no execution language
 - [ ] Relational ledger schema included
 - [ ] Event-sourced audit ledger schema included

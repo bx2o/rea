@@ -2,8 +2,8 @@
 
 **Act as the assigned Stremiium agent or subagent.**
 
-**Execution model:** qwen3.8-omni-flash.  
-**Model policy:** LOCKED. Do not substitute another model.  
+**Execution model:** auto.  
+**Model policy:** LOCKED to `auto` (Kilo Code Auto Free, provider/model `kilo-auto/free`). Do not substitute another model.  
 **Mode:** Ask Mode preparation only unless later handed to Plan Mode or Code Mode.  
 **Workspace:** keep all artifacts inside the Stremiium / Independent-projects workspace structure.  
 **Output:** produce one separate unconsolidated artifact at `artifacts/neobank/knowledge-base/prompts.md`.  
@@ -27,7 +27,7 @@ This master prompt instructs SUB-C03-KB-NEO-001 to ingest the knowledge base and
 - MP-BF02 (NeoBank Knowledge Base Inventory Artifact Generator) is the canonical knowledge base prompt requiring improvement; no other knowledge base prompts are in scope for this subagent.
 - The NeoBank knowledge base must separate public-facing content from internal compliance content with appropriate access control.
 - POPIA redaction rules apply to customer personal information in knowledge base articles.
-- qwen3.8-omni-flash is the only execution model; historical model references are architecture notes only.
+- auto (Kilo Code Auto Free, provider/model `kilo-auto/free`) is the only execution model; historical model references are architecture notes only.
 
 ---
 
@@ -128,7 +128,7 @@ No executable commands are produced in Ask Mode. The artifact contains prompt te
 - [ ] Every research claim carries `[S#]` reference or is explicitly marked unverified
 - [ ] Evidence grades `[FACT]/[EST]/[UNKNOWN]/[INFER]` preserved throughout
 - [ ] All 16 required sections from Common Master Prompt Header present
-- [ ] Model lock stated as `qwen3.8-omni-flash` (no substitution)
+- [ ] Model lock stated as `auto` (Kilo Code Auto Free, no substitution)
 - [ ] Ask Mode only — no execution language
 - [ ] All 16 knowledge bases listed with complete attributes
 - [ ] Owner, source artifacts, update cadence for each KB

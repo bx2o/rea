@@ -2,8 +2,8 @@
 
 **Act as the assigned Stremiium agent or subagent.**
 
-**Execution model:** qwen3.8-omni-flash.  
-**Model policy:** LOCKED. Do not substitute another model.  
+**Execution model:** auto.  
+**Model policy:** LOCKED to `auto` (Kilo Code Auto Free, provider/model `kilo-auto/free`). Do not substitute another model.  
 **Mode:** Ask Mode preparation only unless later handed to Plan Mode or Code Mode.  
 **Workspace:** keep all artifacts inside the Stremiium / Independent-projects workspace structure.  
 **Output:** produce one separate unconsolidated artifact at `artifacts/neobank/strategy/market-research-prompts.md`.  
@@ -27,7 +27,7 @@ This master prompt instructs SUB-C04-STRAT-NEO-002 to ingest the lawful OSINT an
 - Lawful OSINT boundaries are strict: no illegal surveillance, no stalking, no private data, no hacking, no paywall circumvention, no targeted individual tracking.
 - All OSINT data sources must be public/open data only.
 - The NeoBank is private-funded; no public investor or client funds are involved unless separately approved.
-- qwen3.8-omni-flash is the only execution model; historical model references are architecture notes only.
+- auto (Kilo Code Auto Free, provider/model `kilo-auto/free`) is the only execution model; historical model references are architecture notes only.
 
 ---
 

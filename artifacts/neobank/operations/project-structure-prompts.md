@@ -2,8 +2,8 @@
 
 **Act as the assigned Stremiium agent or subagent.**
 
-**Execution model:** qwen3.8-omni-flash.  
-**Model policy:** LOCKED. Do not substitute another model.  
+**Execution model:** auto.  
+**Model policy:** LOCKED to `auto` (Kilo Code Auto Free, provider/model `kilo-auto/free`). Do not substitute another model.  
 **Mode:** Ask Mode preparation only unless later handed to Plan Mode or Code Mode.  
 **Workspace:** keep all artifacts inside the Stremiium / Independent-projects workspace structure.  
 **Output:** produce one separate unconsolidated artifact at `artifacts/neobank/operations/project-structure-prompts.md`.  
@@ -28,7 +28,7 @@ This master prompt instructs SUB-C02-OPS-NEO-001 to ingest the NeoBank program p
 - MP-BF01 (NeoBank Project Structure Artifact Generator) is the canonical project structure prompt requiring improvement; no other project structure prompts are in scope for this subagent.
 - The NeoBank is private-funded; no public investor or client funds are involved unless separately approved.
 - The project structure must separate fixed requirements from hypotheses per the global rules.
-- qwen3.8-omni-flash is the only execution model; historical model references are architecture notes only.
+- auto (Kilo Code Auto Free, provider/model `kilo-auto/free`) is the only execution model; historical model references are architecture notes only.
 
 ---
 
@@ -127,7 +127,7 @@ No executable commands are produced in Ask Mode. The artifact contains prompt te
 - [ ] Every research claim carries `[S#]` reference or is explicitly marked unverified
 - [ ] Evidence grades `[FACT]/[EST]/[UNKNOWN]/[INFER]` preserved throughout
 - [ ] All 16 required sections from Common Master Prompt Header present
-- [ ] Model lock stated as `qwen3.8-omni-flash` (no substitution)
+- [ ] Model lock stated as `auto` (Kilo Code Auto Free, no substitution)
 - [ ] Ask Mode only — no execution language
 - [ ] Ownership map for all NeoBank components included
 - [ ] Dependency graph with regulatory gating included

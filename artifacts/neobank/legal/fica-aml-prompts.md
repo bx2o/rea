@@ -2,8 +2,8 @@
 
 **Act as the assigned Stremiium agent or subagent.**
 
-**Execution model:** qwen3.8-omni-flash.  
-**Model policy:** LOCKED. Do not substitute another model.  
+**Execution model:** auto.  
+**Model policy:** LOCKED to `auto` (Kilo Code Auto Free, provider/model `kilo-auto/free`). Do not substitute another model.  
 **Mode:** Ask Mode preparation only unless later handed to Plan Mode or Code Mode.  
 **Workspace:** keep all artifacts inside the Stremiium / Independent-projects workspace structure.  
 **Output:** produce one separate unconsolidated artifact at `artifacts/neobank/legal/fica-aml-prompts.md`.  
@@ -27,7 +27,7 @@ This master prompt instructs SUB-C01-FICA-NEO-002 to ingest the FICA/AML regulat
 - MP-BI04 (FICA CDD/STR Workflow) and MP-BF11 (KYC/AML Workflow) are the canonical FICA prompts requiring improvement; no other FICA prompts are in scope for this subagent.
 - The NeoBank will be an accountable institution under FICA s42B once incorporated and registered with the FIC via goAML.
 - The NeoBank is private-funded; no public investor or client funds are involved unless separately approved by Legal-Compliance, Banking-Fintech, Finance, and Mychael.
-- qwen3.8-omni-flash is the only execution model; historical model references are architecture notes only.
+- auto (Kilo Code Auto Free, provider/model `kilo-auto/free`) is the only execution model; historical model references are architecture notes only.
 
 ---
 
@@ -128,7 +128,7 @@ No executable commands are produced in Ask Mode. The artifact contains prompt te
 - [ ] Every research claim carries `[S#]` reference or is explicitly marked unverified
 - [ ] Evidence grades `[FACT]/[EST]/[UNKNOWN]/[INFER]` preserved throughout
 - [ ] All 16 required sections from Common Master Prompt Header present
-- [ ] Model lock stated as `qwen3.8-omni-flash` (no substitution)
+- [ ] Model lock stated as `auto` (Kilo Code Auto Free, no substitution)
 - [ ] Ask Mode only — no execution language
 - [ ] FICA RMCP template included
 - [ ] goAML registration workflow included
