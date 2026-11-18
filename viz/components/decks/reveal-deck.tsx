@@ -1,24 +1,30 @@
 "use client";
 
 /**
- * RevealDeck — fullscreen reveal.js deck renderer for the /learn route (VIZ-030).
+ * RevealDeck — premium fullscreen reveal.js deck renderer for /learn (VIZ-030).
  *
- * - reveal.js + the markdown plugin are loaded client-only via dynamic
- *   `import()` inside useEffect (plan §8 SSR failure mode: reveal.js does not
- *   server-render). No reveal import exists at module scope.
+ * - reveal.js + the markdown plugin (and, when available, the speaker-notes
+ *   plugin) are loaded client-only via dynamic `import()` inside useEffect
+ *   (plan §8 SSR failure mode: reveal.js does not server-render). No reveal
+ *   import exists at module scope.
  * - Deck markdown is fetched from `/decks/<file>`. NOTE: files under
  *   `viz/content/` are NOT publicly served by Next.js, so the deck sources
  *   ship as duplicated copies in `viz/public/decks/` (authored source of
  *   truth stays `viz/content/decks/`; duplication accepted + documented).
+ * - Rich slides: inline SVG, fragment HTML comments, tables and speaker notes
+ *   all travel through `section.textContent = markdown` into the markdown
+ *   plugin — nothing sanitises or strips `<!-- .element: class="fragment" -->`
+ *   comments, so reveal.js applies them natively. One 1280×720 section canvas,
+ *   controls + progress + slide numbers, overview, fragments and notes.
  * - Accessibility per VIZ-014 §8.5: native reveal keyboard navigation
- *   preserved; focus moves to the new slide's heading on `slidechanged`;
- *   a polite live region announces "Slide N of M: <title>"; reduced motion
- *   → `transition: "none"`. The overlay is a modal dialog with a Tab focus
- *   trap (VIZ-014 §8.8 contract: initial focus, Tab wrap, Escape close,
- *   focus return handled by the opening page).
- * - Escape closes the deck, EXCEPT while reveal's overview mode is open —
- *   the same keypress then only exits the overview (reveal listens on the
- *   document; our handler runs first and lets it pass through).
+ *   preserved (arrow keys are NEVER intercepted here); focus moves to the new
+ *   slide's heading on `slidechanged`; a polite LIVE "Slide N of M: <title>"
+ *   status is visible in the chrome; reduced motion → `transition: "none"`.
+ *   The overlay is a modal dialog with a Tab focus trap (VIZ-014 §8.8:
+ *   initial focus, Tab wrap, Escape close, focus return handled by the page).
+ * - Escape closes the deck, EXCEPT while reveal's overview mode is open — the
+ *   same keypress then only exits the overview — and except while the browser
+ *   owns fullscreen (first Escape exits fullscreen, second closes).
  */
 
 import {
@@ -45,6 +51,9 @@ interface RevealApi {
   destroy: () => void;
   on: (event: string, listener: (data: unknown) => void) => void;
   isOverview: () => boolean;
+  toggleOverview: () => void;
+  getCurrentSlide?: () => HTMLElement | null;
+  getTotalSlides?: () => number;
 }
 type RevealCtor = new (element: HTMLElement, config?: Record<string, unknown>) => RevealApi;
 type RevealPlugin = { id?: string; init?: (deck: RevealApi) => void };
@@ -53,9 +62,21 @@ interface SlideChangedEvent {
   currentSlide: HTMLElement;
 }
 
+/** Visible, polite slide status derived from reveal's own slide events. */
+interface SlideInfo {
+  index: number;
+  total: number;
+  heading: string;
+}
+
 const SLIDE_SEPARATOR = "^---$";
+const NOTE_SEPARATOR = "^Note:";
 const FOCUSABLE_SELECTOR =
   "a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex='-1'])";
+
+/** Shared class for the floating toolbar buttons (token-only, no hex). */
+const TOOL_BUTTON_CLASS =
+  "inline-flex h-9 items-center gap-1.5 rounded-md border border-transparent px-2.5 text-xs font-medium text-muted-foreground transition-colors hover:border-border hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
 /**
  * reveal.js ships without type declarations. Both import specifiers are
@@ -73,21 +94,17 @@ async function loadReveal(): Promise<RevealCtor> {
   return candidate as unknown as RevealCtor;
 }
 
-/**
- * The markdown plugin ships as an ES-module default export and/or a UMD
- * global (`RevealMarkdown`) depending on the resolved build; accept either
- * the factory form or the `{ id, init }` object form.
- */
-async function loadMarkdownPlugin(): Promise<RevealPlugin> {
-  // @ts-ignore plugin builds ship without type declarations
-  const mod = await import("reveal.js/plugin/markdown/markdown.js");
+/** Accept either a factory export or the `{ id, init }` plugin object form. */
+function pluginFromModule(mod: unknown, globalNames: string[]): RevealPlugin | null {
   const candidates: unknown[] = [
     (mod as { default?: unknown }).default,
-    (mod as { RevealMarkdown?: unknown }).RevealMarkdown,
+    ...globalNames.map((name) => (mod as Record<string, unknown>)[name]),
     mod,
   ];
   if (typeof window !== "undefined") {
-    candidates.push((window as { RevealMarkdown?: unknown }).RevealMarkdown);
+    for (const name of globalNames) {
+      candidates.push((window as unknown as Record<string, unknown>)[name]);
+    }
   }
   for (const candidate of candidates) {
     if (typeof candidate === "function") return candidate as unknown as RevealPlugin;
@@ -99,7 +116,27 @@ async function loadMarkdownPlugin(): Promise<RevealPlugin> {
       return candidate as RevealPlugin;
     }
   }
-  throw new Error("reveal.js markdown plugin could not be resolved");
+  return null;
+}
+
+/** The markdown plugin is REQUIRED — fail loudly if it cannot be resolved. */
+async function loadMarkdownPlugin(): Promise<RevealPlugin> {
+  // @ts-ignore plugin builds ship without type declarations
+  const mod = await import("reveal.js/plugin/markdown/markdown.js");
+  const plugin = pluginFromModule(mod, ["RevealMarkdown"]);
+  if (!plugin) throw new Error("reveal.js markdown plugin could not be resolved");
+  return plugin;
+}
+
+/** Speaker notes are a progressive enhancement — degrade to no plugin. */
+async function loadNotesPlugin(): Promise<RevealPlugin | null> {
+  try {
+    // @ts-ignore optional plugin build ships without type declarations
+    const mod = await import("reveal.js/plugin/notes/notes.esm.js");
+    return pluginFromModule(mod, ["RevealNotes"]);
+  } catch {
+    return null;
+  }
 }
 
 /** reveal.css + a built-in theme; wrapped in try per VIZ-030 spec. */
@@ -157,7 +194,7 @@ function trapFocus(event: ReactKeyboardEvent<HTMLElement>, container: HTMLElemen
 function decorateSlides(revealRoot: HTMLElement, title: string): HTMLElement[] {
   revealRoot.setAttribute("role", "region");
   revealRoot.setAttribute("aria-roledescription", "carousel");
-  revealRoot.setAttribute("aria-label", `${title} slide deck`);
+  revealRoot.setAttribute("aria-label", `Learning deck: ${title}`);
   const sections = Array.from(revealRoot.querySelectorAll<HTMLElement>(".slides > section"));
   sections.forEach((section, index) => {
     section.setAttribute("aria-roledescription", "slide");
@@ -173,6 +210,10 @@ function decorateSlides(revealRoot: HTMLElement, title: string): HTMLElement[] {
 export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
   const [markdown, setMarkdown] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [helpOpen, setHelpOpen] = useState(false);
+  const [slideInfo, setSlideInfo] = useState<SlideInfo | null>(null);
+  const [fullscreenAvailable, setFullscreenAvailable] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   const overlayRef = useRef<HTMLDivElement>(null);
   const revealRootRef = useRef<HTMLDivElement>(null);
@@ -180,6 +221,8 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
   const liveRef = useRef<HTMLDivElement>(null);
   const deckRef = useRef<RevealApi | null>(null);
   const onCloseRef = useRef(onClose);
+
+  const helpId = deckId ? `deck-help-${deckId}` : "deck-help";
 
   useEffect(() => {
     onCloseRef.current = onClose;
@@ -189,11 +232,25 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
     if (liveRef.current) liveRef.current.textContent = message;
   }, []);
 
+  // 0. Feature-detect Fullscreen API; keep the button hidden when unsupported.
+  useEffect(() => {
+    const supported =
+      typeof document !== "undefined" &&
+      ("fullscreenEnabled" in document ? document.fullscreenEnabled : true) &&
+      typeof overlayRef.current?.requestFullscreen === "function";
+    setFullscreenAvailable(supported);
+    if (!supported) return;
+    const onFullscreenChange = () => setIsFullscreen(document.fullscreenElement !== null);
+    document.addEventListener("fullscreenchange", onFullscreenChange);
+    return () => document.removeEventListener("fullscreenchange", onFullscreenChange);
+  }, []);
+
   // 1. Fetch the deck markdown (public/decks copy; viz/content is not served).
   useEffect(() => {
     let alive = true;
     setMarkdown(null);
     setError(null);
+    setSlideInfo(null);
     fetch(`/decks/${file}`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status} for /decks/${file}`);
@@ -224,9 +281,26 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
     const savedBodyOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
+    /** Derive the polite status from reveal's live DOM (works on init too). */
+    const syncSlideInfo = (currentSlide?: HTMLElement | null) => {
+      const slides = Array.from(revealRoot.querySelectorAll<HTMLElement>(".slides > section"));
+      const active =
+        currentSlide ??
+        revealRoot.querySelector<HTMLElement>(".slides > section.present") ??
+        slides[0] ??
+        null;
+      const position = active ? Math.max(1, slides.indexOf(active) + 1) : 0;
+      const heading =
+        active?.querySelector<HTMLElement>("h1, h2, h3, h4")?.textContent?.trim() || title;
+      setSlideInfo({ index: position, total: slides.length, heading });
+    };
+
     const handleSlideChange = (event: unknown) => {
       const { currentSlide } = (event ?? {}) as SlideChangedEvent;
-      if (!currentSlide) return;
+      if (!currentSlide) {
+        syncSlideInfo();
+        return;
+      }
       // Focus management (VIZ-014 §8.5): move focus to the new slide heading.
       const heading = currentSlide.querySelector<HTMLElement>("h1, h2, h3, h4");
       if (heading) {
@@ -237,20 +311,23 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
           heading.focus();
         }
       }
-      const slides = Array.from(revealRoot.querySelectorAll<HTMLElement>(".slides > section"));
-      const position = Math.max(1, slides.indexOf(currentSlide) + 1);
-      const label = heading?.textContent?.trim() ?? title;
-      announce(`Slide ${position} of ${slides.length}: ${label}`);
+      syncSlideInfo(currentSlide);
     };
 
     const mount = async () => {
       try {
-        const [RevealCtor, Markdown] = await Promise.all([loadReveal(), loadMarkdownPlugin()]);
+        const [RevealCtor, Markdown, Notes] = await Promise.all([
+          loadReveal(),
+          loadMarkdownPlugin(),
+          loadNotesPlugin(),
+        ]);
         await loadDeckStyles();
         if (disposed) return;
 
         // (Re)build the markdown source section imperatively so remounts
         // (e.g. React strict mode, deck switch) start from a clean slate.
+        // NOTE: textContent is deliberate — it preserves raw HTML and the
+        // `<!-- .element: class="fragment" -->` comments reveal.js needs.
         let slidesWrap = revealRoot.querySelector<HTMLElement>(":scope > .slides");
         if (!slidesWrap) {
           slidesWrap = document.createElement("div");
@@ -267,18 +344,30 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
         slidesWrap.appendChild(section);
 
         const reduced = prefersReducedMotion();
+        const plugins: RevealPlugin[] = [Markdown];
+        if (Notes) plugins.push(Notes); // speaker notes: progressive enhancement
+        const transition = reduced ? "none" : "fade";
+
         deck = new RevealCtor(revealRoot, {
           embedded: true,
           hash: true,
-          transition: reduced ? "none" : "fade",
-          backgroundTransition: reduced ? "none" : "fade",
-          markdown: { separator: SLIDE_SEPARATOR, notesSeparator: "^Note:" },
+          transition,
+          backgroundTransition: transition,
+          markdown: { separator: SLIDE_SEPARATOR, notesSeparator: NOTE_SEPARATOR },
           keyboard: true,
           controls: true,
+          controlsTutorial: true,
+          controlsLayout: "bottom-right",
           progress: true,
           slideNumber: "c/t",
+          overview: true,
+          center: false,
+          width: 1280,
+          height: 720,
+          margin: 0.04,
+          fragments: true,
           touch: true,
-          plugins: [Markdown],
+          plugins,
         });
         deckRef.current = deck;
         deck.on("slidechanged", handleSlideChange);
@@ -289,6 +378,8 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
         }
 
         const slides = decorateSlides(revealRoot, title);
+        // hash:true may restore a deep-linked slide on init — prefer the live one.
+        syncSlideInfo(deck?.getCurrentSlide?.() ?? slides[0] ?? null);
         announce(`Deck loaded: ${title}. Slide 1 of ${slides.length}.`);
         closeRef.current?.focus();
       } catch (err) {
@@ -309,10 +400,18 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
       }
       deckRef.current = null;
       document.body.style.overflow = savedBodyOverflow;
+      // Leave fullscreen when the overlay is torn down (deck switch / unmount).
+      if (typeof document !== "undefined" && document.fullscreenElement) {
+        try {
+          const exit = document.exitFullscreen();
+          if (exit && typeof exit.catch === "function") void exit.catch(() => {});
+        } catch {
+          /* fullscreen teardown is best-effort */
+        }
+      }
       // Restore the pre-deck hash (reveal hash:true writes /<slide> fragments).
       if (typeof window !== "undefined" && window.location.hash !== savedHash) {
-        const restore =
-          savedHash || `${window.location.pathname}${window.location.search}`;
+        const restore = savedHash || `${window.location.pathname}${window.location.search}`;
         try {
           window.history.replaceState(null, "", restore);
         } catch {
@@ -322,53 +421,254 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
     };
   }, [markdown, title, announce]);
 
+  /** Focus return to the card button is owned by /learn via `onClose`. */
+  const closeDeck = useCallback(() => {
+    setHelpOpen(false);
+    onCloseRef.current?.();
+  }, []);
+
+  const toggleOverview = useCallback(() => {
+    try {
+      deckRef.current?.toggleOverview();
+    } catch {
+      /* overview is best-effort */
+    }
+  }, []);
+
+  const toggleFullscreen = useCallback(() => {
+    const container = overlayRef.current;
+    if (!container) return;
+    try {
+      if (document.fullscreenElement) {
+        const exit = document.exitFullscreen();
+        if (exit && typeof exit.catch === "function") void exit.catch(() => {});
+      } else {
+        const enter = container.requestFullscreen();
+        if (enter && typeof enter.catch === "function") void enter.catch(() => {});
+      }
+    } catch {
+      /* fullscreen denied (user gesture / policy) — no-op */
+    }
+  }, []);
+
   const handleKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Escape") {
+      if (helpOpen) {
+        event.preventDefault();
+        event.stopPropagation();
+        setHelpOpen(false);
+        return;
+      }
+      // The browser owns the first Escape while fullscreen is active.
+      if (typeof document !== "undefined" && document.fullscreenElement) return;
       // While reveal's overview is open, the same keypress only exits it.
       const inOverview = deckRef.current?.isOverview() ?? false;
       if (!inOverview) {
         event.preventDefault();
         event.stopPropagation();
-        onCloseRef.current?.();
+        closeDeck();
       }
       return;
     }
-    if (event.key === "Tab") {
-      trapFocus(event, overlayRef.current);
-    }
+    // Tab wrap only. Arrow keys / F / O / S stay native to reveal.js.
+    if (event.key === "Tab") trapFocus(event, overlayRef.current);
   };
 
   return (
     <div
       ref={overlayRef}
       id={deckId ? `deck-overlay-${deckId}` : undefined}
-      className="fixed inset-0 z-50 flex flex-col bg-background"
+      className="deck-player fixed inset-0 z-50 flex flex-col bg-background"
       role="dialog"
       aria-modal="true"
-      aria-label={`${title} — slide deck`}
+      aria-label={`Learning deck: ${title}`}
       onKeyDown={handleKeyDown}
     >
       {/* Deck chrome — visible controls are real buttons (VIZ-014 §8.5). */}
       <div className="flex items-center justify-between gap-3 border-b border-border bg-card px-4 py-2.5">
-        <p className="truncate text-sm font-medium text-card-foreground">
-          {title}
-          <span className="ml-2 text-xs font-normal text-muted-foreground">Learn deck</span>
-        </p>
-        <button
-          ref={closeRef}
-          type="button"
-          onClick={() => onCloseRef.current?.()}
-          className="inline-flex h-9 shrink-0 items-center gap-2 rounded-md border border-input bg-background px-3 text-sm font-medium text-foreground hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-        >
-          Close deck
-          <kbd className="rounded border border-border px-1 text-[0.65rem] text-muted-foreground">
-            Esc
-          </kbd>
-        </button>
+        <div className="flex min-w-0 items-center gap-3">
+          <p className="truncate text-sm font-medium text-card-foreground">
+            {title}
+            <span className="ml-2 text-xs font-normal text-muted-foreground">Learn deck</span>
+          </p>
+          {/* Polite, labelled slide status (also visible — no duplicate live region). */}
+          <p
+            aria-live="polite"
+            aria-atomic="true"
+            className="hidden shrink-0 rounded-full border border-border bg-background px-2.5 py-1 font-mono text-[11px] text-muted-foreground sm:block"
+          >
+            <span className="sr-only">Slide status: </span>
+            {slideInfo
+              ? `Slide ${slideInfo.index} of ${slideInfo.total}: ${slideInfo.heading}`
+              : "Slide status loading…"}
+          </p>
+        </div>
+        <div className="flex shrink-0 items-center gap-2">
+          {/* Explicit header hint alongside title + Close (Learn page contract). */}
+          <button
+            type="button"
+            onClick={() => setHelpOpen((open) => !open)}
+            className="hidden items-center gap-1.5 rounded-md px-2 py-1 text-xs text-muted-foreground hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:inline-flex"
+            aria-label="Keyboard shortcuts"
+            aria-expanded={helpOpen}
+            aria-controls={helpId}
+            title="Keyboard shortcuts (?)"
+          >
+            Keyboard shortcuts
+            <kbd className="rounded border border-border px-1 text-[0.65rem]">?</kbd>
+          </button>
+          <button
+            ref={closeRef}
+            type="button"
+            onClick={closeDeck}
+            className="inline-flex h-9 shrink-0 items-center gap-2 rounded-md border border-input bg-background px-3 text-sm font-medium text-foreground hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          >
+            Close deck
+            <kbd className="rounded border border-border px-1 text-[0.65rem] text-muted-foreground">
+              Esc
+            </kbd>
+          </button>
+        </div>
       </div>
 
-      {/* Reveal mount — rendered only after the markdown is fetched. */}
+      {/* Reveal mount + floating player controls. */}
       <div className="relative min-h-0 flex-1">
+        {markdown !== null && error === null ? (
+          <div className="deck-toolbar absolute right-3 top-3 z-20 flex items-center gap-1 rounded-lg border border-border p-1 shadow-lg">
+            <button
+              type="button"
+              onClick={toggleOverview}
+              className={TOOL_BUTTON_CLASS}
+              aria-label="Toggle slide overview"
+              title="Overview (O)"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.75}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <rect x="3" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="3" width="7" height="7" rx="1" />
+                <rect x="3" y="14" width="7" height="7" rx="1" />
+                <rect x="14" y="14" width="7" height="7" rx="1" />
+              </svg>
+              <span className="hidden lg:inline">Overview</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setHelpOpen((open) => !open)}
+              className={TOOL_BUTTON_CLASS}
+              aria-label="Show keyboard shortcuts"
+              aria-expanded={helpOpen}
+              aria-controls={helpId}
+              title="Keyboard shortcuts"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.75}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="9" />
+                <path d="M9.4 9.2a2.7 2.7 0 1 1 3.9 2.4c-.9.5-1.3 1.1-1.3 2.1" />
+                <circle cx="12" cy="17.2" r="0.7" fill="currentColor" stroke="none" />
+              </svg>
+              <span className="hidden lg:inline">Help</span>
+            </button>
+            {fullscreenAvailable ? (
+              <button
+                type="button"
+                onClick={toggleFullscreen}
+                className={TOOL_BUTTON_CLASS}
+                aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+                aria-pressed={isFullscreen}
+                title={isFullscreen ? "Exit fullscreen (F)" : "Fullscreen (F)"}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.75}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3" />
+                </svg>
+                <span className="hidden lg:inline">
+                  {isFullscreen ? "Exit" : "Fullscreen"}
+                </span>
+              </button>
+            ) : null}
+          </div>
+        ) : null}
+
+        {helpOpen ? (
+          <div
+            id={helpId}
+            role="group"
+            aria-label="Keyboard shortcuts"
+            className="deck-help-panel absolute right-3 top-16 z-30 w-64 rounded-lg border border-border bg-card p-3 text-card-foreground shadow-xl"
+          >
+            <div className="mb-2 flex items-center justify-between gap-2">
+              <h2 className="font-heading text-sm font-semibold text-foreground">
+                Keyboard shortcuts
+              </h2>
+              <button
+                type="button"
+                onClick={() => setHelpOpen(false)}
+                aria-label="Close keyboard shortcuts"
+                title="Close"
+                className="inline-flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.75}
+                  strokeLinecap="round"
+                  aria-hidden="true"
+                >
+                  <path d="M6 6l12 12M18 6 6 18" />
+                </svg>
+              </button>
+            </div>
+            <dl className="space-y-1.5 text-xs text-muted-foreground">
+              <div className="flex items-center justify-between gap-2">
+                <dt><kbd>←</kbd> <kbd>→</kbd></dt>
+                <dd>Previous / next slide</dd>
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <dt><kbd>F</kbd></dt>
+                <dd>Fullscreen</dd>
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <dt><kbd>O</kbd></dt>
+                <dd>Overview</dd>
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <dt><kbd>S</kbd></dt>
+                <dd>Speaker notes</dd>
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <dt><kbd>Esc</kbd></dt>
+                <dd>Close deck</dd>
+              </div>
+            </dl>
+          </div>
+        ) : null}
+
         {markdown !== null ? (
           <div ref={revealRootRef} className="reveal h-full w-full">
             <div className="slides" data-separator={SLIDE_SEPARATOR} />
@@ -391,7 +691,7 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
         )}
       </div>
 
-      {/* Polite announcements (VIZ-014 §8.5/§8.7): "Slide N of M: title". */}
+      {/* Polite load/error announcements (VIZ-014 §8.5/§8.7). */}
       <div ref={liveRef} role="status" aria-live="polite" className="sr-only" />
     </div>
   );

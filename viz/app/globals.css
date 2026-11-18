@@ -248,3 +248,200 @@
     }
   }
 }
+
+/* ==========================================================================
+   SLIDE / REVEAL VISUAL ENHANCEMENTS — D5 (additive, token-only)
+   Prefixed with .deck-player so these rules win over reveal.css, which is
+   injected at runtime AFTER the app stylesheet. Every colour resolves through
+   an existing hsl(var(--token)) design token — no literal hex.
+   ========================================================================== */
+
+/* Glass slide canvas: opaque fallback first, translucency only where supported. */
+.deck-player .reveal .slides section {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border) / 0.7);
+  border-radius: calc(var(--radius) * 1.5);
+  box-shadow: 0 1.25rem 3rem hsl(var(--foreground) / 0.12),
+    inset 0 1px 0 hsl(var(--card-foreground) / 0.05);
+  color: hsl(var(--card-foreground));
+  font-family: "Inter", system-ui, sans-serif;
+}
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .deck-player .reveal .slides section {
+    background: hsl(var(--card) / 0.9);
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur));
+  }
+}
+
+/* Space Grotesk headings with a ZAR-gold accent underline. */
+.deck-player .reveal .slides section h1,
+.deck-player .reveal .slides section h2,
+.deck-player .reveal .slides section h3 {
+  font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: hsl(var(--primary));
+}
+.deck-player .reveal .slides section h1::after,
+.deck-player .reveal .slides section h2::after {
+  content: "";
+  display: block;
+  width: 2.4em;
+  height: 3px;
+  margin-top: 0.3em;
+  border-radius: 999px;
+  background: hsl(var(--highlight));
+}
+
+/* Data tables — muted header, zone-coloured first-column row accents. */
+.deck-player .reveal .slides section table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: var(--radius);
+  font-size: 0.9em;
+}
+.deck-player .reveal .slides section th,
+.deck-player .reveal .slides section td {
+  padding: 0.5em 0.75em;
+  border-bottom: 1px solid hsl(var(--border) / 0.8);
+  text-align: left;
+  vertical-align: top;
+}
+.deck-player .reveal .slides section thead th {
+  background: hsl(var(--muted));
+  color: hsl(var(--foreground));
+  font-weight: 600;
+}
+.deck-player .reveal .slides section tbody tr:nth-child(6n + 1) td:first-child {
+  border-left: 3px solid hsl(var(--zone-docs));
+}
+.deck-player .reveal .slides section tbody tr:nth-child(6n + 2) td:first-child {
+  border-left: 3px solid hsl(var(--zone-prompts));
+}
+.deck-player .reveal .slides section tbody tr:nth-child(6n + 3) td:first-child {
+  border-left: 3px solid hsl(var(--zone-execution));
+}
+.deck-player .reveal .slides section tbody tr:nth-child(6n + 4) td:first-child {
+  border-left: 3px solid hsl(var(--zone-stremiium));
+}
+.deck-player .reveal .slides section tbody tr:nth-child(6n + 5) td:first-child {
+  border-left: 3px solid hsl(var(--zone-rea));
+}
+.deck-player .reveal .slides section tbody tr:nth-child(6n) td:first-child {
+  border-left: 3px solid hsl(var(--zone-other));
+}
+
+/* Inline SVG charts/diagrams scale with the 1280x720 canvas. */
+.deck-player .reveal .slides section svg {
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0.4rem 0.9rem hsl(var(--foreground) / 0.14));
+}
+
+/* Fragment entrance — reveal.js toggles .visible; nothing strips the comments. */
+.deck-player .reveal .slides section .fragment {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  transform: translateY(0.35em);
+}
+.deck-player .reveal .slides section .fragment.visible {
+  transform: translateY(0);
+}
+
+/* Themed reveal chrome. */
+.deck-player .reveal .controls {
+  color: hsl(var(--primary));
+}
+.deck-player .reveal .controls .navigate-left .controls-arrow {
+  border-right-color: hsl(var(--primary));
+}
+.deck-player .reveal .controls .navigate-right .controls-arrow {
+  border-left-color: hsl(var(--primary));
+}
+.deck-player .reveal .controls .navigate-up .controls-arrow {
+  border-bottom-color: hsl(var(--primary));
+}
+.deck-player .reveal .controls .navigate-down .controls-arrow {
+  border-top-color: hsl(var(--primary));
+}
+.deck-player .reveal .progress {
+  height: 4px;
+  background: hsl(var(--muted) / 0.7);
+}
+.deck-player .reveal .progress span {
+  background: hsl(var(--primary));
+}
+.deck-player .reveal .slide-number {
+  padding: 0.2em 0.6em;
+  border-radius: 999px;
+  background: hsl(var(--card) / 0.85);
+  color: hsl(var(--muted-foreground));
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  font-size: 0.7em;
+}
+.deck-player .reveal .speaker-notes {
+  display: none;
+}
+
+/* Floating player toolbar / help panel glass treatment. */
+.deck-player .deck-toolbar,
+.deck-player .deck-help-panel {
+  background: hsl(var(--card) / 0.88);
+}
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .deck-player .deck-toolbar,
+  .deck-player .deck-help-panel {
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur));
+  }
+}
+.deck-player .deck-help-panel kbd {
+  display: inline-block;
+  min-width: 1.5rem;
+  padding: 0.1rem 0.3rem;
+  border: 1px solid hsl(var(--border));
+  border-radius: calc(var(--radius) - 2px);
+  background: hsl(var(--muted));
+  color: hsl(var(--foreground));
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deck-player .reveal .slides section .fragment {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* Clean print output: one slide per page, no player chrome. */
+@media print {
+  .deck-player .deck-toolbar,
+  .deck-player .deck-help-panel,
+  .deck-player .reveal .controls,
+  .deck-player .reveal .progress,
+  .deck-player .reveal .slide-number {
+    display: none !important;
+  }
+  .deck-player .reveal,
+  .deck-player .reveal .slides {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .deck-player .reveal .slides section {
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 0 1rem;
+    padding: 1rem !important;
+    break-after: page;
+    page-break-after: always;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
