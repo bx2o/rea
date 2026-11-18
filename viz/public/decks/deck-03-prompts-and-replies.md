@@ -145,7 +145,7 @@ Note: The learning app itself follows the same prompt-driven governance: ninetee
 ## How to explore
 
 - `/explorer` — virtualized file tree + file viewer (markdown render, metadata)
-- **⌘K** — command palette: fuzzy search grouped into Files / Folders / Commits / Views
+- **⌘K** — command palette opens: fuzzy search grouped into Views / Folders / Files / Commits
 - `/commits` — commit timeline + diffs · `/councils` — 16-council graph · `/globe` — WebGL globe
 - `/learn` — these decks
 
@@ -159,9 +159,9 @@ Note: Everything cited in these decks can be opened directly: press command-K an
 
 Worked example (C01 · CARF reporting):
 
-1. Prompt: `prompts/neobank/c01-legal-compliance/carf/prompt.md`
+1. Prompt: `prompts/neobank/legal/carf/prompt.md`
 2. Reply: `prompts/replies/neobank/c01-legal-compliance/carf/reply.md` (+ `research-evidence.md`, `diagrams-and-charts.md`)
-3. Execution: `execution/results/c01-legal-compliance/carf-execution-result.md`
+3. Execution: `execution/results/c01-legal-compliance/carf/execution-result.md`
 4. Citations: `[S#]` → physical source paths in `prompts/replies/research/SOURCE-CITATION-MAP.md`
 
 The prompt's question — "Which data fields are required for SARS CARF reporting?" — is answered with the real CARF reporting schema: user identification, jurisdiction, reporting R-CASP, transaction type, asset type, dates, values, counterparty.

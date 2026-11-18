@@ -9,8 +9,13 @@
  * encoding (WCAG 1.4.1, VIZ-014 §8.3). Very large commits (the repo has
  * 1,600-file commits) render a first window and disclose the rest on
  * demand instead of dumping thousands of rows into the DOM.
+ *
+ * Colours resolve through the semantic status tokens (`--st-success` /
+ * `--st-danger`, VIZ-017 single-source rule) — never raw palette utilities.
+ * The row is memoised (PERF-06) so a re-render of the list does not
+ * reconcile rows whose file entry did not change.
  */
-import { useState } from "react";
+import { memo, useMemo, useState } from "react";
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -84,10 +89,21 @@ export interface DiffViewerProps {
 
 export function DiffViewer({ files }: DiffViewerProps) {
   const [showAll, setShowAll] = useState(false);
-  const visible = showAll ? files : files.slice(0, INITIAL_ROW_LIMIT);
+  // Memoised so a parent re-render never re-slices the file list (PERF-06):
+  // the rows below are memoised components, so a stable array keeps them
+  // from reconciling.
+  const visible = useMemo(
+    () => (showAll ? files : files.slice(0, INITIAL_ROW_LIMIT)),
+    [files, showAll]
+  );
   const hiddenCount = files.length - visible.length;
-  const totalInsertions = files.reduce((sum, file) => sum + file.insertions, 0);
-  const totalDeletions = files.reduce((sum, file) => sum + file.deletions, 0);
+  const { totalInsertions, totalDeletions } = useMemo(
+    () => ({
+      totalInsertions: files.reduce((sum, file) => sum + file.insertions, 0),
+      totalDeletions: files.reduce((sum, file) => sum + file.deletions, 0),
+    }),
+    [files]
+  );
 
   return (
     <div className="space-y-2">
@@ -115,10 +131,10 @@ export function DiffViewer({ files }: DiffViewerProps) {
           {formatExact(files.length)} {files.length === 1 ? "file" : "files"}{" "}
           changed
         </span>
-        <span className="text-green-600 dark:text-green-400">
+        <span className="text-st-success">
           +{formatExact(totalInsertions)}
         </span>
-        <span className="text-red-600 dark:text-red-400">
+        <span className="text-st-danger">
           -{formatExact(totalDeletions)}
         </span>
       </p>
@@ -126,7 +142,12 @@ export function DiffViewer({ files }: DiffViewerProps) {
   );
 }
 
-function DiffFileRow({ file }: { file: DiffFile }) {
+/**
+ * One changed-file row. Memoised (PERF-06): the `file` object is a stable
+ * reference from the DiffSummary, so a parent re-render (another row
+ * expanding, a sibling card loading) never reconciles this row again.
+ */
+const DiffFileRow = memo(function DiffFileRow({ file }: { file: DiffFile }) {
   const Icon = EXTENSION_ICONS[extensionOf(file.path)] ?? FileIcon;
   const dir = dirnameOf(file.path);
   const href = dir === "" ? "/explorer" : `/explorer?path=${encodeURIComponent(dir)}`;
@@ -153,10 +174,10 @@ function DiffFileRow({ file }: { file: DiffFile }) {
           </span>
         ) : (
           <>
-            <span className="shrink-0 rounded-md bg-green-600/10 px-1.5 py-0.5 font-mono text-[11px] font-medium text-green-600 dark:text-green-400">
+            <span className="shrink-0 rounded-md bg-st-success/10 px-1.5 py-0.5 font-mono text-[11px] font-medium text-st-success">
               +{formatExact(file.insertions)}
             </span>
-            <span className="shrink-0 rounded-md bg-red-600/10 px-1.5 py-0.5 font-mono text-[11px] font-medium text-red-600 dark:text-red-400">
+            <span className="shrink-0 rounded-md bg-st-danger/10 px-1.5 py-0.5 font-mono text-[11px] font-medium text-st-danger">
               -{formatExact(file.deletions)}
             </span>
           </>
@@ -164,4 +185,4 @@ function DiffFileRow({ file }: { file: DiffFile }) {
       </Link>
     </li>
   );
-}
+});

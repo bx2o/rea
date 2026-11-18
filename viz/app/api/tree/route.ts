@@ -2,21 +2,27 @@
  * GET /api/tree?path=<rel>&depth=1 — one directory level of FileNodes for the
  * virtualized explorer (VIZ-021 §11; consumer VIZ-020).
  *
- * Live: readDirLevel() (pure fs, git-independent). Any fs failure (missing
- * dir, unreadable, ENOTDIR) degrades to the committed tree.json snapshot
- * walked down to the requested path (source: "snapshot").
+ * Live: readDirLevel() (pure fs, git-independent), memoised per path for a
+ * short TTL (SEC-05 — the root level walks + stats the whole repository).
+ * Any fs failure (missing dir, unreadable, ENOTDIR) degrades to the committed
+ * tree.json snapshot walked down to the requested path (source: "snapshot").
+ *
+ * Security: realpath containment re-check (SEC-01) plus the path deny-list
+ * (SEC-03/SEC-06/SEC-15). Rate limited (SEC-02).
  *
  * Envelope: { source: "git" | "snapshot", data: FileNode[] }.
  * `depth` is accepted for contract compatibility; exactly one level is
  * served (lazy levels feed the virtualized tree).
  */
 import { NextResponse } from "next/server";
-import { readDirLevel } from "@/lib/repo-scan";
 import {
   assertContainedRealpath,
+  cachedDirLevel,
   fail,
+  isBlockedPath,
   loadSnapshot,
   ok,
+  rateLimit,
   resolveRepoPath,
   type TreeFile,
 } from "../_lib";
@@ -35,16 +41,22 @@ function snapshotChildren(nodes: FileNode[], segments: string[]): FileNode[] | n
 }
 
 export async function GET(request: Request): Promise<NextResponse> {
+  const limited = rateLimit("fs", request);
+  if (limited !== null) return limited;
+
   const params = new URL(request.url).searchParams;
   const target = resolveRepoPath(params.get("path") ?? "");
   if (target === null) return fail(422, "Invalid or unsafe path.");
+
+  // Deny-list: .git internals, dependency/build trees, secret-shaped files.
+  if (isBlockedPath(target.rel)) return fail(403, "Forbidden path.");
 
   const real = assertContainedRealpath(target.abs);
   if (real === "escape") return fail(422, "Invalid or unsafe path.");
 
   if (real === "ok") {
     try {
-      return ok("git", readDirLevel(target.rel), 60);
+      return ok("git", cachedDirLevel(target.rel), 60);
     } catch {
       // fs failure → snapshot fallback below
     }

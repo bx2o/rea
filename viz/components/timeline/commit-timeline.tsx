@@ -11,12 +11,16 @@
  * - Cards are <button aria-expanded> elements; expanding loads the commit's
  *   DiffSummary (cached per sha) and renders it in an aria-live polite
  *   region so screen readers hear loading → loaded transitions (SC 4.1.3).
+ *   The diff is fetched LAZILY on expand — the timeline never pre-loads a
+ *   diff for a card the user has not opened (PERF-07).
+ * - The card is a memoised component with stable props (PERF-06): expanding
+ *   or loading one commit re-renders that card only, never the whole list.
  * - GSAP: ScrollTrigger reveals cards (fade + slide, staggered) in
  *   ScrollTrigger.batch, wrapped in gsap.matchMedia() — under
  *   prefers-reduced-motion: reduce no tween is ever attached and the list
  *   renders static. Cleanup reverts the whole context on unmount/re-run.
  */
-import { useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTheme } from "next-themes";
@@ -34,6 +38,9 @@ import { fetchCommitDiff } from "./diff-store";
 import { DiffViewer } from "./diff-viewer";
 
 type DiffStatus = "loading" | "loaded" | "error";
+
+/** How often the shared relative-time clock ticks (ms). */
+const CLOCK_TICK_MS = 60_000;
 
 interface DiffState {
   status: DiffStatus;
@@ -87,10 +94,34 @@ export interface CommitTimelineProps {
 
 export function CommitTimeline({ commits }: CommitTimelineProps) {
   const listRef = useRef<HTMLOListElement>(null);
-  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  /** Shas whose diff region is open. */
+  const [expanded, setExpanded] = useState<ReadonlySet<string>>(
+    () => new Set<string>()
+  );
   const [diffs, setDiffs] = useState<Record<string, DiffState>>({});
   const { resolvedTheme } = useTheme();
   const theme = resolvedTheme === "dark" ? "dark" : "light";
+
+  /** Spine gradient — memoised so a card update does not rebuild it. */
+  const spine = useMemo(() => spineGradient(theme), [theme]);
+
+  /**
+   * Mirror of the open-set. The toggle callback reads the previous state
+   * from this ref so its dependency list stays empty — a stable callback is
+   * what lets the memoised cards bail out (PERF-06).
+   */
+  const expandedRef = useRef<ReadonlySet<string>>(expanded);
+
+  /**
+   * Shared clock for the relative timestamps ("3 days ago"). The cards are
+   * memoised, so without a ticking clock their relative time would freeze
+   * at first render. One tick per minute keeps every card in step.
+   */
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    const id = window.setInterval(() => setNow(Date.now()), CLOCK_TICK_MS);
+    return () => window.clearInterval(id);
+  }, []);
 
   /** Load (or retry) a commit's diff; cached by the data layer. */
   const loadDiff = useCallback((sha: string) => {
@@ -114,18 +145,22 @@ export function CommitTimeline({ commits }: CommitTimelineProps) {
       );
   }, []);
 
+  /**
+   * Toggle one card. Referentially stable (no state in its closure) so the
+   * memoised card components are not invalidated by unrelated expansions.
+   * The diff is requested here and nowhere else — lazy-on-expand (PERF-07).
+   */
   const handleCardClick = useCallback(
     (sha: string) => {
-      const willOpen = !expanded[sha];
-      setExpanded((prev) => {
-        const next = { ...prev };
-        if (next[sha] === true) delete next[sha];
-        else next[sha] = true;
-        return next;
-      });
-      if (willOpen) loadDiff(sha);
+      const wasOpen = expandedRef.current.has(sha);
+      const next = new Set(expandedRef.current);
+      if (wasOpen) next.delete(sha);
+      else next.add(sha);
+      expandedRef.current = next;
+      setExpanded(next);
+      if (!wasOpen) loadDiff(sha);
     },
-    [expanded, loadDiff]
+    [loadDiff]
   );
 
   /**
@@ -197,15 +232,16 @@ export function CommitTimeline({ commits }: CommitTimelineProps) {
       <span
         aria-hidden="true"
         className="absolute inset-y-1 left-4 w-px -translate-x-1/2"
-        style={{ backgroundImage: spineGradient(theme) }}
+        style={{ backgroundImage: spine }}
       />
       <ol ref={listRef} className="space-y-4">
         {commits.map((commit) => (
           <CommitCard
             key={commit.sha}
             commit={commit}
-            isOpen={expanded[commit.sha] === true}
+            isOpen={expanded.has(commit.sha)}
             diff={diffs[commit.sha]}
+            now={now}
             onToggle={handleCardClick}
             onRetry={loadDiff}
           />
@@ -219,11 +255,26 @@ interface CommitCardProps {
   commit: CommitRecord;
   isOpen: boolean;
   diff: DiffState | undefined;
+  /** Shared clock for the relative timestamp (PERF-06). */
+  now: number;
   onToggle: (sha: string) => void;
   onRetry: (sha: string) => void;
 }
 
-function CommitCard({ commit, isOpen, diff, onToggle, onRetry }: CommitCardProps) {
+/**
+ * One commit card. Memoised (PERF-06): `commit` is a stable record
+ * reference, `isOpen`/`diff` only change for the card they belong to, and
+ * the two callbacks are referentially stable — so expanding one commit
+ * never reconciles the rest of the timeline.
+ */
+const CommitCard = memo(function CommitCard({
+  commit,
+  isOpen,
+  diff,
+  now,
+  onToggle,
+  onRetry,
+}: CommitCardProps) {
   const diffId = `commit-diff-${commit.sha}`;
   return (
     <li data-timeline-card className="relative pl-10 md:pl-12">
@@ -327,4 +378,4 @@ function CommitCard({ commit, isOpen, diff, onToggle, onRetry }: CommitCardProps
       </article>
     </li>
   );
-}
+});

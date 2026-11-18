@@ -11,9 +11,18 @@
  * - Marker colors are per-marker 0–1 rgb floats written straight to
  *   gl_FragColor. Zone colors come from ZONE_HUES (VIZ-017 single source)
  *   via the local `hexToRgb` conversion — no hardcoded zone hex in JSX.
+ * - `globe.update(state)` accepts a partial state, so the active theme
+ *   (marker hues, the `dark` flag, base/glow colours) is re-applied live
+ *   instead of re-creating the WebGL context.
  * - cobe returns a silent no-op stub when the WebGL context cannot be
  *   created, so the context is probed up front with the same attributes
  *   cobe uses; a failed probe renders the static SVG fallback.
+ *
+ * Theme (UX-10): the scene follows the ACTIVE app theme. An explicit "Light"
+ * choice is honoured even when the OS prefers dark (`useThemeMode` resolves
+ * the user choice first). Marker hues come from `zoneHue(zone, theme)`, cobe's
+ * `dark` flag is 1 only in dark mode, and the globe's base/glow colours are
+ * read from the app's CSS tokens (no hardcoded colour literals).
  *
  * Accessibility (VIZ-014 §8.2 / SC 2.2.2): canvas carries role="img" +
  * aria-label + aria-describedby and is focusable; auto-rotation pauses under
@@ -21,11 +30,16 @@
  * text summarizes what the globe depicts.
  */
 
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import createGlobe, { type Globe, type Marker } from "cobe";
 import { Pause, Play } from "lucide-react";
-import { ZONE_HUES, ZONE_META, ZONE_ORDER, type Zone } from "@/lib/brand";
+import { ZONE_META, ZONE_ORDER, zoneHue, type Zone } from "@/lib/brand";
 import { cn } from "@/lib/utils";
+import {
+  hslTripletToRgb,
+  readThemeToken,
+  useThemeMode,
+} from "@/components/explorer/use-zone-theme";
 
 /** cobe marker (re-exported so pages/consumers share the exact cobe contract). */
 export type GlobeMarker = Marker;
@@ -40,9 +54,16 @@ export function hexToRgb(hex: string): [number, number, number] {
   ];
 }
 
-/** Zone → cobe marker color (ZONE_HUES dark value converted to 0–1 rgb). */
-export function zoneMarkerColor(zone: Zone): [number, number, number] {
-  return hexToRgb(ZONE_HUES[zone].dark);
+/**
+ * Zone → cobe marker color for the given theme (ZONE_HUES value converted to
+ * 0–1 rgb). The theme argument defaults to "dark" so existing callers keep
+ * their previous colours.
+ */
+export function zoneMarkerColor(
+  zone: Zone,
+  theme: "light" | "dark" = "dark"
+): [number, number, number] {
+  return hexToRgb(zoneHue(zone, theme));
 }
 
 /** Spread marker positions — one per zone, distributed across the globe faces. */
@@ -58,10 +79,12 @@ const ZONE_MARKER_LOCATIONS: Record<Zone, [number, number]> = {
 /**
  * Build one marker per zone in fixed legend order (VIZ-017 D2).
  * Marker size tracks the zone share of files (sqrt scale, clamped to the
- * readable cobe range 0.04–0.14).
+ * readable cobe range 0.04–0.14). The optional theme argument selects the
+ * light or dark zone palette (default: dark, the previous behaviour).
  */
 export function buildZoneMarkers(
-  byZone: Record<Zone, { files: number }>
+  byZone: Record<Zone, { files: number }>,
+  theme: "light" | "dark" = "dark"
 ): GlobeMarker[] {
   const counts = ZONE_ORDER.map((zone) => byZone[zone]?.files ?? 0);
   const maxFiles = Math.max(...counts, 1);
@@ -69,8 +92,39 @@ export function buildZoneMarkers(
     id: zone,
     location: ZONE_MARKER_LOCATIONS[zone],
     size: 0.04 + 0.1 * Math.sqrt(counts[index] / maxFiles),
-    color: zoneMarkerColor(zone),
+    color: zoneMarkerColor(zone, theme),
   }));
+}
+
+/**
+ * Re-colour the zone markers for the active theme. Markers whose id is not a
+ * zone (custom markers) keep their supplied colour.
+ */
+function themeMarkers(
+  markers: GlobeMarker[],
+  theme: "light" | "dark"
+): GlobeMarker[] {
+  return markers.map((marker) => {
+    const zone = marker.id as Zone | undefined;
+    if (!zone || !ZONE_ORDER.includes(zone)) return marker;
+    return { ...marker, color: zoneMarkerColor(zone, theme) };
+  });
+}
+
+/**
+ * Scene colours for the active theme — read from the app's CSS tokens so the
+ * globe never hardcodes a colour (VIZ-017 single-source rule).
+ */
+function sceneColors(dark: boolean) {
+  const card = hslTripletToRgb(readThemeToken("--card") ?? "");
+  const primary = hslTripletToRgb(readThemeToken("--primary") ?? "");
+  return {
+    // Dark mode keeps the neutral graphite globe; light mode takes the card
+    // surface so the globe reads as a LIGHT object on a light page.
+    base: dark ? ([0.3, 0.3, 0.3] as [number, number, number]) : (card ?? [1, 1, 1]),
+    glow: primary ?? [0.15, 0.5, 0.35],
+    marker: primary ?? [0.1, 0.8, 0.2],
+  };
 }
 
 /** cobe context attributes — mirror cobe's internal request so probing does not change the context. */
@@ -90,9 +144,18 @@ interface GlobeHeroProps {
   /** cobe markers; build with `buildZoneMarkers(repoStats.byZone)` or pass a reduced set. */
   markers: GlobeMarker[];
   className?: string;
+  /**
+   * Optional explicit theme. When omitted the active app theme is resolved
+   * internally (`useThemeMode`), so existing call sites keep working.
+   */
+  theme?: "light" | "dark";
 }
 
-export default function GlobeHero({ markers, className }: GlobeHeroProps) {
+export default function GlobeHero({
+  markers,
+  className,
+  theme: themeProp,
+}: GlobeHeroProps) {
   const descId = useId();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const wrapRef = useRef<HTMLDivElement | null>(null);
@@ -102,9 +165,30 @@ export default function GlobeHero({ markers, className }: GlobeHeroProps) {
   /** Explicit resume = user opt-in that overrides prefers-reduced-motion (VIZ-014 §8.4). */
   const motionOptInRef = useRef(false);
   const kickRef = useRef<(() => void) | null>(null);
+  const globeRef = useRef<Globe | null>(null);
   const [webglFailed, setWebglFailed] = useState(false);
   const [paused, setPaused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
+
+  // Active theme: an explicit prop wins, otherwise the app theme.
+  const appTheme = useThemeMode();
+  const theme = themeProp ?? appTheme;
+  const isDark = theme === "dark";
+
+  // Markers coloured for the active theme (zone hues only).
+  const themedMarkers = useMemo(
+    () => themeMarkers(markers, theme),
+    [markers, theme]
+  );
+
+  // Latest marker set + theme for the globe lifecycle effect, so a theme
+  // change never has to re-create the WebGL context.
+  const markersRef = useRef<GlobeMarker[]>(markers);
+  const themeRef = useRef<"light" | "dark">(theme);
+  useEffect(() => {
+    markersRef.current = markers;
+    themeRef.current = theme;
+  }, [markers, theme]);
 
   // Reduced-motion detection: pause rotation by default, user may resume
   // via the control (VIZ-014 §8.4 "off restores motion only on opt-in").
@@ -127,8 +211,8 @@ export default function GlobeHero({ markers, className }: GlobeHeroProps) {
     return () => query.removeEventListener("change", apply);
   }, []);
 
-  // Globe lifecycle: create once (re-create only when markers identity or
-  // the fallback state changes), drive rotation via cobe's update().
+  // Globe lifecycle: create once (only the fallback state can force a
+  // re-create), drive rotation via cobe's update().
   useEffect(() => {
     const canvas = canvasRef.current;
     const wrap = wrapRef.current;
@@ -150,6 +234,9 @@ export default function GlobeHero({ markers, className }: GlobeHeroProps) {
       return;
     }
 
+    const dark = themeRef.current === "dark";
+    const colors = sceneColors(dark);
+
     let globe: Globe | null = null;
     try {
       globe = createGlobe(canvas, {
@@ -158,19 +245,20 @@ export default function GlobeHero({ markers, className }: GlobeHeroProps) {
         height: size.height,
         phi: phiRef.current,
         theta: THETA,
-        dark: 1,
+        dark: dark ? 1 : 0,
         diffuse: 1.2,
         mapSamples: 16000,
         mapBrightness: 6,
-        baseColor: [0.3, 0.3, 0.3],
-        markerColor: [0.1, 0.8, 0.2],
-        glowColor: [0.15, 0.5, 0.35],
-        markers,
+        baseColor: colors.base,
+        markerColor: colors.marker,
+        glowColor: colors.glow,
+        markers: markersRef.current,
       });
     } catch {
       setWebglFailed(true);
       return;
     }
+    globeRef.current = globe;
 
     let raf = 0;
     let disposed = false;
@@ -217,9 +305,31 @@ export default function GlobeHero({ markers, className }: GlobeHeroProps) {
       kickRef.current = null;
       if (raf) cancelAnimationFrame(raf);
       observer.disconnect();
+      globeRef.current = null;
       globe?.destroy();
     };
-  }, [markers, webglFailed]);
+  }, [webglFailed]);
+
+  // Theme switch → re-apply the marker hues + scene colours live.
+  useEffect(() => {
+    const globe = globeRef.current;
+    if (!globe) return;
+    const apply = () => {
+      const colors = sceneColors(isDark);
+      globe.update({
+        markers: themedMarkers,
+        dark: isDark ? 1 : 0,
+        baseColor: colors.base,
+        markerColor: colors.marker,
+        glowColor: colors.glow,
+      });
+    };
+    apply();
+    // next-themes applies the theme class in its own effect (after this
+    // one), so re-apply on the next frame with the settled CSS tokens.
+    const raf = requestAnimationFrame(apply);
+    return () => cancelAnimationFrame(raf);
+  }, [isDark, themedMarkers]);
 
   const togglePaused = useCallback(() => {
     setPaused((previous) => {
@@ -233,9 +343,14 @@ export default function GlobeHero({ markers, className }: GlobeHeroProps) {
 
   return (
     <div className={cn("relative isolate", className)}>
+      {/* Theme-aware backdrop — CSS tokens only (no hardcoded colour). */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_45%,hsl(var(--primary)/0.12),transparent_65%)]"
+      />
       <div ref={wrapRef} className="h-full w-full">
         {webglFailed ? (
-          <GlobeFallback markers={markers} descId={descId} />
+          <GlobeFallback markers={themedMarkers} descId={descId} />
         ) : (
           <canvas
             ref={canvasRef}
@@ -254,7 +369,7 @@ export default function GlobeHero({ markers, className }: GlobeHeroProps) {
           onClick={togglePaused}
           aria-pressed={paused}
           aria-label={paused ? "Resume globe rotation" : "Pause globe rotation"}
-          className="glass absolute right-3 top-3 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full text-foreground/80 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="glass absolute right-3 top-3 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full text-foreground/80 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           {paused ? (
             <Play className="h-4 w-4" aria-hidden="true" />

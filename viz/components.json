@@ -17,5 +17,32 @@
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "iconLibrary": "lucide"
+  "iconLibrary": "lucide",
+  "registries": {
+    "@7ovr": "https://7ovr.com/r/{name}.json",
+    "@8bitcn": "https://www.8bitcn.com/r/{name}.json",
+    "@8starlabs-ui": "https://ui.8starlabs.com/r/{name}.json",
+    "@aceternity": "https://ui.aceternity.com/registry/{name}.json",
+    "@agentcn": "https://agentcn.vercel.app/r/{name}.json",
+    "@agents-ui": "https://livekit.com/ui/r/{name}.json",
+    "@ai-elements": "https://ai-sdk.dev/elements/api/registry/{name}.json",
+    "@animate-ui": "https://animate-ui.com/r/{name}.json",
+    "@billingsdk": "https://billingsdk.com/r/{name}.json",
+    "@chamaac": "https://chamaac.com/r/{name}.json",
+    "@cognicatch": "https://cognicatch.dev/registry/{name}.json",
+    "@commercn": "https://commercn.com/r/{name}.json",
+    "@dsikeres1": "https://dsikeres1.github.io/react-date-range-picker/r/{name}.json",
+    "@extend": "https://ui.extend.ai/r/{name}.json",
+    "@flightcn": "https://flightcn.yencheng.dev/r/{name}.json",
+    "@framecn": "https://framecn.vercel.app/r/{name}.json",
+    "@gamekitui": "https://gamekitui.com/r/{name}.json",
+    "@glass-ui": "https://glass-ui.crenspire.com/r/{name}.json",
+    "@grootstudio": "https://grootstudio.vercel.app/r/{name}.json",
+    "@ha-components": "https://hacomponents.keshuac.com/r/{name}.json",
+    "@heroicons-animated": "https://www.heroicons-animated.com/r/{name}.json",
+    "@limeplay": "https://limeplay.winoffrg.dev/r/{name}.json",
+    "@loading-ui": "https://loading-ui.com/r/{name}.json",
+    "@lmscn": "https://lmscn.vercel.app/r/{name}.json",
+    "@ui-layouts": "https://ui-layouts.com/r/{name}.json"
+  }
 }

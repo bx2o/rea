@@ -12,7 +12,7 @@
  */
 import { NextResponse } from "next/server";
 import { gitDiffNumstat, validateSha } from "@/lib/git";
-import { fail, loadSnapshot, ok } from "../../_lib";
+import { fail, loadSnapshot, ok, rateLimit } from "../../_lib";
 import type { DiffFile, DiffSummary } from "@/lib/types";
 
 export const runtime = "nodejs";
@@ -21,9 +21,12 @@ export const revalidate = 3600; // history is immutable
 const NUMSTAT_LINE = /^(\d+|-)\s+(\d+|-)\s+(.+)$/;
 
 export async function GET(
-  _request: Request,
+  request: Request,
   ctx: { params: Promise<{ sha: string }> }
 ): Promise<NextResponse> {
+  const limited = rateLimit("git", request);
+  if (limited !== null) return limited;
+
   const { sha } = await ctx.params;
   if (!validateSha(sha)) return fail(400, "Invalid commit sha.");
 

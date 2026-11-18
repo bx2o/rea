@@ -190,6 +190,80 @@ function emitAtomic(file, data) {
   fs.renameSync(tmp, file);
 }
 
+// ------------------------------------------------------------ promptsDirs ---
+/** Root of the per-council prompt tree (Explorer deep-link targets). */
+const PROMPTS_STREMIIUM = "prompts/stremiium";
+
+/**
+ * Real directory names under prompts/stremiium, read from disk at snapshot
+ * time (never hardcoded — the listing is the source of truth).
+ */
+function readPromptDirectories() {
+  try {
+    return fs
+      .readdirSync(path.join(ROOT, PROMPTS_STREMIIUM), { withFileTypes: true })
+      .filter((e) => e.isDirectory())
+      .map((e) => e.name)
+      .sort();
+  } catch {
+    return [];
+  }
+}
+
+/** Length of the shared prefix of two strings. */
+function commonPrefixLength(a, b) {
+  let i = 0;
+  while (i < a.length && i < b.length && a[i] === b[i]) i += 1;
+  return i;
+}
+
+/**
+ * Resolve the directory that actually exists for a department name.
+ *
+ * The council-department mapping is derived from .stremiium/agents/ and uses
+ * a DIFFERENT naming set than the directories under prompts/stremiium (e.g.
+ * "c06-engineering-infrastructure" vs the real "c06-hardware-enable"). Match
+ * by the council's "cNN-" prefix: exact name first, then the closest prefix
+ * match inside that council. Returns null when nothing resolves, so the
+ * emitter can omit the entry instead of emitting a dead Explorer link.
+ */
+function resolvePromptDirectory(department, candidates, actual) {
+  if (actual.includes(department)) return department;
+  if (candidates.length === 0) return null;
+  let best = candidates[0];
+  let bestScore = commonPrefixLength(best, department);
+  for (const candidate of candidates.slice(1)) {
+    const score = commonPrefixLength(candidate, department);
+    if (score > bestScore || (score === bestScore && candidate < best)) {
+      best = candidate;
+      bestScore = score;
+    }
+  }
+  return best;
+}
+
+/**
+ * council id → { primary, departments } where every value is a directory that
+ * exists under prompts/stremiium. "primary" is the first department (in
+ * mapping order) that resolves; null when the council has no directory.
+ */
+function buildPromptsDirs(councils) {
+  const actual = readPromptDirectories();
+  const out = {};
+  for (const [cid, council] of Object.entries(councils)) {
+    const prefix = `${cid.toLowerCase()}-`;
+    const candidates = actual.filter((d) => d.startsWith(prefix));
+    const departments = {};
+    for (const department of council.departments ?? []) {
+      const dir = resolvePromptDirectory(department, candidates, actual);
+      if (dir) departments[department] = dir;
+    }
+    const first = Object.values(departments)[0] ?? null;
+    out[cid] = { primary: first, departments };
+  }
+  return out;
+}
+
 async function main() {
   console.log(`[snapshot] repo root: ${ROOT}`);
   fs.mkdirSync(OUT, { recursive: true });
@@ -208,6 +282,7 @@ async function main() {
   emitAtomic(path.join(OUT, "stats.json"), { ...(meta ? { meta } : {}), ...stats });
 
   // graph.json (VIZ-031 councils view) from council-department-mapping.json
+  let snapGraph = null;
   try {
     const mapping = JSON.parse(fs.readFileSync(path.join(ROOT, ".stremiium", "config", "council-department-mapping.json"), "utf8"));
     const nodes = [{ id: "SC-MASTER-001", type: "sc", label: "Sparkling Curious" }];
@@ -225,7 +300,8 @@ async function main() {
         edges.push({ source: cid, target: did, type: "parent-of" });
       }
     }
-    emitAtomic(path.join(OUT, "graph.json"), { nodes, edges });
+    snapGraph = { nodes, edges, promptsDirs: buildPromptsDirs(mapping.councils ?? {}) };
+    emitAtomic(path.join(OUT, "graph.json"), snapGraph);
   } catch {
     console.warn("[snapshot] council mapping unavailable — graph.json skipped");
   }
@@ -267,6 +343,9 @@ async function main() {
 
   console.log(`[snapshot] files=${stats.totalFiles} dirs=${stats.totalDirs} commits=${commits.length}`);
   console.log(`[snapshot] churnTop[0]=${stats.churnTop[0]?.path ?? "(none)"}`);
+  console.log(
+    `[snapshot] graph.json promptsDirs: ${Object.keys(snapGraph?.promptsDirs ?? {}).length} council(s) mapped to real prompts/stremiium directories`
+  );
   console.log(`[snapshot] wrote tree.json, commits.json, stats.json, graph.json, tours.json → ${path.relative(ROOT, OUT)}`);
 }
 

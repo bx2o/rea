@@ -3,29 +3,42 @@
  * consumers: VIZ-020 commits timeline, VIZ-015 charts).
  *
  * Live: gitCommits() + parseCommits() — a single `git log --numstat` pass
- * with %x1f/%x1e separators (no space-splitting, no N+1 spawns).
+ * with %x1f/%x1e separators (no space-splitting, no N+1 spawns). The output
+ * is memoised per (since, limit) for a short TTL (SEC-05 — one 2000-commit
+ * spawn cost 10.8–12.7 s).
  * Any git failure degrades to commits.json filtered by `since`
  * (source: "snapshot").
  *
  * Query: `since` optional ISO-8601 (date or datetime); `limit` optional
- * integer, default 500, clamped to 2000.
+ * integer, default 500, hard-capped at 500 (SEC-05 — DoS ceiling).
+ * Rate limited per IP (SEC-02).
  * Envelope: { source, data: CommitRecord[] }.
  */
 import { NextResponse } from "next/server";
-import { gitCommits } from "@/lib/git";
-import { parseCommits } from "@/lib/repo-scan";
-import { fail, loadSnapshot, ok, type CommitsFile } from "../_lib";
+import {
+  cachedCommits,
+  fail,
+  loadSnapshot,
+  MAX_HISTORY,
+  ok,
+  rateLimit,
+  type CommitsFile,
+} from "../_lib";
 
 export const runtime = "nodejs";
 export const revalidate = 60;
 
 const DEFAULT_LIMIT = 500;
-const MAX_LIMIT = 2000;
+/** Hard ceiling — a git spawn over the whole history is CPU-bound (SEC-05). */
+const MAX_LIMIT = MAX_HISTORY;
 
 const ISO_SINCE =
   /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:?\d{2})?)?$/;
 
 export async function GET(request: Request): Promise<NextResponse> {
+  const limited = rateLimit("git", request);
+  if (limited !== null) return limited;
+
   const params = new URL(request.url).searchParams;
 
   let since: string | undefined;
@@ -49,8 +62,8 @@ export async function GET(request: Request): Promise<NextResponse> {
   }
 
   try {
-    const raw = await gitCommits(since, limit);
-    return ok("git", parseCommits(raw).slice(0, limit), 60);
+    const commits = await cachedCommits(since, limit);
+    return ok("git", commits.slice(0, limit), 60);
   } catch {
     const snap = await loadSnapshot<CommitsFile>("commits.json");
     if (snap === null || !Array.isArray(snap.commits)) {

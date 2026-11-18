@@ -12,9 +12,11 @@ import {
   LayoutDashboard,
   Network,
   Plus,
+  Search,
 } from "lucide-react";
 
 import { ThemeToggle } from "@/components/theme-provider";
+import { CommandPalette } from "@/components/nav/command-palette";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -54,6 +56,18 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const [floOpen, setFloOpen] = React.useState(false);
   const fabRef = React.useRef<HTMLButtonElement | null>(null);
   const floMenuId = React.useId();
+
+  // Global command palette (VIZ-013 §7.2) — ⌘K / Ctrl+K / "/" open it, the
+  // top-bar hint button is the visible trigger and receives focus back on close.
+  const [paletteOpen, setPaletteOpen] = React.useState(false);
+  const paletteTriggerRef = React.useRef<HTMLButtonElement | null>(null);
+  const [shortcutLabel, setShortcutLabel] = React.useState("⌘K");
+
+  React.useEffect(() => {
+    const agent = navigator.userAgent ?? "";
+    const isApple = /Mac|iPhone|iPad|iPod/.test(agent);
+    setShortcutLabel(isApple ? "⌘K" : "Ctrl K");
+  }, []);
 
   // Close the Flo menu whenever the route changes.
   React.useEffect(() => {
@@ -137,7 +151,25 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               bx2o/rea
             </Badge>
           </div>
-          <ThemeToggle />
+          <div className="flex items-center gap-2">
+            <Button
+              ref={paletteTriggerRef}
+              variant="outline"
+              size="sm"
+              className="hidden gap-2 text-muted-foreground md:inline-flex"
+              onClick={() => setPaletteOpen(true)}
+              aria-haspopup="dialog"
+              aria-expanded={paletteOpen}
+              aria-keyshortcuts="Meta+K Control+K"
+            >
+              <Search className="size-4" aria-hidden="true" />
+              <span>Search</span>
+              <kbd className="pointer-events-none hidden select-none items-center rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-[10px] font-medium text-muted-foreground lg:inline-flex">
+                {shortcutLabel}
+              </kbd>
+            </Button>
+            <ThemeToggle />
+          </div>
         </header>
 
         <main id="main" className="flex-1">
@@ -150,6 +182,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           Stremiium Repo Viz · offline-first · WCAG 2.1 AA target
         </footer>
       </div>
+
+      {/* Global command palette (VIZ-013 §7.2) — mounted once per shell. */}
+      <CommandPalette
+        open={paletteOpen}
+        onOpenChange={setPaletteOpen}
+        triggerRef={paletteTriggerRef}
+      />
 
       {/* Mobile Flo menu (VIZ-013 §8 thumb-zone arc) */}
       <div className="fixed bottom-5 right-5 z-50 md:hidden">

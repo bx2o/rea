@@ -10,9 +10,20 @@
  * levels. Each directory becomes a cluster center (octahedron); each file a
  * sphere whose radius is a log scale of its size. Zones are arranged as
  * radial clusters on a circle; zone materials come from `zoneHue(zone,
- * "dark")` → `new THREE.Color(...)` (VIZ-017 single source — no hardcoded
- * zone hex). Visible nodes are capped (~600) by sampling the largest files
- * per directory.
+ * theme)` → `new THREE.Color(...)` (VIZ-017 single source — no hardcoded
+ * zone hex). Visible nodes are capped by the HUD density control (Low / Med /
+ * High) by sampling the largest files per directory.
+ *
+ * Theme (UX-09 / UX-10): the scene follows the ACTIVE app theme. An explicit
+ * "Light" choice is honoured even when the OS prefers dark; zone hues come
+ * from `zoneHue(zone, theme)` and the scene fog is read from the app's CSS
+ * tokens, so the scene never renders a dark scheme on a light page.
+ *
+ * Layout (UX-08): the canvas is full-bleed — it fills the height of the
+ * viewport minus the shell bar and cancels the shell gutters — and the HUD
+ * (zone legend, reset view, auto-rotation, node density, hint line) is an
+ * overlay on top of the canvas. The HUD layer is `pointer-events-none`; only
+ * the controls take pointer events, so the canvas stays fully draggable.
  *
  * Interaction: hover → tooltip with path; click → `onSelect` (pages wire it
  * to `/explorer?path=`). Degraded mode (navigator.hardwareConcurrency < 4 or
@@ -25,7 +36,9 @@
  * keyboard/AT users the same open action without the scene; a details panel
  * mirrors the selected node; a polite live region announces load states
  * (SC 4.1.3); the tooltip is Esc-dismissible; degraded mode keeps every text
- * alternative.
+ * alternative. The HUD controls are real buttons with aria-pressed /
+ * aria-label and are keyboard reachable (the HUD layer never blocks the
+ * canvas pointer events).
  */
 
 import {
@@ -35,14 +48,20 @@ import {
   useMemo,
   useRef,
   useState,
+  type ElementRef,
 } from "react";
 import * as THREE from "three";
 import { Canvas, useThree, type ThreeEvent } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, RotateCcw, RotateCw } from "lucide-react";
 import { BRAND, ZONE_META, ZONE_ORDER, zoneHue, type Zone } from "@/lib/brand";
 import type { FileNode, NodeType } from "@/lib/types";
 import { cn, formatBytes, formatExact } from "@/lib/utils";
+import {
+  hslTripletToRgb,
+  readThemeToken,
+  useThemeMode,
+} from "@/components/explorer/use-zone-theme";
 
 /* ------------------------------------------------------------------ */
 /* Public types                                                        */
@@ -277,6 +296,23 @@ function buildScene(root: FileNode[], maxNodes: number): SceneData {
 }
 
 /* ------------------------------------------------------------------ */
+/* HUD options                                                          */
+/* ------------------------------------------------------------------ */
+
+/** Node-density presets — the visible-node cap is `maxNodes × factor`. */
+type NodeDensity = "low" | "medium" | "high";
+
+const NODE_DENSITY_OPTIONS: {
+  value: NodeDensity;
+  label: string;
+  factor: number;
+}[] = [
+  { value: "low", label: "Low", factor: 0.25 },
+  { value: "medium", label: "Med", factor: 1 },
+  { value: "high", label: "High", factor: 2 },
+];
+
+/* ------------------------------------------------------------------ */
 /* In-scene components                                                  */
 /* ------------------------------------------------------------------ */
 
@@ -288,6 +324,19 @@ interface SceneProps {
   onHover: (node: Fs3DNode, event: ThreeEvent<PointerEvent>) => void;
   onHoverEnd: () => void;
   zoneColors: Map<Zone, THREE.Color>;
+  /** HUD auto-rotation toggle (drives three's OrbitControls autoRotate). */
+  autoRotate: boolean;
+  /** Bumped by the HUD "Reset view" control — restores the camera framing. */
+  resetToken: number;
+}
+
+/** "Reset view" — restore the camera + controls to their initial framing. */
+function useResetView(resetToken: number) {
+  const controlsRef = useRef<ElementRef<typeof OrbitControls>>(null);
+  useEffect(() => {
+    controlsRef.current?.reset();
+  }, [resetToken]);
+  return controlsRef;
 }
 
 /** Interactive mode: two instanced meshes (files + dirs) with hover/click. */
@@ -299,10 +348,13 @@ function InstancedScene({
   onHover,
   onHoverEnd,
   zoneColors,
+  autoRotate,
+  resetToken,
 }: SceneProps) {
   const invalidate = useThree((state) => state.invalidate);
   const fileMeshRef = useRef<THREE.InstancedMesh>(null);
   const dirMeshRef = useRef<THREE.InstancedMesh>(null);
+  const controlsRef = useResetView(resetToken);
 
   const sphereGeometry = useMemo(() => new THREE.SphereGeometry(1, 12, 12), []);
   const dirGeometry = useMemo(() => new THREE.OctahedronGeometry(1, 0), []);
@@ -411,12 +463,15 @@ function InstancedScene({
       />
 
       <OrbitControls
+        ref={controlsRef}
         enableDamping
         dampingFactor={0.08}
         rotateSpeed={0.6}
         enablePan={false}
         minDistance={35}
         maxDistance={180}
+        autoRotate={autoRotate}
+        autoRotateSpeed={0.6}
       />
     </>
   );
@@ -427,7 +482,14 @@ function PointsScene({
   files,
   dirs,
   zoneColors,
-}: Pick<SceneProps, "files" | "dirs" | "zoneColors">) {
+  autoRotate,
+  resetToken,
+}: Pick<
+  SceneProps,
+  "files" | "dirs" | "zoneColors" | "autoRotate" | "resetToken"
+>) {
+  const controlsRef = useResetView(resetToken);
+
   const geometry = useMemo(() => {
     const all = [...files, ...dirs];
     const positions = new Float32Array(all.length * 3);
@@ -459,11 +521,14 @@ function PointsScene({
       </points>
       {/* No damping in degraded mode: keeps demand-mode frames snappy. */}
       <OrbitControls
+        ref={controlsRef}
         enableDamping={false}
         rotateSpeed={0.6}
         enablePan={false}
         minDistance={35}
         maxDistance={180}
+        autoRotate={autoRotate}
+        autoRotateSpeed={0.6}
       />
     </>
   );
@@ -473,8 +538,17 @@ function PointsScene({
 /* Component                                                            */
 /* ------------------------------------------------------------------ */
 
+/**
+ * Full-bleed scene frame (UX-08): the canvas fills the viewport height minus
+ * the shell bar and cancels the shell's horizontal gutters, so the scene is
+ * the page surface rather than a boxed card.
+ */
 const SCENE_FRAME =
-  "relative h-[420px] overflow-hidden rounded-xl border border-border/60 bg-gradient-to-b from-background/40 to-secondary/40 sm:h-[560px]";
+  "relative -mx-4 h-[calc(100dvh-3.5rem)] min-h-[420px] w-[calc(100%+2rem)] overflow-hidden bg-gradient-to-b from-background via-background to-secondary/50 md:-mx-6 md:w-[calc(100%+3rem)]";
+
+/** Shared HUD control styling — 44px touch targets, visible focus ring. */
+const HUD_BUTTON =
+  "inline-flex h-11 items-center justify-center gap-1.5 rounded-lg border border-border/60 bg-secondary/70 px-3 text-xs font-medium text-foreground transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
 export function FileSystem3D({
   onSelect,
@@ -482,7 +556,8 @@ export function FileSystem3D({
   maxNodes = 600,
 }: FileSystem3DProps) {
   const descId = useId();
-  const [scene, setScene] = useState<SceneData | null>(null);
+  const theme = useThemeMode();
+  const [root, setRoot] = useState<FileNode[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [reloadKey, setReloadKey] = useState(0);
   const [mounted, setMounted] = useState(false);
@@ -495,17 +570,45 @@ export function FileSystem3D({
   const [announcement, setAnnouncement] = useState(
     "Loading 3D file-system data."
   );
+  const [density, setDensity] = useState<NodeDensity>("medium");
+  const [autoRotate, setAutoRotate] = useState(false);
+  const [resetToken, setResetToken] = useState(0);
+  const autoRotateRef = useRef(false);
 
   const degraded = lowPower || reducedMotion;
 
-  // Zone materials — VIZ-017 dark hues via zoneHue → THREE.Color.
+  // Density → visible-node cap (the base cap comes from the `maxNodes` prop).
+  const densityFactor =
+    NODE_DENSITY_OPTIONS.find((option) => option.value === density)?.factor ?? 1;
+  const nodeCap = Math.max(60, Math.round(maxNodes * densityFactor));
+
+  // Zone materials — VIZ-017 zone hues for the ACTIVE theme → THREE.Color.
   const zoneColors = useMemo(() => {
     const map = new Map<Zone, THREE.Color>();
     for (const zone of ZONE_ORDER) {
-      map.set(zone, new THREE.Color(zoneHue(zone, "dark")));
+      map.set(zone, new THREE.Color(zoneHue(zone, theme)));
     }
     return map;
-  }, []);
+  }, [theme]);
+
+  // Scene fog — read from the app's CSS tokens so the scene fades into the
+  // current theme's background instead of a fixed dark haze.
+  const [fogColor, setFogColor] = useState<THREE.Color | null>(null);
+  useEffect(() => {
+    const read = () => {
+      const rgb = hslTripletToRgb(readThemeToken("--background") ?? "");
+      setFogColor(
+        rgb
+          ? new THREE.Color().setRGB(rgb[0], rgb[1], rgb[2], THREE.SRGBColorSpace)
+          : null
+      );
+    };
+    read();
+    // The theme class is applied by next-themes in its own effect (after
+    // this one), so re-read on the next frame with the settled tokens.
+    const raf = requestAnimationFrame(read);
+    return () => cancelAnimationFrame(raf);
+  }, [theme]);
 
   // Client environment detection (effects never run during SSR).
   useEffect(() => {
@@ -514,7 +617,15 @@ export function FileSystem3D({
       typeof window.matchMedia === "function"
         ? window.matchMedia("(prefers-reduced-motion: reduce)")
         : null;
-    const apply = () => setReducedMotion(Boolean(query?.matches));
+    const apply = () => {
+      const reduced = Boolean(query?.matches);
+      setReducedMotion(reduced);
+      // Reduced motion: auto-rotation stays off (VIZ-014 §8.4).
+      if (reduced) {
+        autoRotateRef.current = false;
+        setAutoRotate(false);
+      }
+    };
     apply();
     query?.addEventListener("change", apply);
     const cores =
@@ -525,9 +636,11 @@ export function FileSystem3D({
     return () => query?.removeEventListener("change", apply);
   }, []);
 
-  // Snapshot fetch → scene build (cancelled safely on unmount/retry).
+  // Snapshot fetch (cancelled safely on unmount/retry). The tree is kept so a
+  // density change re-lays out the scene without re-fetching the snapshot.
   useEffect(() => {
     let cancelled = false;
+    setError(null);
     setAnnouncement("Loading 3D file-system data.");
     (async () => {
       try {
@@ -540,14 +653,7 @@ export function FileSystem3D({
           throw new Error("Tree snapshot is malformed.");
         }
         if (cancelled) return;
-        const data = buildScene(json.root, maxNodes);
-        setScene(data);
-        const zones = ZONE_ORDER.filter((zone) => data.byZone[zone] > 0).length;
-        setAnnouncement(
-          `3D file system loaded from snapshot: ${formatExact(
-            data.files.length + data.dirs.length
-          )} visible nodes across ${zones} zones.`
-        );
+        setRoot(json.root);
       } catch (caught) {
         if (cancelled) return;
         const message =
@@ -561,7 +667,25 @@ export function FileSystem3D({
     return () => {
       cancelled = true;
     };
-  }, [maxNodes, reloadKey]);
+  }, [reloadKey]);
+
+  // Scene build — re-runs when the density changes the visible-node cap.
+  const scene = useMemo(
+    () => (root ? buildScene(root, nodeCap) : null),
+    [root, nodeCap]
+  );
+
+  // Announce the loaded scene (also re-announces the new node count when the
+  // density changes).
+  useEffect(() => {
+    if (!scene) return;
+    const zones = ZONE_ORDER.filter((zone) => scene.byZone[zone] > 0).length;
+    setAnnouncement(
+      `3D file system loaded from snapshot: ${formatExact(
+        scene.files.length + scene.dirs.length
+      )} visible nodes across ${zones} zones.`
+    );
+  }, [scene]);
 
   // Tooltip dismissal (SC 1.4.13 — Esc clears the hover tooltip).
   useEffect(() => {
@@ -594,6 +718,22 @@ export function FileSystem3D({
     []
   );
 
+  const handleResetView = useCallback(() => {
+    setResetToken((token) => token + 1);
+    setAnnouncement("View reset to the default camera position.");
+  }, []);
+
+  const handleToggleAutoRotate = useCallback(() => {
+    const next = !autoRotateRef.current;
+    autoRotateRef.current = next;
+    setAutoRotate(next);
+    setAnnouncement(next ? "Auto-rotation on." : "Auto-rotation off.");
+  }, []);
+
+  const handleDensity = useCallback((level: NodeDensity) => {
+    setDensity(level);
+  }, []);
+
   const topFiles = useMemo(
     () =>
       scene
@@ -620,25 +760,6 @@ export function FileSystem3D({
             : "Interactive mode"}
         </span>
       </div>
-
-      <ul className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1">
-        {ZONE_ORDER.map((zone) => (
-          <li
-            key={zone}
-            className="flex items-center gap-1.5 text-xs text-muted-foreground"
-          >
-            <span
-              aria-hidden="true"
-              className="h-2.5 w-2.5 rounded-full"
-              style={{ backgroundColor: zoneHue(zone, "dark") }}
-            />
-            {ZONE_META[zone].label}
-            <span className="font-mono">
-              {scene ? formatExact(scene.byZone[zone]) : "–"}
-            </span>
-          </li>
-        ))}
-      </ul>
 
       {error ? (
         <div
@@ -675,52 +796,147 @@ export function FileSystem3D({
           </div>
         </div>
       ) : (
-        <div
-          role="img"
-          tabIndex={0}
-          aria-label="3D map of the repository: folders as clusters, files as spheres scaled by size, colored by zone"
-          aria-describedby={descId}
-          className={cn(
-            SCENE_FRAME,
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-          )}
-        >
-          {mounted && scene ? (
-            <Canvas
-              frameloop={reducedMotion ? "demand" : "always"}
-              dpr={[1, 2]}
-              camera={{ position: [0, 58, 92], fov: 45 }}
-              gl={{
-                antialias: true,
-                alpha: true,
-                powerPreference: "high-performance",
-              }}
-              onPointerMissed={() => setHover(null)}
-            >
-              {degraded ? (
-                <PointsScene
-                  files={scene.files}
-                  dirs={scene.dirs}
-                  zoneColors={zoneColors}
-                />
-              ) : (
-                <InstancedScene
-                  files={scene.files}
-                  dirs={scene.dirs}
-                  selectedPath={selected?.path ?? null}
-                  onSelect={handleSelect}
-                  onHover={handleHover}
-                  onHoverEnd={() => setHover(null)}
-                  zoneColors={zoneColors}
-                />
-              )}
-            </Canvas>
-          ) : (
-            <div
-              className="animate-pulse absolute inset-0 bg-gradient-to-b from-muted/30 to-muted/10"
-              aria-hidden="true"
-            />
-          )}
+        <div className={cn(SCENE_FRAME, "isolate")}>
+          {/* The scene surface. role="img" stays on its own element so the
+              HUD controls below remain in the accessibility tree. */}
+          <div
+            role="img"
+            tabIndex={0}
+            aria-label="3D map of the repository: folders as clusters, files as spheres scaled by size, colored by zone"
+            aria-describedby={descId}
+            className="absolute inset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            {mounted && scene ? (
+              <Canvas
+                frameloop={reducedMotion && !autoRotate ? "demand" : "always"}
+                dpr={[1, 2]}
+                camera={{ position: [0, 58, 92], fov: 45 }}
+                gl={{
+                  antialias: true,
+                  alpha: true,
+                  powerPreference: "high-performance",
+                }}
+                onPointerMissed={() => setHover(null)}
+              >
+                {fogColor ? (
+                  <fog attach="fog" args={[fogColor, 70, 210]} />
+                ) : null}
+                {degraded ? (
+                  <PointsScene
+                    files={scene.files}
+                    dirs={scene.dirs}
+                    zoneColors={zoneColors}
+                    autoRotate={autoRotate}
+                    resetToken={resetToken}
+                  />
+                ) : (
+                  <InstancedScene
+                    files={scene.files}
+                    dirs={scene.dirs}
+                    selectedPath={selected?.path ?? null}
+                    onSelect={handleSelect}
+                    onHover={handleHover}
+                    onHoverEnd={() => setHover(null)}
+                    zoneColors={zoneColors}
+                    autoRotate={autoRotate}
+                    resetToken={resetToken}
+                  />
+                )}
+              </Canvas>
+            ) : (
+              <div
+                className="animate-pulse absolute inset-0 bg-gradient-to-b from-muted/30 to-muted/10"
+                aria-hidden="true"
+              />
+            )}
+          </div>
+
+          {/* HUD overlay (UX-08) — the layer never blocks canvas pointer
+              events; only the controls inside it take pointer events. */}
+          <div className="pointer-events-none absolute inset-0 z-10">
+            {/* Zone legend — top-left */}
+            <div className="glass absolute left-3 top-3 max-w-[52%] rounded-xl px-3 py-2 sm:max-w-[240px]">
+              <h3 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                Zones
+              </h3>
+              <ul className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1">
+                {ZONE_ORDER.map((zone) => (
+                  <li
+                    key={zone}
+                    className="flex items-center gap-1.5 text-[11px] text-muted-foreground"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="h-2.5 w-2.5 shrink-0 rounded-full"
+                      style={{ backgroundColor: zoneHue(zone, theme) }}
+                    />
+                    <span>{ZONE_META[zone].label}</span>
+                    <span className="font-mono tabular-nums">
+                      {scene ? formatExact(scene.byZone[zone]) : "–"}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Controls — top-right */}
+            <div className="absolute right-3 top-3 flex flex-col items-end gap-2">
+              <div className="glass pointer-events-auto flex flex-col gap-1.5 rounded-xl p-1.5">
+                <button
+                  type="button"
+                  onClick={handleResetView}
+                  aria-label="Reset view to the default camera position"
+                  className={HUD_BUTTON}
+                >
+                  <RotateCcw className="h-4 w-4" aria-hidden="true" />
+                  Reset view
+                </button>
+                <button
+                  type="button"
+                  onClick={handleToggleAutoRotate}
+                  aria-pressed={autoRotate}
+                  aria-label="Auto-rotate the scene"
+                  className={HUD_BUTTON}
+                >
+                  <RotateCw className="h-4 w-4" aria-hidden="true" />
+                  Auto-rotate
+                </button>
+              </div>
+
+              <div
+                role="group"
+                aria-label="Node density"
+                className="glass pointer-events-auto flex items-center gap-1 rounded-xl p-1.5"
+              >
+                {NODE_DENSITY_OPTIONS.map((option) => {
+                  const active = density === option.value;
+                  return (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => handleDensity(option.value)}
+                      aria-pressed={active}
+                      aria-label={`Node density: ${option.label}`}
+                      className={cn(
+                        "inline-flex h-11 min-w-[44px] items-center justify-center rounded-lg px-2.5 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                        active
+                          ? "bg-primary/15 text-primary"
+                          : "text-muted-foreground hover:bg-secondary"
+                      )}
+                    >
+                      {option.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Hint line — bottom-centre */}
+            <p className="absolute inset-x-3 bottom-3 mx-auto w-fit max-w-full rounded-full border border-border/60 bg-background/80 px-3 py-1.5 text-center text-[11px] text-muted-foreground backdrop-blur">
+              Drag to orbit · scroll to zoom · click a node to open it in the
+              Explorer
+            </p>
+          </div>
 
           {hover && (
             <div
@@ -745,10 +961,11 @@ export function FileSystem3D({
         className="mt-3 text-xs leading-relaxed text-muted-foreground"
       >
         Each diamond is a folder cluster and each sphere a file — sphere
-        diameter scales with file size (log scale) and the hue matches the zone
-        legend above. The scene shows the top 3 levels of the repository tree,
-        capped at about {maxNodes} visible nodes (largest files per folder).
-        Drag to orbit, scroll to zoom.
+        diameter scales with file size (log scale) and the hue matches the
+        zone legend in the scene overlay. The scene shows the top 3 levels of
+        the repository tree, capped at about {nodeCap} visible nodes (largest
+        files per folder); the density control in the overlay changes that
+        cap. Drag to orbit, scroll to zoom.
       </p>
       <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
         Keyboard note: the 3D scene is a spatial overview. Use the file list
@@ -804,7 +1021,7 @@ export function FileSystem3D({
                   <span
                     aria-hidden="true"
                     className="h-2.5 w-2.5 shrink-0 rounded-full"
-                    style={{ backgroundColor: zoneHue(node.zone, "dark") }}
+                    style={{ backgroundColor: zoneHue(node.zone, theme) }}
                   />
                   <span className="min-w-0 flex-1 truncate font-mono text-xs">
                     {node.path || node.name}

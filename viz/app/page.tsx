@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import {
@@ -22,6 +23,7 @@ import {
   Files,
   Folder,
   History,
+  Loader2,
   RefreshCw,
   TriangleAlert,
   Users,
@@ -31,7 +33,16 @@ import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { LEXICON, ZONE_META, ZONE_ORDER, zoneHue } from "@/lib/brand";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { LEXICON, ZONE_META, ZONE_ORDER, zoneHue, type Zone } from "@/lib/brand";
 import type {
   ChurnEntry,
   CommitRecord,
@@ -163,6 +174,19 @@ function usePrefersReducedMotion(): boolean {
   return reduced;
 }
 
+/** Media-query hook so charts can adapt their axis geometry on narrow screens. */
+function useMediaQuery(query: string): boolean {
+  const [matches, setMatches] = React.useState(false);
+  React.useEffect(() => {
+    const list = window.matchMedia(query);
+    setMatches(list.matches);
+    const onChange = (event: MediaQueryListEvent) => setMatches(event.matches);
+    list.addEventListener("change", onChange);
+    return () => list.removeEventListener("change", onChange);
+  }, [query]);
+  return matches;
+}
+
 /* ---------------------------------------------------------------------------
  * Chart tooltip cells (glass treatment, VIZ-018 §8.5)
  * ------------------------------------------------------------------------- */
@@ -243,10 +267,12 @@ function ChurnPathTick({
   x = 0,
   y = 0,
   payload,
+  maxChars = 34,
 }: {
   x?: number;
   y?: number;
   payload?: { value?: string };
+  maxChars?: number;
 }) {
   return (
     <text
@@ -257,9 +283,81 @@ function ChurnPathTick({
       fontSize={11}
       className="fill-muted-foreground"
     >
-      {truncatePath(payload?.value ?? "")}
+      {truncatePath(payload?.value ?? "", maxChars)}
     </text>
   );
+}
+
+/* ---------------------------------------------------------------------------
+ * Globe hero (cobe WebGL) — client-only, SSR-safe (VIZ-013 §6.1, §9.2)
+ * ------------------------------------------------------------------------- */
+
+/** cobe marker shape (the subset the globe scene consumes). */
+interface HeroMarker {
+  id: string;
+  location: [number, number];
+  size: number;
+  color: [number, number, number];
+}
+
+/**
+ * GlobeHero is being refactored in parallel (theme-aware markers). The
+ * Overview therefore talks to it through a narrow adapter that hands over BOTH
+ * the cobe marker list and the raw zone counts — whichever of the two the
+ * scene reads, the hero renders the same six zones in the active theme.
+ */
+interface HeroGlobeProps {
+  className?: string;
+  markers?: HeroMarker[];
+  byZone?: Record<Zone, { files: number }>;
+}
+
+const GlobeHero = dynamic(() => import("@/components/three/globe-hero"), {
+  ssr: false,
+  loading: () => <GlobePreparing />,
+}) as unknown as React.ComponentType<HeroGlobeProps>;
+
+/** Load gate — Spinner + "Preparing globe…" (VIZ-013 §9.2). */
+function GlobePreparing() {
+  return (
+    <div
+      role="status"
+      className="flex h-full w-full flex-col items-center justify-center gap-2 text-xs text-muted-foreground"
+    >
+      <Loader2 className="size-5 animate-spin" aria-hidden="true" />
+      <span>Preparing globe…</span>
+    </div>
+  );
+}
+
+/** Hex → rgb floats (cobe colour space). Colours always come from zoneHue(). */
+function hexToRgbTuple(hex: string): [number, number, number] {
+  const value = hex.replace(/^#/, "");
+  return [
+    Number.parseInt(value.slice(0, 2), 16) / 255,
+    Number.parseInt(value.slice(2, 4), 16) / 255,
+    Number.parseInt(value.slice(4, 6), 16) / 255,
+  ];
+}
+
+/**
+ * One marker per zone, fixed legend order (VIZ-017 D2). Marker size tracks the
+ * zone share of repository files (sqrt scale); colour resolves through
+ * zoneHue() so the hero follows the active theme (VIZ-018 §8.4).
+ */
+function buildHeroMarkers(
+  byZone: Record<Zone, { files: number }>,
+  theme: "light" | "dark"
+): HeroMarker[] {
+  const counts = ZONE_ORDER.map((zone) => byZone[zone]?.files ?? 0);
+  const maxFiles = Math.max(...counts, 1);
+  return ZONE_ORDER.map((zone, index) => ({
+    id: zone,
+    // cobe location is [latitude, longitude] — six zones spread around the globe.
+    location: [index % 2 === 0 ? 18 : -12, -150 + index * 60],
+    size: 0.04 + 0.1 * Math.sqrt(counts[index] / maxFiles),
+    color: hexToRgbTuple(zoneHue(zone, theme)),
+  }));
 }
 
 /* ---------------------------------------------------------------------------
@@ -290,30 +388,114 @@ function StatCard({ label, value, icon: Icon, hint }: StatCardProps) {
   );
 }
 
-function GlobePreview() {
+/** Zero-count zone record — the hero renders before the stats land. */
+const EMPTY_BY_ZONE: Record<Zone, { files: number }> = {
+  docs: { files: 0 },
+  prompts: { files: 0 },
+  execution: { files: 0 },
+  stremiium: { files: 0 },
+  rea: { files: 0 },
+  other: { files: 0 },
+};
+
+/**
+ * Overview hero — cobe globe with the repo title, a one-sentence value
+ * proposition and the primary "Start exploring" CTA (VIZ-013 §6.1 row 1).
+ * Rendered unconditionally so the first paint already carries the identity
+ * of the repository; the numbers fill in once the stats resolve.
+ */
+function OverviewHero({
+  files,
+  commits,
+  byZone,
+  theme,
+}: {
+  files: number | null;
+  commits: number | null;
+  byZone: Record<Zone, { files: number }>;
+  theme: "light" | "dark";
+}) {
+  const markers = React.useMemo(() => buildHeroMarkers(byZone, theme), [byZone, theme]);
+
   return (
-    <div
-      aria-hidden="true"
-      className="relative mx-auto size-40 shrink-0 rounded-full border border-primary/25"
-      style={{
-        background:
-          "radial-gradient(circle at 32% 28%, hsl(var(--primary) / 0.5), hsl(var(--primary) / 0.06) 60%, transparent 72%)",
-      }}
-    >
-      <div className="absolute inset-2 rounded-full border border-primary/15" />
-      <div className="absolute inset-6 rounded-full border border-primary/10" />
-      {/* Zone sample points — theme-aware token classes from tailwind config */}
-      <span className="absolute left-[18%] top-[30%] size-1.5 rounded-full bg-zone-docs" />
-      <span className="absolute left-[62%] top-[22%] size-1.5 rounded-full bg-zone-prompts" />
-      <span className="absolute left-[38%] top-[58%] size-1.5 rounded-full bg-zone-execution" />
-      <span className="absolute left-[70%] top-[64%] size-1.5 rounded-full bg-zone-stremiium" />
-      <span className="absolute left-[24%] top-[74%] size-1.5 rounded-full bg-zone-rea" />
-      <span className="absolute left-[52%] top-[40%] size-1.5 rounded-full bg-zone-other" />
-      {/* Satellite ring — CSS motion, frozen by the global reduced-motion gate */}
-      <div className="absolute -inset-3 animate-[spin_48s_linear_infinite] rounded-full border border-dashed border-primary/20">
-        <span className="absolute left-1/2 top-0 size-1.5 -translate-x-1/2 rounded-full bg-accent" />
+    <Card className="relative col-span-12 min-h-[26rem] overflow-hidden border-border/60 p-0 lg:col-span-8">
+      {/* WebGL globe layer */}
+      <div className="absolute inset-0">
+        <GlobeHero className="h-full w-full" markers={markers} byZone={byZone} />
       </div>
-    </div>
+
+      {/* Scrim — keeps the overlay copy legible over the scene (VIZ-018 §8.3) */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/95 via-background/70 to-background/10"
+      />
+
+      {/* Liquid-glass copy panel (VIZ-018 §8.5) */}
+      <div className="relative flex min-h-[26rem] flex-col justify-end p-4 sm:p-6">
+        <div className="glass max-w-md rounded-2xl p-5">
+          <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+            Repository identity
+          </p>
+          <h2 className="mt-1 font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
+            The bx2o/rea repository
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-foreground/90">
+            {files !== null && commits !== null ? (
+              <>
+                {formatExact(files)} files across six zones and {formatExact(commits)} commits of
+                history — explore the tree, trace what changed, and learn how the program fits
+                together.
+              </>
+            ) : (
+              <>
+                Six zones, one commit history — explore the tree, trace what changed, and learn how
+                the program fits together.
+              </>
+            )}
+          </p>
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <Link href="/explorer" className={cn(buttonVariants({ size: "lg" }))}>
+              Start exploring
+              <ArrowRight aria-hidden="true" />
+            </Link>
+            <Link
+              href="/learn"
+              className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+            >
+              Learn the program
+            </Link>
+          </div>
+          <Link
+            href="/globe"
+            className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            {LEXICON.inspect} the globe
+            <ArrowRight aria-hidden="true" />
+          </Link>
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+/**
+ * Accessible table alternative for a chart (VIZ-014 §8.3, SC 1.3.1) — collapsed
+ * by default so the default view stays uncluttered, but never removed from the
+ * accessibility tree.
+ */
+function DataTable({ caption, children }: { caption: string; children: React.ReactNode }) {
+  return (
+    <details className="mt-4 rounded-lg border border-border/60 bg-card/40">
+      <summary className="cursor-pointer px-4 py-2 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+        Data table
+      </summary>
+      <div className="max-h-80 overflow-auto border-t border-border/60 p-4">
+        <Table>
+          <TableCaption className="text-left text-xs text-muted-foreground">{caption}</TableCaption>
+          {children}
+        </Table>
+      </div>
+    </details>
   );
 }
 
@@ -339,11 +521,10 @@ function ChartErrorBlock({ message, onRetry }: { message: string; onRetry: () =>
 
 function OverviewSkeleton() {
   return (
-    <div className="grid gap-6" aria-hidden="true">
-      <Skeleton className="h-44 w-full rounded-lg" />
-      <div className="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
+    <>
+      <div className="col-span-12 grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 lg:col-span-4">
         {Array.from({ length: 4 }).map((_, index) => (
-          <Card key={index} className="gap-3">
+          <Card key={index} className="gap-3" aria-hidden="true">
             <CardHeader>
               <Skeleton className="h-3 w-20" />
               <Skeleton className="h-8 w-24" />
@@ -351,13 +532,11 @@ function OverviewSkeleton() {
           </Card>
         ))}
       </div>
-      <Skeleton className="h-72 w-full rounded-lg" />
-      <div className="grid gap-6 lg:grid-cols-2">
-        <Skeleton className="h-72 w-full rounded-lg" />
-        <Skeleton className="h-72 w-full rounded-lg" />
-      </div>
-      <Skeleton className="h-[22rem] w-full rounded-lg" />
-    </div>
+      <Skeleton aria-hidden="true" className="col-span-12 h-72 w-full rounded-lg lg:col-span-7" />
+      <Skeleton aria-hidden="true" className="col-span-12 h-72 w-full rounded-lg lg:col-span-5" />
+      <Skeleton aria-hidden="true" className="col-span-12 h-72 w-full rounded-lg lg:col-span-5" />
+      <Skeleton aria-hidden="true" className="col-span-12 h-[22rem] w-full rounded-lg lg:col-span-7" />
+    </>
   );
 }
 
@@ -391,6 +570,7 @@ export default function OverviewPage() {
   const { resolvedTheme } = useTheme();
   const theme = resolvedTheme === "dark" ? "dark" : "light";
   const reducedMotion = usePrefersReducedMotion();
+  const narrow = useMediaQuery("(max-width: 640px)");
 
   const [stats, setStats] = React.useState<RepoStats | null>(null);
   const [statsSource, setStatsSource] = React.useState<DataSource | null>(null);
@@ -537,6 +717,7 @@ export default function OverviewPage() {
 
   const areaAria = `Area chart of commits per day. ${areaTakeaway}`;
   const donutAria = `Donut chart of files by type. ${typeTakeaway}`;
+  const zoneAria = `Bar list of files per repository zone. ${zoneTakeaway}`;
   const churnAria = `Horizontal stacked bar chart of the ten most-changed files, insertions and deletions per file. ${churnTakeaway}`;
 
   const statusMessage = statsError
@@ -551,11 +732,16 @@ export default function OverviewPage() {
       ? { r: 3, fill: "hsl(var(--chart-1))", strokeWidth: 0 }
       : false;
 
+  /* Churn axis geometry — narrow viewports get a shorter label gutter. */
+  const churnAxisWidth = narrow ? 110 : 200;
+  const churnTickChars = narrow ? 18 : 30;
+
   return (
-    <div className="grid gap-6">
-      <header className="flex flex-wrap items-end justify-between gap-3">
+    /* 12-column Overview grid (VIZ-013 §6.1) */
+    <div className="grid grid-cols-12 gap-6">
+      <header className="col-span-12 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="font-heading text-2xl font-semibold tracking-tight md:text-3xl">
+          <h1 className="font-heading text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-tight">
             Overview
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -577,50 +763,30 @@ export default function OverviewPage() {
       </header>
 
       {/* Polite live region for async loads (VIZ-014 §8.7) */}
-      <p className="sr-only" aria-live="polite">
+      <p className="sr-only col-span-12" aria-live="polite">
         {statusMessage}
       </p>
 
       {statsError ? (
-        <ErrorCard message={statsError} onRetry={retry} />
+        <div className="col-span-12">
+          <ErrorCard message={statsError} onRetry={retry} />
+        </div>
       ) : stats === null ? (
         <OverviewSkeleton />
       ) : (
         <>
-          {/* Globe hero placeholder — the cobe scene itself lives on /globe */}
-          <Card className="glass relative gap-4 overflow-hidden">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(560px circle at 85% 15%, hsl(var(--primary) / 0.16), transparent 60%), radial-gradient(420px circle at 12% 90%, hsl(var(--zone-stremiium) / 0.12), transparent 60%)",
-              }}
-            />
-            <CardHeader className="relative">
-              <CardTitle>Repo Globe</CardTitle>
-              <CardDescription>
-                The repository mapped onto an interactive WebGL globe — zone colors, commit
-                activity, and orbit controls live in the full view.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="relative flex flex-col-reverse items-start justify-between gap-6 md:flex-row md:items-center">
-              <div className="flex flex-col gap-3">
-                <Link href="/globe" className={cn(buttonVariants({ variant: "outline" }))}>
-                  {LEXICON.inspect} the globe
-                  <ArrowRight aria-hidden="true" />
-                </Link>
-                <p className="max-w-sm text-xs text-muted-foreground">
-                  Placeholder hero — the WebGL scene loads on /globe (client-only, with
-                  reduced-motion and degraded-mode fallbacks).
-                </p>
-              </div>
-              <GlobePreview />
-            </CardContent>
-          </Card>
+          {/* Row 1 — globe hero (lg:col-span-8) + quick-stats stack (lg:col-span-4) */}
+          <OverviewHero
+            files={stats.totalFiles}
+            commits={stats.totalCommits}
+            byZone={stats.byZone}
+            theme={theme}
+          />
 
-          {/* Stat cards (VIZ-015) */}
-          <section aria-label="Repository totals" className="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
+          <section
+            aria-label="Repository totals"
+            className="col-span-12 grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 lg:col-span-4"
+          >
             <StatCard
               label="Files"
               value={stats.totalFiles}
@@ -647,8 +813,8 @@ export default function OverviewPage() {
             />
           </section>
 
-          {/* Commits over time */}
-          <Card>
+          {/* Row 2 — commits over time (lg:col-span-7) + file-type mix (lg:col-span-5) */}
+          <Card className="col-span-12 lg:col-span-7">
             <CardHeader>
               <CardTitle>Commits over time</CardTitle>
               <CardDescription>{areaTakeaway}</CardDescription>
@@ -661,57 +827,85 @@ export default function OverviewPage() {
               ) : commitsOverTime.length === 0 ? (
                 <EmptyBlock text="No commit history yet — run scripts/snapshot.mjs or connect live git to populate the timeline." />
               ) : (
-                <figure className="h-64" role="img" aria-label={areaAria}>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={commitsOverTime} margin={{ top: 8, right: 12, bottom: 0, left: 0 }}>
-                      <defs>
-                        <linearGradient id="commits-area-fill" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="hsl(var(--chart-1))" stopOpacity={0.32} />
-                          <stop offset="100%" stopColor="hsl(var(--chart-1))" stopOpacity={0.02} />
-                        </linearGradient>
-                      </defs>
-                      <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                      <XAxis
-                        dataKey="date"
-                        minTickGap={16}
-                        tickLine={false}
-                        axisLine={false}
-                        tickMargin={8}
-                        tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
-                        tickFormatter={(value: string) =>
-                          formatDate(value, { day: "numeric", month: "short" })
-                        }
-                      />
-                      <YAxis
-                        allowDecimals={false}
-                        width={30}
-                        tickLine={false}
-                        axisLine={false}
-                        tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
-                        tickFormatter={(value: number) => formatCompact(value)}
-                      />
-                      <Tooltip
-                        content={<CommitsTooltip />}
-                        cursor={{ stroke: "hsl(var(--border))", strokeDasharray: "4 4" }}
-                      />
-                      <Area
-                        dataKey="commits"
-                        name="Commits"
-                        stroke="hsl(var(--chart-1))"
-                        strokeWidth={2}
-                        fill="url(#commits-area-fill)"
-                        isAnimationActive={!reducedMotion}
-                        dot={sparseDots}
-                        activeDot={{
-                          r: 4,
-                          fill: "hsl(var(--chart-1))",
-                          stroke: "hsl(var(--card))",
-                          strokeWidth: 2,
-                        }}
-                      />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </figure>
+                <>
+                  <figure className="h-64" role="img" aria-label={areaAria}>
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={commitsOverTime} margin={{ top: 8, right: 12, bottom: 0, left: 0 }}>
+                        <defs>
+                          <linearGradient id="commits-area-fill" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="hsl(var(--chart-1))" stopOpacity={0.32} />
+                            <stop offset="100%" stopColor="hsl(var(--chart-1))" stopOpacity={0.02} />
+                          </linearGradient>
+                        </defs>
+                        <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                        <XAxis
+                          dataKey="date"
+                          minTickGap={16}
+                          tickLine={false}
+                          axisLine={false}
+                          tickMargin={8}
+                          tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+                          tickFormatter={(value: string) =>
+                            formatDate(value, { day: "numeric", month: "short" })
+                          }
+                        />
+                        <YAxis
+                          allowDecimals={false}
+                          width={30}
+                          tickLine={false}
+                          axisLine={false}
+                          tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+                          tickFormatter={(value: number) => formatCompact(value)}
+                        />
+                        <Tooltip
+                          content={<CommitsTooltip />}
+                          cursor={{ stroke: "hsl(var(--border))", strokeDasharray: "4 4" }}
+                        />
+                        <Area
+                          dataKey="commits"
+                          name="Commits"
+                          stroke="hsl(var(--chart-1))"
+                          strokeWidth={2}
+                          fill="url(#commits-area-fill)"
+                          isAnimationActive={!reducedMotion}
+                          dot={sparseDots}
+                          activeDot={{
+                            r: 4,
+                            fill: "hsl(var(--chart-1))",
+                            stroke: "hsl(var(--card))",
+                            strokeWidth: 2,
+                          }}
+                        />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </figure>
+
+                  <DataTable caption="Commits per day (UTC buckets)">
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead scope="col">Date</TableHead>
+                        <TableHead scope="col" className="text-right">
+                          Commits
+                        </TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {commitsOverTime.map((point) => (
+                        <TableRow key={point.date}>
+                          <TableHead
+                            scope="row"
+                            className="h-auto whitespace-normal px-2 py-1.5 font-normal"
+                          >
+                            {formatDate(point.date, { dateStyle: "medium" })}
+                          </TableHead>
+                          <TableCell className="p-2 text-right tabular-nums">
+                            {formatExact(point.commits)}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </DataTable>
+                </>
               )}
             </CardContent>
             {commitsSource && (
@@ -724,78 +918,117 @@ export default function OverviewPage() {
             )}
           </Card>
 
-          {/* Type mix + zone distribution */}
-          <div className="grid gap-6 lg:grid-cols-2">
-            <Card>
-              <CardHeader>
-                <CardTitle>File-type mix</CardTitle>
-                <CardDescription>{typeTakeaway}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {typeMix.length === 0 ? (
-                  <EmptyBlock text="No typed files tracked yet." />
-                ) : (
-                  <>
-                    <figure className="relative h-56" role="img" aria-label={donutAria}>
-                      <ResponsiveContainer width="100%" height="100%">
-                        <PieChart>
-                          <Tooltip content={<TypeTooltip total={typeMixTotal} />} cursor={false} />
-                          <Pie
-                            data={typeMix}
-                            dataKey="count"
-                            nameKey="type"
-                            innerRadius="62%"
-                            outerRadius="90%"
-                            paddingAngle={2}
-                            stroke="hsl(var(--card))"
-                            strokeWidth={2}
-                            isAnimationActive={!reducedMotion}
-                          >
-                            {typeMix.map((point, index) => (
-                              <Cell key={point.type} fill={typeSliceFill(index, point.type)} />
-                            ))}
-                          </Pie>
-                        </PieChart>
-                      </ResponsiveContainer>
-                      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-                        <span className="font-heading text-2xl font-semibold tabular-nums">
-                          {formatStat(typeMixTotal)}
-                        </span>
-                        <span className="text-xs text-muted-foreground">files</span>
-                      </div>
-                    </figure>
-                    <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5">
-                      {typeMix.map((point, index) => (
-                        <li
-                          key={point.type}
-                          className="flex items-center gap-1.5 text-xs text-muted-foreground"
+          <Card className="col-span-12 lg:col-span-5">
+            <CardHeader>
+              <CardTitle>File-type mix</CardTitle>
+              <CardDescription>{typeTakeaway}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {typeMix.length === 0 ? (
+                <EmptyBlock text="No typed files tracked yet." />
+              ) : (
+                <>
+                  <figure className="relative h-56" role="img" aria-label={donutAria}>
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Tooltip content={<TypeTooltip total={typeMixTotal} />} cursor={false} />
+                        <Pie
+                          data={typeMix}
+                          dataKey="count"
+                          nameKey="type"
+                          innerRadius="62%"
+                          outerRadius="90%"
+                          paddingAngle={2}
+                          stroke="hsl(var(--card))"
+                          strokeWidth={2}
+                          isAnimationActive={!reducedMotion}
                         >
-                          <span
-                            aria-hidden="true"
-                            className="size-2 rounded-full"
-                            style={{ backgroundColor: typeSliceFill(index, point.type) }}
-                          />
-                          <span className="font-medium text-foreground">{typeLabel(point.type)}</span>
-                          <span className="tabular-nums">{formatExact(point.count)}</span>
-                          <span>{formatPct(point.count / typeMixTotal)}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-              </CardContent>
-            </Card>
+                          {typeMix.map((point, index) => (
+                            <Cell key={point.type} fill={typeSliceFill(index, point.type)} />
+                          ))}
+                        </Pie>
+                      </PieChart>
+                    </ResponsiveContainer>
+                    <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+                      <span className="font-heading text-2xl font-semibold tabular-nums">
+                        {formatStat(typeMixTotal)}
+                      </span>
+                      <span className="text-xs text-muted-foreground">files</span>
+                    </div>
+                  </figure>
+                  <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5">
+                    {typeMix.map((point, index) => (
+                      <li
+                        key={point.type}
+                        className="flex items-center gap-1.5 text-xs text-muted-foreground"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className="size-2 rounded-full"
+                          style={{ backgroundColor: typeSliceFill(index, point.type) }}
+                        />
+                        <span className="font-medium text-foreground">{typeLabel(point.type)}</span>
+                        <span className="tabular-nums">{formatExact(point.count)}</span>
+                        <span>{formatPct(point.count / typeMixTotal)}</span>
+                      </li>
+                    ))}
+                  </ul>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Zone distribution</CardTitle>
-                <CardDescription>{zoneTakeaway}</CardDescription>
-              </CardHeader>
-              <CardContent className="flex flex-col gap-5">
-                {zoneDist.length === 0 ? (
-                  <EmptyBlock text="No tracked files yet." />
-                ) : (
-                  <>
+                  <DataTable caption="Files by type">
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead scope="col">Type</TableHead>
+                        <TableHead scope="col" className="text-right">
+                          Files
+                        </TableHead>
+                        <TableHead scope="col" className="text-right">
+                          Share
+                        </TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {typeMix.map((point, index) => (
+                        <TableRow key={point.type}>
+                          <TableHead
+                            scope="row"
+                            className="h-auto whitespace-normal px-2 py-1.5 font-normal"
+                          >
+                            <span className="flex items-center gap-1.5">
+                              <span
+                                aria-hidden="true"
+                                className="size-2 shrink-0 rounded-full"
+                                style={{ backgroundColor: typeSliceFill(index, point.type) }}
+                              />
+                              {typeLabel(point.type)}
+                            </span>
+                          </TableHead>
+                          <TableCell className="p-2 text-right tabular-nums">
+                            {formatExact(point.count)}
+                          </TableCell>
+                          <TableCell className="p-2 text-right tabular-nums">
+                            {formatPct(point.count / typeMixTotal)}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </DataTable>
+                </>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Row 3 — zone distribution (lg:col-span-5) + churn hotspots (lg:col-span-7) */}
+          <Card className="col-span-12 lg:col-span-5">
+            <CardHeader>
+              <CardTitle>Zone distribution</CardTitle>
+              <CardDescription>{zoneTakeaway}</CardDescription>
+            </CardHeader>
+            <CardContent className="flex flex-col gap-5">
+              {zoneDist.length === 0 ? (
+                <EmptyBlock text="No tracked files yet." />
+              ) : (
+                <>
+                  <figure className="flex flex-col gap-5" role="img" aria-label={zoneAria}>
                     {/* Proportional overview strip (decorative; rows carry the data) */}
                     <div
                       aria-hidden="true"
@@ -838,14 +1071,52 @@ export default function OverviewPage() {
                         </li>
                       ))}
                     </ul>
-                  </>
-                )}
-              </CardContent>
-            </Card>
-          </div>
+                  </figure>
 
-          {/* Churn hotspots */}
-          <Card>
+                  <DataTable caption="Files per repository zone">
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead scope="col">Zone</TableHead>
+                        <TableHead scope="col" className="text-right">
+                          Files
+                        </TableHead>
+                        <TableHead scope="col" className="text-right">
+                          Share
+                        </TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {zoneDist.map((point) => (
+                        <TableRow key={point.zone}>
+                          <TableHead
+                            scope="row"
+                            className="h-auto whitespace-normal px-2 py-1.5 font-normal"
+                          >
+                            <span className="flex items-center gap-1.5">
+                              <span
+                                aria-hidden="true"
+                                className="size-2 shrink-0 rounded-full"
+                                style={{ backgroundColor: zoneHue(point.zone, theme) }}
+                              />
+                              {ZONE_META[point.zone].label}
+                            </span>
+                          </TableHead>
+                          <TableCell className="p-2 text-right tabular-nums">
+                            {formatExact(point.files)}
+                          </TableCell>
+                          <TableCell className="p-2 text-right tabular-nums">
+                            {formatPct(point.files / totalZoneFiles)}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </DataTable>
+                </>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card className="col-span-12 lg:col-span-7">
             <CardHeader>
               <CardTitle>Churn hotspots</CardTitle>
               <CardDescription>{churnTakeaway}</CardDescription>
@@ -854,57 +1125,97 @@ export default function OverviewPage() {
               {churn.length === 0 ? (
                 <EmptyBlock text="No churn data tracked yet." />
               ) : (
-                <figure className="h-[22rem]" role="img" aria-label={churnAria}>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={churn}
-                      layout="vertical"
-                      margin={{ top: 4, right: 16, bottom: 4, left: 8 }}
-                    >
-                      <CartesianGrid
-                        horizontal={false}
-                        strokeDasharray="3 3"
-                        stroke="hsl(var(--border))"
-                      />
-                      <XAxis
-                        type="number"
-                        allowDecimals={false}
-                        tickLine={false}
-                        axisLine={false}
-                        tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
-                        tickFormatter={(value: number) => formatCompact(value)}
-                      />
-                      <YAxis
-                        type="category"
-                        dataKey="path"
-                        width={210}
-                        tickLine={false}
-                        axisLine={false}
-                        tickMargin={10}
-                        tick={<ChurnPathTick />}
-                      />
-                      <Tooltip
-                        content={<ChurnTooltip />}
-                        cursor={{ fill: "hsl(var(--muted) / 0.35)" }}
-                      />
-                      <Bar
-                        dataKey="insertions"
-                        name="Insertions"
-                        stackId="churn"
-                        fill="hsl(var(--chart-3))"
-                        isAnimationActive={!reducedMotion}
-                      />
-                      <Bar
-                        dataKey="deletions"
-                        name="Deletions"
-                        stackId="churn"
-                        fill="hsl(var(--destructive))"
-                        radius={[0, 4, 4, 0]}
-                        isAnimationActive={!reducedMotion}
-                      />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </figure>
+                <>
+                  <figure className="h-[22rem]" role="img" aria-label={churnAria}>
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart
+                        data={churn}
+                        layout="vertical"
+                        margin={{ top: 4, right: 16, bottom: 4, left: 8 }}
+                      >
+                        <CartesianGrid
+                          horizontal={false}
+                          strokeDasharray="3 3"
+                          stroke="hsl(var(--border))"
+                        />
+                        <XAxis
+                          type="number"
+                          allowDecimals={false}
+                          tickLine={false}
+                          axisLine={false}
+                          tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+                          tickFormatter={(value: number) => formatCompact(value)}
+                        />
+                        <YAxis
+                          type="category"
+                          dataKey="path"
+                          width={churnAxisWidth}
+                          tickLine={false}
+                          axisLine={false}
+                          tickMargin={10}
+                          tick={<ChurnPathTick maxChars={churnTickChars} />}
+                        />
+                        <Tooltip
+                          content={<ChurnTooltip />}
+                          cursor={{ fill: "hsl(var(--muted) / 0.35)" }}
+                        />
+                        <Bar
+                          dataKey="insertions"
+                          name="Insertions"
+                          stackId="churn"
+                          fill="hsl(var(--chart-3))"
+                          isAnimationActive={!reducedMotion}
+                        />
+                        <Bar
+                          dataKey="deletions"
+                          name="Deletions"
+                          stackId="churn"
+                          fill="hsl(var(--destructive))"
+                          radius={[0, 4, 4, 0]}
+                          isAnimationActive={!reducedMotion}
+                        />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </figure>
+
+                  <DataTable caption="Ten most-changed files by total churn">
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead scope="col">Path</TableHead>
+                        <TableHead scope="col" className="text-right">
+                          + Ins
+                        </TableHead>
+                        <TableHead scope="col" className="text-right">
+                          − Del
+                        </TableHead>
+                        <TableHead scope="col" className="text-right">
+                          Commits
+                        </TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {churn.map((entry) => (
+                        <TableRow key={entry.path}>
+                          <TableHead
+                            scope="row"
+                            className="h-auto max-w-[16rem] whitespace-normal break-all px-2 py-1.5 font-mono text-xs font-normal"
+                          >
+                            {entry.path}
+                          </TableHead>
+                          <TableCell className="p-2 text-right tabular-nums text-chart-3">
+                            +{formatExact(entry.insertions)}
+                          </TableCell>
+                          <TableCell className="p-2 text-right tabular-nums text-destructive">
+                            −{formatExact(entry.deletions)}
+                          </TableCell>
+                          <TableCell className="p-2 text-right tabular-nums">
+                            {formatExact(entry.commits)}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </DataTable>
+                </>
               )}
             </CardContent>
             {churn.length > 0 && (

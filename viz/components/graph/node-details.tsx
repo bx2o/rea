@@ -10,8 +10,13 @@
  * - council nodes: their departments, each with an Explorer deep link,
  * - "View in Explorer" link for nodes that map to prompts/stremiium/<dir>.
  *
- * Department ids are "C03:c03-admin-knowledge" — the part after ":" is the
- * directory name under prompts/stremiium (VIZ-031 §8.4 mapping rule).
+ * Department ids are "C03:c03-admin-knowledge". The part after ":" is the
+ * department name from the council mapping, which does NOT always match the
+ * directory that exists under prompts/stremiium (e.g. "c06-engineering-
+ * infrastructure" vs the real "c06-hardware-enable"). The Explorer target is
+ * therefore taken from the `promptsDirs` mapping emitted by
+ * scripts/snapshot.mjs, which resolves every department against the real
+ * prompts/stremiium directory listing (FC-04 — no dead deep links).
  */
 
 import { useMemo } from "react";
@@ -64,6 +69,74 @@ export function explorerHref(dir: string): string {
   return `/explorer?path=${encodeURIComponent(`${STREMIIUM_PROMPTS}/${dir}`)}`;
 }
 
+// ------------------------------------------------------- promptsDirs map -----
+/**
+ * Council → real prompts/stremiium directory mapping, emitted by
+ * scripts/snapshot.mjs next to the graph nodes/edges.
+ */
+export interface CouncilPromptsDirs {
+  /** First department (mapping order) that resolves to a real directory. */
+  primary: string | null;
+  /** Department name → directory that really exists under prompts/stremiium. */
+  departments: Record<string, string>;
+}
+
+/** council id → directory mapping (keys are "C01" … "C16"). */
+export type PromptsDirs = Record<string, CouncilPromptsDirs>;
+
+/**
+ * Read the optional `promptsDirs` mapping from a graph payload.
+ *
+ * Returns null when the payload carries no mapping (legacy nodes/edges-only
+ * shape) — callers then fall back to the id-derived directory name.
+ */
+export function readPromptsDirs(data: GraphData): PromptsDirs | null {
+  const raw = (data as { promptsDirs?: unknown }).promptsDirs;
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
+  const out: PromptsDirs = {};
+  for (const [cid, entry] of Object.entries(raw as Record<string, unknown>)) {
+    if (!entry || typeof entry !== "object") continue;
+    const e = entry as Record<string, unknown>;
+    const departments: Record<string, string> = {};
+    const deps = e.departments;
+    if (deps && typeof deps === "object" && !Array.isArray(deps)) {
+      for (const [name, dir] of Object.entries(deps as Record<string, unknown>)) {
+        if (typeof dir === "string" && dir.length > 0) departments[name] = dir;
+      }
+    }
+    out[cid] = {
+      primary: typeof e.primary === "string" && e.primary.length > 0 ? e.primary : null,
+      departments,
+    };
+  }
+  return out;
+}
+
+/** Council id part of a node id ("C03:c03-admin-knowledge" → "C03"). */
+function councilIdOf(node: GraphNode): string {
+  const i = node.id.indexOf(":");
+  return i === -1 ? node.id : node.id.slice(0, i);
+}
+
+/** Department name part of a node id ("" for council nodes). */
+function departmentNameOf(node: GraphNode): string {
+  const i = node.id.indexOf(":");
+  return i === -1 ? "" : node.id.slice(i + 1).trim();
+}
+
+/**
+ * Directory under prompts/stremiium for a node according to the snapshot
+ * mapping; null when the mapping has no directory for that node.
+ */
+export function promptsDirFor(node: GraphNode, dirs: PromptsDirs | null): string | null {
+  if (!dirs) return null;
+  const council = dirs[councilIdOf(node)];
+  if (!council) return null;
+  const department = departmentNameOf(node);
+  if (!department) return council.primary;
+  return council.departments[department] ?? null;
+}
+
 export interface Adjacency {
   byId: Map<string, GraphNode>;
   parents: Map<string, GraphNode[]>;
@@ -97,6 +170,7 @@ export interface NodeDetailsProps {
 
 export function NodeDetails({ node, data, onSelect }: NodeDetailsProps) {
   const adjacency = useMemo(() => buildAdjacency(data), [data]);
+  const dirs = useMemo(() => readPromptsDirs(data), [data]);
 
   if (!node) {
     return (
@@ -121,12 +195,16 @@ export function NodeDetails({ node, data, onSelect }: NodeDetailsProps) {
   );
   const degree = parents.length + children.length;
 
-  // Councils map to their first (primary) department directory; departments
-  // map to the directory part of their own id.
-  const primaryDir =
+  // Explorer target (FC-04): with the snapshot mapping the directory is the
+  // one that really exists under prompts/stremiium; without the mapping
+  // (legacy nodes/edges-only payload) the id-derived name is used.
+  const mappedDir = promptsDirFor(node, dirs);
+  const legacyDir =
     node.type === "council" && departments.length > 0
       ? departmentDir(departments[0])
       : departmentDir(node);
+  const linkDir = dirs ? mappedDir : legacyDir;
+  const isDirectoryNode = node.type === "council" || node.type === "department";
 
   return (
     <aside
@@ -155,10 +233,10 @@ export function NodeDetails({ node, data, onSelect }: NodeDetailsProps) {
         </p>
       </div>
 
-      {primaryDir && (
+      {linkDir ? (
         <div>
           <a
-            href={explorerHref(primaryDir)}
+            href={explorerHref(linkDir)}
             className={cn(
               "inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:opacity-90",
               FOCUS_RING
@@ -168,10 +246,12 @@ export function NodeDetails({ node, data, onSelect }: NodeDetailsProps) {
             <ExternalLinkIcon />
           </a>
           <p className="mt-1.5 text-xs text-muted-foreground">
-            Maps to {STREMIIUM_PROMPTS}/{primaryDir} in the Explorer.
+            Maps to {STREMIIUM_PROMPTS}/{linkDir} in the Explorer.
           </p>
         </div>
-      )}
+      ) : dirs && isDirectoryNode ? (
+        <p className="text-xs text-muted-foreground">No prompt directory for this node.</p>
+      ) : null}
 
       {parents.length > 0 && (
         <section aria-label="Parents">
@@ -196,14 +276,14 @@ export function NodeDetails({ node, data, onSelect }: NodeDetailsProps) {
           {departments.length > 0 ? (
             <ul className="mt-1.5 space-y-1.5">
               {departments.map((d) => {
-                const dir = departmentDir(d);
+                const dir = dirs ? promptsDirFor(d, dirs) : departmentDir(d);
                 return (
                   <li
                     key={d.id}
                     className="flex items-center justify-between gap-2 rounded-md border bg-secondary px-2.5 py-1.5"
                   >
                     <NodeButton node={d} onSelect={onSelect} />
-                    {dir && (
+                    {dir ? (
                       <a
                         href={explorerHref(dir)}
                         className={cn(
@@ -214,6 +294,10 @@ export function NodeDetails({ node, data, onSelect }: NodeDetailsProps) {
                         Explorer
                         <ExternalLinkIcon className="h-3 w-3" />
                       </a>
+                    ) : (
+                      <span className="shrink-0 text-[11px] text-muted-foreground">
+                        No prompt directory
+                      </span>
                     )}
                   </li>
                 );

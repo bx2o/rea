@@ -1,19 +1,25 @@
+/**
+ * GET /api/stats — repository aggregate statistics (VIZ-021 §11; consumer
+ * VIZ-015 charts).
+ *
+ * Serves from the committed snapshot (it carries precise churn from the
+ * snapshot script's numstat aggregation); the parse is memoised (SEC-05).
+ * Rate limited per IP (SEC-02).
+ */
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import { loadSnapshot, rateLimit, type StatsFile } from "../_lib";
 import type { RepoStats } from "@/lib/types";
 
+export const runtime = "nodejs";
 export const revalidate = 300;
 
-/**
- * Stats serve from the committed snapshot (it carries precise churn from the
- * snapshot script's numstat aggregation); live walk is the fallback.
- */
-export async function GET() {
+export async function GET(request: Request): Promise<NextResponse> {
+  const limited = rateLimit("meta", request);
+  if (limited !== null) return limited;
+
   try {
-    const snap = JSON.parse(
-      fs.readFileSync(path.join(process.cwd(), "public", "snapshots", "stats.json"), "utf8")
-    );
+    const snap = await loadSnapshot<StatsFile>("stats.json");
+    if (snap === null) throw new Error("stats snapshot unavailable");
     const data: RepoStats = {
       totalFiles: snap.totalFiles,
       totalDirs: snap.totalDirs,

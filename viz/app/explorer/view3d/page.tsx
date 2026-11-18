@@ -98,11 +98,11 @@ function View3DFallback() {
           </span>
           <div>
             <h2 className="font-heading text-lg font-bold">
-              3D File System — coming in this build
+              3D scene unavailable
             </h2>
             <p className="text-sm text-muted-foreground">
-              The interactive scene is being prepared by the 3D stream; the
-              2D tree explorer is fully available.
+              WebGL could not initialise or the 3D chunk failed to load. The
+              2D tree explorer remains fully available.
             </p>
           </div>
         </div>

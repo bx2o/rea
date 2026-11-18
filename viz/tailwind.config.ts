@@ -40,6 +40,52 @@ const config: Config = {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
+        // Highlight / selected (VIZ-017 D1) — ZAR gold, highlight-only role.
+        // `--accent` is the hover/focus SURFACE and is deliberately neutral.
+        highlight: {
+          DEFAULT: "hsl(var(--highlight))",
+          foreground: "hsl(var(--highlight-foreground))",
+        },
+        // Semantic status namespace (VIZ-017 D1 §7.1) — status only, never zones.
+        // Replaces the hardcoded `text-green-600` / `text-red-600` / `border-amber-600`
+        // Tailwind palette utilities (VIZ-017 single-source rule).
+        st: {
+          success: "hsl(var(--st-success))",
+          "success-foreground": "hsl(var(--st-success-foreground))",
+          warning: "hsl(var(--st-warning))",
+          "warning-foreground": "hsl(var(--st-warning-foreground))",
+          danger: "hsl(var(--st-danger))",
+          "danger-foreground": "hsl(var(--st-danger-foreground))",
+          info: "hsl(var(--st-info))",
+          "info-foreground": "hsl(var(--st-info-foreground))",
+        },
+        stSuccess: {
+          DEFAULT: "hsl(var(--st-success))",
+          foreground: "hsl(var(--st-success-foreground))",
+        },
+        stWarning: {
+          DEFAULT: "hsl(var(--st-warning))",
+          foreground: "hsl(var(--st-warning-foreground))",
+        },
+        stDanger: {
+          DEFAULT: "hsl(var(--st-danger))",
+          foreground: "hsl(var(--st-danger-foreground))",
+        },
+        stInfo: {
+          DEFAULT: "hsl(var(--st-info))",
+          foreground: "hsl(var(--st-info-foreground))",
+        },
+        // Brand chrome namespace (VIZ-017 D1 §7.1) — chrome only, never zones.
+        stBrand: {
+          300: "hsl(var(--st-brand-300))",
+          500: "hsl(var(--st-brand-500))",
+          600: "hsl(var(--st-brand-600))",
+        },
+        stGold: {
+          400: "hsl(var(--st-gold-400))",
+          500: "hsl(var(--st-gold-500))",
+          600: "hsl(var(--st-gold-600))",
+        },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
@@ -56,6 +102,22 @@ const config: Config = {
           stremiium: "hsl(var(--zone-stremiium))",
           rea: "hsl(var(--zone-rea))",
           other: "hsl(var(--zone-other))",
+          // AA-safe text variants (VIZ-017 D2 rule 4) — mandatory for labels/legends.
+          "docs-text": "hsl(var(--zone-docs-text))",
+          "prompts-text": "hsl(var(--zone-prompts-text))",
+          "execution-text": "hsl(var(--zone-execution-text))",
+          "stremiium-text": "hsl(var(--zone-stremiium-text))",
+          "rea-text": "hsl(var(--zone-rea-text))",
+          "other-text": "hsl(var(--zone-other-text))",
+        },
+        // Camel-case alias of the AA zone text variants.
+        zoneText: {
+          docs: "hsl(var(--zone-docs-text))",
+          prompts: "hsl(var(--zone-prompts-text))",
+          execution: "hsl(var(--zone-execution-text))",
+          stremiium: "hsl(var(--zone-stremiium-text))",
+          rea: "hsl(var(--zone-rea-text))",
+          other: "hsl(var(--zone-other-text))",
         },
         chart: {
           "1": "hsl(var(--chart-1))",
@@ -63,8 +125,13 @@ const config: Config = {
           "3": "hsl(var(--chart-3))",
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
+          "6": "hsl(var(--chart-6))",
         },
-        glass: "hsl(var(--glass))",
+        glass: "hsl(var(--glass-bg))",
+        scene: {
+          fog: "hsl(var(--scene-fog))",
+          node: "hsl(var(--node-accent))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

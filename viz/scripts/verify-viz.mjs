@@ -602,6 +602,179 @@ function checkNoHex() {
 }
 
 // ------------------------------------------------------------- checks -----
+/**
+ * Link-existence gate (V18) — regression guard for the broken markdown links
+ * the content-accuracy critic found in the root README and the learning decks.
+ * Scans markdown link targets and backtick-quoted repo paths in the root
+ * README, viz/README.md and viz/content/decks/*.md and asserts each resolves
+ * on disk.
+ *
+ * Known-explanatory exceptions: deck-01 documents the README's abbreviated
+ * paths in prose; those are listed explicitly rather than silently skipped.
+ */
+const LINK_EXCEPTIONS = new Set([
+  "docs/program/tbs/PROGRAM_BRIEF.md",
+  "docs/program/plan/PLAN.md",
+  "docs/governance/unconsolidated/README.md",
+]);
+
+function checkLinksResolve() {
+  const repoRoot = path.resolve(VIZ_ROOT, "..");
+  const targets = [
+    path.join(repoRoot, "README.md"),
+    path.join(VIZ_ROOT, "README.md"),
+    ...fs
+      .readdirSync(path.join(VIZ_ROOT, "content", "decks"))
+      .filter((f) => f.endsWith(".md"))
+      .map((f) => path.join(VIZ_ROOT, "content", "decks", f)),
+  ];
+
+  const broken = [];
+  let scanned = 0;
+
+  for (const file of targets) {
+    if (!fs.existsSync(file)) continue;
+    const text = readText(file);
+    if (text === null) continue;
+    const found = new Set();
+    // markdown link targets: ](path)
+    for (const m of text.matchAll(/\]\(([^)\s]+)\)/g)) found.add(m[1]);
+    // backtick-quoted paths that look like repo paths (contain a / and a file extension)
+    for (const m of text.matchAll(/`([\w./-]+\/[\w./-]+\.[a-z]{2,4})`/g)) found.add(m[1]);
+
+    for (const raw of found) {
+      let t = raw.trim();
+      if (!t || t.startsWith("http") || t.startsWith("#") || t.startsWith("mailto:")) continue;
+      t = t.split("#")[0];
+      if (!t || !/[\w-]+\.[a-z]{2,4}$/i.test(t)) continue; // not a file path
+      if (LINK_EXCEPTIONS.has(t)) continue; // documented explanatory reference
+      scanned++;
+      // Resolve relative to the repo root AND to the referring file's own
+      // directory — viz/README.md uses file-relative links ("../REGISTRIES.md"
+      // style), the root README uses repo-relative ones.
+      const candidates = [
+        path.resolve(repoRoot, t),
+        path.resolve(path.dirname(file), t),
+        path.resolve(VIZ_ROOT, t),
+      ];
+      if (!candidates.some((c) => fs.existsSync(c))) broken.push(`${rel(file)} → ${t}`);
+    }
+  }
+
+  return broken.length
+    ? bad(`${broken.length} unresolved markdown link/path claim(s): ${cap(broken)}`)
+    : ok(`all markdown link + backtick path claims resolve (${scanned} checked across ${targets.length} file(s))`);
+}
+
+/**
+ * Feature-contract gate (V19) — the functional-completeness critic found that
+ * the harness passed 17/17 while checking NO feature-level contract, so a
+ * missing ⌘K palette, an unreachable /api/explain and orphan tours all sailed
+ * through. This asserts that each promised feature is actually PRESENT and
+ * WIRED, not merely that its data file parses.
+ */
+function checkFeatureContracts() {
+  const repoRoot = path.resolve(VIZ_ROOT, "..");
+  const missing = [];
+
+  const need = (rel, hint) => {
+    if (!fs.existsSync(path.join(VIZ_ROOT, rel))) missing.push(`${rel} (${hint})`);
+  };
+  const needRepo = (rel, hint) => {
+    if (!fs.existsSync(path.join(repoRoot, rel))) missing.push(`${rel} (${hint})`);
+  };
+  const contains = (rel, needle, hint) => {
+    const p = path.join(VIZ_ROOT, rel);
+    if (!fs.existsSync(p)) return;
+    const t = readText(p);
+    if (t === null || !t.includes(needle)) missing.push(`${rel} lacks "${needle}" (${hint})`);
+  };
+  /** Inverted check: the file MUST NOT contain the needle (e.g. placeholder copy). */
+  const lacks = (rel, needle, hint) => {
+    const p = path.join(VIZ_ROOT, rel);
+    if (!fs.existsSync(p)) return;
+    const t = readText(p);
+    if (t !== null && t.includes(needle)) missing.push(`${rel} still contains "${needle}" (${hint})`);
+  };
+
+  // FC-01 ⌘K command palette — present AND key-handled AND mounted.
+  need("components/ui/command.tsx", "FC-01 shadcn command primitives");
+  need("components/nav/command-palette.tsx", "FC-01 palette component");
+  contains("components/nav/command-palette.tsx", "metaKey", "FC-01 ⌘K handler");
+  contains("components/nav/command-palette.tsx", "ctrlKey", "FC-01 Ctrl+K handler");
+  contains("components/nav/app-shell.tsx", "CommandPalette", "FC-01 palette must be mounted in the shell");
+
+  // FC-02 /api/explain must have a UI caller.
+  need("components/explain/explain-panel.tsx", "FC-02 explain UI");
+
+  // FC-03 guided tours must have a UI consumer.
+  need("components/learn/tour-player.tsx", "FC-03 tour player");
+  need("app/tours/page.tsx", "FC-03 tours route");
+
+  // FC-12 the reduced-motion switch must have a WRITER.
+  need("components/nav/reduced-motion-toggle.tsx", "FC-12 reduced-motion toggle");
+  contains("components/nav/reduced-motion-toggle.tsx", "viz-reduced-motion", "FC-12 must write the key reveal-deck.tsx reads");
+
+  // FC-04 council→prompts-dir mapping must resolve on disk.
+  const graphPath = path.join(VIZ_ROOT, "public", "snapshots", "graph.json");
+  if (fs.existsSync(graphPath)) {
+    let g = null;
+    try {
+      g = JSON.parse(fs.readFileSync(graphPath, "utf8"));
+    } catch {}
+    if (!g || !g.promptsDirs) {
+      missing.push("public/snapshots/graph.json lacks promptsDirs (FC-04 council link mapping)");
+    } else {
+      const dirs = [];
+      for (const v of Object.values(g.promptsDirs)) {
+        if (typeof v === "string") dirs.push(v);
+        else if (v && typeof v === "object") dirs.push(...Object.values(v).filter((x) => typeof x === "string"));
+      }
+      for (const d of dirs) {
+        if (!fs.existsSync(path.join(repoRoot, "prompts", "stremiium", d))) {
+          missing.push(`graph.json promptsDirs → prompts/stremiium/${d} does not exist (FC-04)`);
+        }
+      }
+    }
+  } else {
+    missing.push("public/snapshots/graph.json missing (FC-04)");
+  }
+
+  // FC-05 the zone filter must FILTER, not merely dim.
+  const treeSrc = (() => {
+    const p = path.join(VIZ_ROOT, "components", "explorer", "file-tree.tsx");
+    return fs.existsSync(p) ? readText(p) : null;
+  })();
+  if (treeSrc && (/\.filter\(/.test(treeSrc) === false || treeSrc.includes("opacity-40"))) {
+    missing.push("components/explorer/file-tree.tsx zone filter is dim-only or never filters rows (FC-05)");
+  }
+
+  // FC-06 the last-commit chip must be populated server-side.
+  contains("app/api/file/route.ts", "lastCommit: null", "FC-06 lastCommit hardcoded null — chip unreachable");
+
+  // FC-07 / FC-13 no user-visible placeholder copy.
+  for (const rel of ["app/page.tsx", "app/explorer/view3d/page.tsx"]) {
+    lacks(rel, "Placeholder hero", "FC-07 placeholder hero copy");
+    lacks(rel, "coming in this build", "FC-13 stale 3D fallback copy");
+  }
+
+  // FC-08 route-level error boundaries + not-found.
+  for (const r of ["commits", "councils", "globe", "learn"]) {
+    need(`app/${r}/error.tsx`, "FC-08 route error boundary");
+  }
+  need("app/not-found.tsx", "FC-08 custom 404");
+
+  // FC-10 route transition.
+  need("app/template.tsx", "FC-10 route transition template");
+
+  // The per-commit detail route.
+  need("app/commits/[sha]/page.tsx", "FC-01 per-commit detail route");
+
+  return missing.length
+    ? bad(`${missing.length} promised feature contract(s) unmet: ${cap(missing)}`)
+    : ok("all promised features present and wired (palette, explain, tours, motion switch, council links, zone filter, last-commit, error boundaries, 404, transition)");
+}
+
 const CHECKS = [
   { id: "V01", name: "snapshots/parse", area: "snapshots", cls: 1, owner: "VIZ-022", fn: checkSnapshotsParse },
   { id: "V02", name: "snapshots/tree-shape", area: "snapshots", cls: 1, owner: "VIZ-022", fn: checkTreeShape },
@@ -620,6 +793,8 @@ const CHECKS = [
   { id: "V15", name: "a11y/file-tree-role", area: "a11y", cls: 3, owner: "VIZ-014", fn: checkTreeRole },
   { id: "V16", name: "a11y/charts-aria (warn-only)", area: "a11y", cls: null, owner: "VIZ-014", fn: checkChartsA11y },
   { id: "V17", name: "nohex/drift", area: "source", cls: 1, owner: "VIZ-017", fn: checkNoHex },
+  { id: "V18", name: "links/resolve", area: "source", cls: 1, owner: "VIZ-024", fn: checkLinksResolve },
+  { id: "V19", name: "features/contract", area: "source", cls: 1, owner: "VIZ-024", fn: checkFeatureContracts },
 ];
 
 // --------------------------------------------------------------- main -------
