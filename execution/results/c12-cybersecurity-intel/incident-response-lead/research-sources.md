@@ -1,0 +1,14 @@
+# Research Sources — C12-INCIDENT-RESPONSE-LEAD
+
+All sources consulted for the C12 Cybersecurity-Intel execution result.
+
+| [S#] | Source | Path | Grade |
+|------|--------|------|-------|
+| [S1] | Security Architecture | `docs/architecture/platform-design/security/` | [FACT] |
+| [S2] | Threat Model | `docs/architecture/platform-design/security/threat-model-stride.md` | [FACT] |
+| [S3] | Reverse Engineering | `docs/engineering/reverse-engineering/` | [FACT] |
+| [S4] | Security Synthesis | `docs/research/synthesis/synthesis/departments/security/` | [FACT] |
+| [S5] | Extracted Snapshots | `docs/archive-second-versions/extracted-snapshots/` | [EST] |
+| [S6] | Workflow Routing | `.stremiium/governance/workflow-routing.md` | [FACT] |
+
+See `execution-result.md` §2 for the full citation table and notes.
