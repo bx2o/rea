@@ -14,10 +14,10 @@ Note: Orientation deck for the rea workspace: what it is, how it is zoned, what 
 
 ## What this workspace is
 
-- **rea** = Reverse Engineer Anything — the `morluto/rea` engine checked out at the repo root (**v6.5.0**, 207 MCP tools / 153 CLI commands), **present but not installed** (`node_modules` absent)
+- **rea** = Reverse Engineer Anything — the `morluto/rea` engine checked out at the repo root (**v6.5.0**, **153 CLI commands**; MCP tool count is ≈200 and differs by source — see the note below), **present but not installed** (`node_modules` absent)
 - The repo carries the complete **program workspace** for `SC-REA-NEOBANK-5.0`: canonical agent OS, task breakdown structure, reverse-engineering dossiers, target NeoBank architecture, reusable platform design, REA substrate, synthesised deliverables, preserved archives
 - **Unified 2026-11-18** — all four `trae/agent-*` branches integrated into `main`; no folders or files deleted in consolidation or reorganisation
-- Scale: **11,677 files · 3,226 directories** (viz snapshot, 2026-11-18)
+- Scale: **11,746 files · 3,254 directories** (viz snapshot at commit `b474113`, 2026-11-18)
 
 *Source: `README.md` · `viz/public/snapshots/stats.json` (meta.totalFiles / meta.totalDirs)*
 
@@ -34,13 +34,13 @@ Note: One program, one lineage: consolidation kept every file. The 11k+ files br
 | `execution/` | 1,613 | Per-prompt execution results + ledger |
 | `.stremiium/` | 2,150 | Canonical agent OS — **source of truth** |
 | `rea/` | 4,068 | `morluto/rea` v6.5.0 engine — present, not installed |
-| other | 30 | Root-level & unzoned (`README.md`, `.github/`, …) |
+| other | 99 | Root-level & unzoned (`README.md`, `.github/`, `viz/`, …) |
 
-Total: 11,677 files. Zone order and hues are fixed app-wide (docs → prompts → execution → .stremiium → rea → other).
+Total: 11,746 files. Zone order and hues are fixed app-wide (docs → prompts → execution → .stremiium → rea → other).
 
-*Source: `viz/public/snapshots/stats.json` byZone (2026-11-18) · zone order per `viz/lib/brand.ts`*
+*Source: `viz/public/snapshots/stats.json` byZone (as of commit `b474113`, 2026-11-18) · zone order per `viz/lib/brand.ts`*
 
-Note: File counts come from the live viz snapshot, so they drift as the repo grows; the zone boundaries themselves are stable.
+Note: File counts come from the live viz snapshot, so they drift as the repo grows; the zone boundaries themselves are stable. The `other` bucket grows as new top-level work lands — it held 30 files before the `viz/` app was added.
 
 ---
 
@@ -50,10 +50,10 @@ Note: File counts come from the live viz snapshot, so they drift as the repo gro
 2. `docs/program/tbs/tbs/TASK_INDEX.md` — live task/status board and deliverable map
 3. `docs/research/dossiers/` — one dossier per target entity (+ supporting research)
 4. `docs/architecture/target-system/00-SYSTEM-OVERVIEW.md` — what Stremiium builds
-5. `docs/program/plan/PLAN.md` — NeoBank ZA master plan and workstreams
-6. `docs/governance/unconsolidated/README.md` — derived atomised knowledge layer (canonical: `.stremiium/`)
+5. `docs/program/plan/plan/PLAN.md` — NeoBank ZA master plan and workstreams
+6. `docs/governance/unconsolidated/UnConsolidated/README.md` — derived atomised agent-knowledge layer (canonical: `.stremiium/`)
 
-> **Fact-drift flag:** the root README's reading-order links point to `docs/program/tbs/PROGRAM_BRIEF.md`, but the physical file lives at `docs/program/tbs/tbs/PROGRAM_BRIEF.md` — these decks cite the physical paths.
+> **Note:** the root README's reading-order links are abbreviated relative to the physical paths (`docs/program/tbs/PROGRAM_BRIEF.md` → `docs/program/tbs/tbs/PROGRAM_BRIEF.md`; `docs/program/plan/PLAN.md` → `docs/program/plan/plan/PLAN.md`; `docs/governance/unconsolidated/README.md` → `docs/governance/unconsolidated/UnConsolidated/README.md`). These decks cite the physical paths, which are the ones that resolve on disk.
 
 *Source: `README.md` "Reading order" · VIZ-030 fact-drift flags in `prompts/viz/c03-admin-knowledge/documentation-specialist/prompt.md` §4*
 
@@ -89,7 +89,7 @@ Note: The program zone holds the task breakdown structure and the NeoBank ZA pla
 - `docs/research/` — **30 reverse-engineering dossiers across 6 domain groups** (README wording), plus market/regulatory landscape and the source library
 - `docs/architecture/` — NeoBank **target-system** specs + reusable **platform-design** patterns
 
-> **Fact-drift flag:** `README.md` describes a 30-entity dossier research surface, while `docs/program/tbs/tbs/PROGRAM_BRIEF.md` §3 lists a **17-entity target roster**. Each source is quoted exactly — no silent reconciliation.
+> **Note (not a conflict):** the root README describes a 30-folder dossier research surface, while `docs/program/tbs/tbs/PROGRAM_BRIEF.md` §3 lists a **17-entity target roster**. These are different scopes, not conflicting numbers — 30 dossier folders exist under `docs/research/dossiers/`, of which 17 carry an `evidence-ledger.json` and form the graded target roster. Both figures are cited exactly.
 
 *Source: `README.md` "Workspace zones" rows "Research"/"Architecture" · `docs/program/tbs/tbs/PROGRAM_BRIEF.md` §3*
 

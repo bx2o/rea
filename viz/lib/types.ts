@@ -155,3 +155,33 @@ export interface ExplainSummary {
   summary: string;
   confidence: "deterministic";
 }
+
+/* ------------------------------------------------------------------ */
+/* Guided tours (VIZ-025 tours.json)                                    */
+/* ------------------------------------------------------------------ */
+
+/**
+ * One step of a guided tour. `route` is an in-app path the step navigates to
+ * (e.g. "/explorer?path=prompts"); `filePath` optionally points at the file
+ * the step is about.
+ */
+export interface TourStep {
+  id: string;
+  title: string;
+  description: string;
+  route: string;
+  filePath?: string;
+}
+
+/** A guided tour — an ordered list of steps (public/snapshots/tours.json). */
+export interface Tour {
+  id: string;
+  title: string;
+  description: string;
+  steps: TourStep[];
+}
+
+/** Snapshot wrapper for tours.json — `{ tours: Tour[] }`. */
+export interface ToursFile {
+  tours: Tour[];
+}

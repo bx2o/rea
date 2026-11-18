@@ -125,11 +125,11 @@ Note: Tiers two and three: engineering, security, and Web3 in tier two; customer
 
 Each entity has lead councils (e.g. Standard Bank → C16, C10; Luno → C13, C01).
 
-> **Fact-drift flag:** `README.md` describes a "30-entity" dossier research surface; this §3 roster targets **17 entities**. Both quoted exactly, no silent reconciliation.
+> **Note (not a conflict):** the root README describes a "30-folder" dossier research surface; this §3 roster targets **17 entities**. Different scopes, not conflicting numbers — 30 dossier folders exist under `docs/research/dossiers/`, of which 17 carry an `evidence-ledger.json` and form the graded target roster. Both figures are cited exactly.
 
 *Source: `docs/program/tbs/tbs/PROGRAM_BRIEF.md` §3 table · `README.md` line 7*
 
-Note: Seventeen target entities across six domain groups, each with an assigned lead council. The README's broader 30-entity surface covers supporting research beyond the core roster.
+Note: Seventeen graded target entities across six domain groups, each with an assigned lead council. The broader 30-folder surface covers supporting research beyond the graded core roster.
 
 ---
 

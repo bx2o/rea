@@ -2,6 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+/**
+ * VIZ-017 single-source rule:
+ * lib/brand.ts is the single source of truth for brand/zone colours; the values
+ * below mirror it — if you change one, change both.
+ *
+ * Every token here that has a counterpart in lib/brand.ts carries its canonical
+ * hex in a trailing comment, so the HSL triplet can be re-derived and verified:
+ *
+ *   #2563EB  ->  H 221  S 83%  L 53%        (CSS channels only, no commas)
+ *
+ * Tokens without a lib/brand.ts counterpart (semantic status, glass/scene
+ * extensions) carry the canonical hex from their own spec table:
+ *
+ *   --st-*        VIZ-017 D1 §7.1 brand table
+ *   --glass-*     VIZ-018 §8.2/§8.5 theme-designer brief
+ *   --scene-*     VIZ-018 §8.4 theme-designer brief
+ *
+ * Recompute hex -> HSL with r,g,b = R/255, G/255, B/255 and d = max - min:
+ *   L = (max + min) / 2
+ *   S = d / (max + min)       when L <= 0.5
+ *     = d / (2 - max - min)   when L >  0.5
+ *   H = 60 * (hue sector + offset), sector taken from the max channel
+ *
+ * NAMESPACE MAP (VIZ-017 §7.6 rule 2 — never mix for one purpose):
+ *   brand chrome  -> --primary / --ring / --st-brand-* / --st-gold-*
+ *   categorical   -> --zone-* (+ --zone-*-text AA variants) / --chart-1..6
+ *   status        -> --st-success / --st-warning / --st-danger / --st-info
+ *   highlight     -> --highlight (ZAR gold — selected/highlight ONLY)
+ *   surfaces      -> --accent (hover/focus surface) / --muted / --secondary
+ */
+
 @layer base {
   :root {
     /* Core tokens (VIZ-012 §8.2 light, VIZ-017 binding palette) */
@@ -11,42 +42,92 @@
     --card-foreground: 220 14% 10%;
     --popover: 0 0% 100%;
     --popover-foreground: 220 14% 10%;
-    /* ZAR green #007749 → HSL(157, 100%, 24%) */
-    --primary: 157 100% 24%;
+    /* ZAR green #007749 → HSL(157, 100%, 23%) */
+    --primary: 157 100% 23%;        /* #007749 */
     --primary-foreground: 0 0% 100%;
     --secondary: 220 14% 93%;
     --secondary-foreground: 220 14% 15%;
     --muted: 220 14% 93%;
     --muted-foreground: 220 9% 42%;
-    /* ZAR gold #FFB612 → HSL(42, 100%, 53%) — highlight only, never body text */
-    --accent: 42 100% 53%;
-    --accent-foreground: 30 10% 12%;
+    /* Hover / focus SURFACE — deliberately NEUTRAL, never a brand colour.
+     * In shadcn's model `--accent` is what `hover:bg-accent` / `focus-visible:bg-accent`
+     * paints. Binding it to ZAR gold made every hover/focus in the app a solid gold
+     * block (the focused Explorer tree row, breadcrumb hovers) — the exact use
+     * VIZ-017 D1 forbids ("gold = highlight/selected only, never a broad surface").
+     * Gold now has its own token: --highlight (see below). */
+    --accent: 220 14% 90%;         /* neutral hover surface (low-chroma tint of --background) */
+    --accent-foreground: 220 14% 14%;
     --destructive: 0 72% 45%;
     --destructive-foreground: 0 0% 100%;
     --border: 220 13% 88%;
     --input: 220 13% 88%;
-    --ring: 157 100% 24%;
+    --ring: 157 100% 23%;             /* #007749 */
     --radius: 0.5rem;
 
-    /* Zone hues (VIZ-017 D2 light values; single source lib/brand.ts) */
+    /* Highlight / selected (VIZ-017 D1) — ZAR gold, used ONLY for selected nodes,
+     * active timeline entries and the hero accent arc. Never body text, never a
+     * broad surface. Text ON gold is near-black (10.4:1). */
+    --highlight: 42 100% 54%;        /* #FFB612 */
+    --highlight-foreground: 30 20% 8%;
+
+    /* Brand namespace (VIZ-017 D1 §7.1) — chrome only, mirrors BRAND in lib/brand.ts */
+    --st-brand-300: 151 50% 53%;    /* #4CC38A */
+    --st-brand-500: 157 100% 23%;   /* #007749 */
+    --st-brand-600: 156 100% 19%;   /* #00603A */
+    --st-gold-400: 42 100% 65%;     /* #FFC94D */
+    --st-gold-500: 42 100% 54%;     /* #FFB612 */
+    --st-gold-600: 42 87% 43%;      /* #CC920E */
+
+    /* Semantic status namespace (VIZ-017 D1 §7.1) — status only, never a zone hue.
+     * Replaces the `text-green-600` / `text-red-600` / `border-amber-600/40`
+     * Tailwind palette utilities, which bypassed the token system entirely. */
+    --st-success: 142 72% 29%;      /* #15803D */
+    --st-success-foreground: 0 0% 100%;
+    --st-warning: 26 90% 37%;       /* #B45309 */
+    --st-warning-foreground: 0 0% 100%;
+    --st-danger: 0 72% 51%;         /* #DC2626 */
+    --st-danger-foreground: 0 0% 100%;
+    --st-info: 209 90% 44%;         /* #0B72D4 */
+    --st-info-foreground: 0 0% 100%;
+
+    /* Zone hues (VIZ-017 D2) — light values; mirror of ZONE_HUES in lib/brand.ts */
     --zone-docs: 221 83% 53%;      /* #2563EB */
     --zone-prompts: 32 95% 44%;    /* #D97706 */
-    --zone-execution: 142 72% 37%; /* #16A34A */
+    --zone-execution: 142 76% 36%; /* #16A34A */
     --zone-stremiium: 262 83% 58%; /* #7C3AED */
-    --zone-rea: 215 16% 46%;       /* #64748B */
-    --zone-other: 220 9% 64%;      /* #9CA3AF */
+    --zone-rea: 215 16% 47%;       /* #64748B */
+    --zone-other: 218 11% 65%;     /* #9CA3AF */
 
-    /* Chart tokens: zones as categorical hues (VIZ-015/VIZ-017) */
-    --chart-1: 221 83% 53%;
-    --chart-2: 32 95% 44%;
-    --chart-3: 142 72% 37%;
-    --chart-4: 262 83% 58%;
-    --chart-5: 215 16% 46%;
+    /* Zone AA text variants (VIZ-017 D2 rule 4) — mandatory for labels/legends;
+     * mirror of ZONE_HUES[*].textLight in lib/brand.ts. */
+    --zone-docs-text: 224 76% 48%;      /* #1D4ED8 */
+    --zone-prompts-text: 26 90% 37%;    /* #B45309 */
+    --zone-execution-text: 142 72% 29%; /* #15803D */
+    --zone-stremiium-text: 263 70% 50%; /* #6D28D9 */
+    --zone-rea-text: 215 19% 35%;       /* #475569 */
+    --zone-other-text: 220 9% 46%;      /* #6B7280 */
 
-    /* Liquid-glass (VIZ-018 §8.5) */
-    --glass: 0 0% 100%;
+    /* Chart tokens (VIZ-015/VIZ-017): categorical hues follow ZONE_ORDER —
+     * chart-1=docs, chart-2=prompts, chart-3=execution, chart-4=stremiium,
+     * chart-5=rea, chart-6=other — so all 6 zones are chartable.
+     * Values mirror the --zone-* tokens above (ZONE_HUES in lib/brand.ts). */
+    --chart-1: 221 83% 53%;      /* #2563EB */
+    --chart-2: 32 95% 44%;       /* #D97706 */
+    --chart-3: 142 76% 36%;      /* #16A34A */
+    --chart-4: 262 83% 58%;      /* #7C3AED */
+    --chart-5: 215 16% 47%;      /* #64748B */
+    --chart-6: 218 11% 65%;      /* #9CA3AF */
+
+    /* Liquid-glass (VIZ-018 §8.2/§8.5) */
+    --glass-bg: 0 0% 100%;        /* surface tint (--glass is a legacy alias) */
+    --glass: 0 0% 100%;           /* legacy alias of --glass-bg */
     --glass-border: 220 13% 88%;
     --glass-blur: 12px;
+    --glass-highlight: 0 0% 100%; /* top-edge inset light (alpha applied in .glass) */
+
+    /* Scene extensions (VIZ-018 §8.4) */
+    --scene-fog: 220 14% 93%;         /* 3D scene fog — derived from --background */
+    --node-accent: 157 100% 23%;      /* #007749 — node rim / hub glow; selection = --highlight */
   }
 
   .dark {
@@ -56,38 +137,77 @@
     --card-foreground: 210 20% 92%;
     --popover: 200 18% 10%;
     --popover-foreground: 210 20% 92%;
-    /* Dark primary green #4CC38A → HSL(148 49% 43%) */
-    --primary: 148 49% 43%;
+    /* Dark primary green #4CC38A → HSL(151, 50%, 53%) */
+    --primary: 151 50% 53%;        /* #4CC38A */
     --primary-foreground: 160 30% 8%;
     --secondary: 200 15% 16%;
     --secondary-foreground: 210 20% 92%;
     --muted: 200 15% 16%;
     --muted-foreground: 215 15% 62%;
-    --accent: 42 100% 53%;
-    --accent-foreground: 30 10% 12%;
+    /* Hover / focus SURFACE — neutral, slightly lifted above --card. Never gold. */
+    --accent: 200 15% 20%;
+    --accent-foreground: 210 20% 92%;
     --destructive: 0 62% 45%;
     --destructive-foreground: 0 0% 100%;
     --border: 200 14% 20%;
     --input: 200 14% 20%;
-    --ring: 148 49% 43%;
+    --ring: 151 50% 53%;             /* #4CC38A */
 
-    /* Zone hues dark (VIZ-017 D2) */
-    --zone-docs: 217 91% 68%;      /* #60A5FA */
-    --zone-prompts: 43 96% 59%;    /* #FBBF24 */
-    --zone-execution: 142 69% 59%; /* #4ADE80 */
-    --zone-stremiium: 255 85% 76%; /* #A78BFA */
-    --zone-rea: 213 20% 65%;       /* #94A3B8 */
-    --zone-other: 217 19% 79%;     /* #D1D5DB */
+    /* Highlight / selected — ZAR gold, same canonical value in both themes
+     * (10.9:1 against the dark background; the surface carries the meaning). */
+    --highlight: 42 100% 54%;        /* #FFB612 */
+    --highlight-foreground: 30 20% 8%;
 
-    --chart-1: 217 91% 68%;
-    --chart-2: 43 96% 59%;
-    --chart-3: 142 69% 59%;
-    --chart-4: 255 85% 76%;
-    --chart-5: 213 20% 65%;
+    /* Brand namespace (VIZ-017 D1 §7.1) */
+    --st-brand-300: 151 50% 53%;    /* #4CC38A */
+    --st-brand-500: 151 50% 53%;    /* #4CC38A */
+    --st-brand-600: 156 100% 19%;   /* #00603A */
+    --st-gold-400: 42 100% 65%;     /* #FFC94D */
+    --st-gold-500: 42 100% 54%;     /* #FFB612 */
+    --st-gold-600: 42 87% 43%;      /* #CC920E */
 
-    --glass: 200 18% 12%;
+    /* Semantic status namespace (VIZ-017 D1 §7.1) — light values lifted for dark */
+    --st-success: 142 71% 45%;      /* #22C55E */
+    --st-success-foreground: 30 20% 8%;
+    --st-warning: 38 92% 50%;       /* #F59E0B */
+    --st-warning-foreground: 30 20% 8%;
+    --st-danger: 0 84% 60%;         /* #EF4444 */
+    --st-danger-foreground: 30 20% 8%;
+    --st-info: 198 93% 60%;         /* #38BDF8 */
+    --st-info-foreground: 30 20% 8%;
+
+    /* Zone hues dark (VIZ-017 D2) — mirror of ZONE_HUES in lib/brand.ts */
+    --zone-docs: 213 94% 68%;      /* #60A5FA */
+    --zone-prompts: 43 96% 56%;    /* #FBBF24 */
+    --zone-execution: 142 69% 58%; /* #4ADE80 */
+    --zone-stremiium: 255 92% 76%; /* #A78BFA */
+    --zone-rea: 215 20% 65%;       /* #94A3B8 */
+    --zone-other: 216 12% 84%;     /* #D1D5DB */
+
+    /* Zone AA text variants dark (VIZ-017 D2 rule 4) — mirror of ZONE_HUES[*].textDark */
+    --zone-docs-text: 212 96% 78%;      /* #93C5FD */
+    --zone-prompts-text: 46 97% 65%;    /* #FCD34D */
+    --zone-execution-text: 142 77% 73%; /* #86EFAC */
+    --zone-stremiium-text: 252 95% 85%; /* #C4B5FD */
+    --zone-rea-text: 213 27% 84%;       /* #CBD5E1 */
+    --zone-other-text: 220 13% 91%;      /* #E5E7EB */
+
+    /* Chart tokens dark (VIZ-015/VIZ-017) — same ZONE_ORDER mapping as :root */
+    --chart-1: 213 94% 68%;      /* #60A5FA */
+    --chart-2: 43 96% 56%;       /* #FBBF24 */
+    --chart-3: 142 69% 58%;      /* #4ADE80 */
+    --chart-4: 255 92% 76%;      /* #A78BFA */
+    --chart-5: 215 20% 65%;      /* #94A3B8 */
+    --chart-6: 216 12% 84%;      /* #D1D5DB */
+
+    --glass-bg: 200 18% 12%;
+    --glass: 200 18% 12%;        /* legacy alias of --glass-bg */
     --glass-border: 200 14% 26%;
     --glass-blur: 16px;
+    --glass-highlight: 0 0% 100%;
+
+    --scene-fog: 200 19% 8%;         /* 3D scene fog — derived from --background */
+    --node-accent: 151 50% 53%;      /* #4CC38A — node rim / hub glow; selection = --highlight */
   }
 
   * {
@@ -101,10 +221,21 @@
 @layer utilities {
   /* Liquid-glass surface (VIZ-018 §8.5) */
   .glass {
-    background: hsl(var(--glass) / 0.72);
+    background: hsl(var(--glass-bg) / 0.72);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
     border: 1px solid hsl(var(--glass-border) / 0.6);
+    box-shadow: inset 0 1px 0 hsl(var(--glass-highlight) / 0.25);
+  }
+  /* Fallback for Firefox < 103 and any browser without backdrop-filter: the
+   * translucent surface would otherwise collapse to nothing over a transparent
+   * parent, so swap it for a solid, fully opaque card surface. */
+  @supports not (backdrop-filter: blur(1px)) {
+    .glass {
+      background: hsl(var(--card));
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
   }
   @media (prefers-reduced-motion: reduce) {
     *,

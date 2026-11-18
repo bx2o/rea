@@ -5,7 +5,6 @@
  *   - GET /api/commits      → { source, data: CommitRecord[] }
  *     (fallback: /snapshots/commits.json → { meta, commits })
  *   - GET /api/diff/<sha>   → { source, data: DiffSummary }
- *     (fallback: /snapshots/diffs/<sha>.json, VIZ-022 §8.5 optional extension)
  *
  * Contracts are typed against lib/types.ts (VIZ-022) — never redefined here.
  * Every payload is sanitized at the boundary so malformed data fails closed
@@ -163,24 +162,23 @@ const diffCache = new Map<string, Promise<DiffSummary>>();
  * DiffSummary for one commit (GET /api/diff/<sha>). History is immutable so
  * results are cached per sha (also lets the ?path= filter and the expand
  * cards share one request). Failed requests are evicted so Retry re-fetches.
+ *
+ * There is no per-sha snapshot fallback: `public/snapshots/diffs/` is never
+ * generated, so that branch always 404'd (FC-14).
  */
 export function fetchCommitDiff(sha: string): Promise<DiffSummary> {
   const cached = diffCache.get(sha);
   if (cached !== undefined) return cached;
   const request = (async () => {
+    let payload: unknown;
     try {
-      const payload = await getJson(`/api/diff/${encodeURIComponent(sha)}`);
-      const diff = sanitizeDiff(payload, sha);
-      if (diff !== null) return diff;
+      payload = await getJson(`/api/diff/${encodeURIComponent(sha)}`);
     } catch {
-      // fall through to the optional per-sha snapshot
+      throw new Error("Diff unavailable");
     }
-    const snapPayload = await getJson(
-      `/snapshots/diffs/${encodeURIComponent(sha)}.json`
-    );
-    const snapDiff = sanitizeDiff(snapPayload, sha);
-    if (snapDiff === null) throw new Error("Diff unavailable");
-    return snapDiff;
+    const diff = sanitizeDiff(payload, sha);
+    if (diff === null) throw new Error("Diff unavailable");
+    return diff;
   })();
   diffCache.set(sha, request);
   void request.catch(() => {

@@ -156,21 +156,37 @@ export function FileTree({
       return out;
     }
 
+    const filtering = zoneFilter.size > 0;
+    const matches = (n: FileNode) => !filtering || zoneFilter.has(n.zone);
+
+    // A directory is kept when its own zone matches OR any descendant
+    // (already loaded) matches — so a user can still navigate into a mixed
+    // zone tree and see the files of the selected zone.
+    const descendantMatches = (n: FileNode, seen: Set<string>): boolean => {
+      if (seen.has(n.path)) return false;
+      seen.add(n.path);
+      const kids = childrenByDir.get(n.path);
+      if (!kids) return false;
+      return kids.some((k) => matches(k) || descendantMatches(k, seen));
+    };
+
     const walk = (list: FileNode[], depth: number) => {
-      for (let i = 0; i < list.length; i++) {
-        const node = list[i];
+      const visible = filtering ? list.filter((n) => matches(n) || descendantMatches(n, new Set())) : list;
+      for (let i = 0; i < visible.length; i++) {
+        const node = visible[i];
         out.push({
           kind: "node",
           path: node.path,
           node,
           depth,
-          setsize: list.length,
+          setsize: visible.length,
           posinset: i + 1,
         });
         if (node.type === "dir" && expandedDirs.has(node.path)) {
           const kids = childrenByDir.get(node.path);
           if (kids !== undefined) {
-            if (kids.length > 0) walk(kids, depth + 1);
+            const visibleKids = filtering ? kids.filter((k) => matches(k) || descendantMatches(k, new Set())) : kids;
+            if (visibleKids.length > 0) walk(visibleKids, depth + 1);
           } else {
             // Expanded but not cached yet — the page fetch is in flight.
             out.push({
@@ -187,7 +203,7 @@ export function FileTree({
     };
     walk(rootChildren, 0);
     return out;
-  }, [childrenByDir, expandedDirs]);
+  }, [childrenByDir, expandedDirs, zoneFilter]);
 
   const rootLoaded = childrenByDir.has("");
 
@@ -426,8 +442,6 @@ export function FileTree({
           const isDir = node.type === "dir";
           const isOpen = isDir && expandedDirs.has(node.path);
           const isSelected = !isDir && selectedPath === node.path;
-          const matchesZone =
-            zoneFilter.size === 0 || zoneFilter.has(node.zone);
           const Icon = nodeIcon(node, isOpen);
 
           return (
@@ -464,8 +478,7 @@ export function FileTree({
                 "group flex cursor-pointer select-none items-center gap-1.5 pr-3 text-sm outline-none transition-colors",
                 "hover:bg-accent/60 focus-visible:bg-accent",
                 "focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
-                isSelected && "bg-primary/10 font-medium",
-                !matchesZone && "opacity-40"
+                isSelected && "bg-primary/10 font-medium"
               )}
             >
               <span className="flex h-4 w-4 shrink-0 items-center justify-center text-muted-foreground">
@@ -483,12 +496,7 @@ export function FileTree({
                 aria-hidden="true"
                 className="h-4 w-4 shrink-0 text-muted-foreground"
               />
-              <span
-                className={cn(
-                  "min-w-0 flex-1 truncate",
-                  !matchesZone && "text-muted-foreground/70"
-                )}
-              >
+              <span className="min-w-0 flex-1 truncate">
                 {node.name}
               </span>
               <span
