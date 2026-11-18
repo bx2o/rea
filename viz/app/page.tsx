@@ -20,10 +20,15 @@ import {
 } from "recharts";
 import {
   ArrowRight,
+  Compass,
   Files,
   Folder,
+  FolderTree,
+  Globe2,
+  GraduationCap,
   History,
   Loader2,
+  Network,
   RefreshCw,
   TriangleAlert,
   Users,
@@ -55,6 +60,90 @@ import { cn, formatCompact, formatDate, formatExact } from "@/lib/utils";
 
 /** Council count from .stremiium/config/council-department-mapping.json (SC + C01–C16). */
 const COUNCIL_COUNT = 16;
+
+/** One-click destinations for the "Quick links" home row. */
+const QUICK_LINKS = [
+  {
+    href: "/explorer",
+    label: "Explorer",
+    description: "Browse the full folder tree, zone by zone.",
+    icon: FolderTree,
+  },
+  {
+    href: "/commits",
+    label: "Commits",
+    description: "Trace the history on an animated timeline.",
+    icon: History,
+  },
+  {
+    href: "/learn",
+    label: "Learn",
+    description: "Read slide decks built from canonical docs.",
+    icon: GraduationCap,
+  },
+  {
+    href: "/tours",
+    label: "Tours",
+    description: "Follow step-by-step guided walkthroughs.",
+    icon: Compass,
+  },
+  {
+    href: "/councils",
+    label: "Councils",
+    description: "Explore the 16-council governance graph.",
+    icon: Network,
+  },
+  {
+    href: "/globe",
+    label: "Globe",
+    description: "See the six zones as markers on a 3D globe.",
+    icon: Globe2,
+  },
+] as const;
+
+/**
+ * Program facts verified against the canonical repository snapshot
+ * (content-accuracy critic, 08-content-accuracy.md). The `source` field is a
+ * physical repo path so every number is traceable from the home page.
+ */
+const PROGRAM_FACTS = [
+  {
+    value: "16",
+    label: "Councils",
+    note: "Supreme Coordinator + C01–C16",
+    source: ".stremiium/config/council-department-mapping.json",
+  },
+  {
+    value: "201",
+    label: "Master prompts",
+    note: "164 Stremiium + 37 NeoBank",
+    source: "prompts/",
+  },
+  {
+    value: "603",
+    label: "Replies",
+    note: "substantive answers with evidence grades",
+    source: "prompts/replies/",
+  },
+  {
+    value: "17",
+    label: "Dossiers",
+    note: "evidence-ledger roster (of 30 entity folders)",
+    source: "docs/research/dossiers/",
+  },
+  {
+    value: "$STM",
+    label: "Native token",
+    note: "1,000,000,000 supply · 20% / 50% / 25% allocation",
+    source: "docs/program/tbs/tbs/PROGRAM_BRIEF.md",
+  },
+  {
+    value: "Private",
+    label: "Funding boundary",
+    note: "privately funded; no public treasury",
+    source: "prompts/neobank/legal/carf/prompt.md",
+  },
+] as const;
 
 type DataSource = "git" | "snapshot";
 
@@ -567,6 +656,12 @@ function ErrorCard({ message, onRetry }: { message: string; onRetry: () => void 
  * ------------------------------------------------------------------------- */
 
 export default function OverviewPage() {
+  // Client route — the root layout owns the title template, so set this
+  // page's document title on mount (SSR-safe: effect only, no window in render).
+  React.useEffect(() => {
+    document.title = "Overview · Stremiium Repo Viz";
+  }, []);
+
   const { resolvedTheme } = useTheme();
   const theme = resolvedTheme === "dark" ? "dark" : "light";
   const reducedMotion = usePrefersReducedMotion();
@@ -744,8 +839,10 @@ export default function OverviewPage() {
           <h1 className="font-heading text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-tight">
             Overview
           </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            The bx2o/rea repository in numbers, zones, and history.
+          <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
+            Home of the bx2o/rea learning environment. Read the repository in numbers,
+            zones and history, then jump into the explorer, decks, tours or governance
+            graph below.
           </p>
         </div>
         {statsSource && !statsError && (
@@ -1231,6 +1328,99 @@ export default function OverviewPage() {
               </CardFooter>
             )}
           </Card>
+
+          {/* Quick links — the six primary destinations of the learning environment. */}
+          <section aria-labelledby="quick-links-heading" className="col-span-12">
+            <h2
+              id="quick-links-heading"
+              className="font-heading text-lg font-semibold tracking-tight"
+            >
+              Quick links
+            </h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Pick up where you left off — every view is one click away.
+            </p>
+            <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {QUICK_LINKS.map(({ href, label, description, icon: Icon }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="group flex h-full items-start gap-3 rounded-lg border border-border bg-card p-4 shadow-sm transition-colors hover:border-primary/50 hover:bg-secondary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="flex size-9 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary"
+                    >
+                      <Icon className="size-4" />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-semibold text-foreground">
+                        {label}
+                      </span>
+                      <span className="mt-0.5 block text-xs leading-relaxed text-muted-foreground">
+                        {description}
+                      </span>
+                    </span>
+                    <ArrowRight
+                      aria-hidden="true"
+                      className="mt-1 size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5"
+                    />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Program at a glance — headline facts with a physical source citation. */}
+          <section aria-labelledby="glance-heading" className="col-span-12">
+            <h2
+              id="glance-heading"
+              className="font-heading text-lg font-semibold tracking-tight"
+            >
+              Program at a glance
+            </h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Verified figures from the committed repository snapshot. Each card names
+              the canonical file it comes from.
+            </p>
+            <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {PROGRAM_FACTS.map((fact) => (
+                <li
+                  key={fact.label}
+                  className="flex h-full flex-col rounded-lg border border-border bg-card/60 p-4"
+                >
+                  <div className="flex items-baseline gap-2">
+                    <span className="font-heading text-2xl font-semibold tabular-nums text-foreground">
+                      {fact.value}
+                    </span>
+                    <span className="text-sm font-medium text-foreground">
+                      {fact.label}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-xs text-muted-foreground">{fact.note}</p>
+                  <p className="mt-auto pt-3 text-[11px] text-muted-foreground">
+                    Source: <code className="break-all font-mono">{fact.source}</code>
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <footer className="col-span-12 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-5 text-sm">
+            <Link
+              href="/learn"
+              className="inline-flex items-center gap-1.5 font-medium text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              Explore next: Learn the program
+              <ArrowRight aria-hidden="true" />
+            </Link>
+            <a
+              href="#main"
+              className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              Back to top <span aria-hidden="true">↑</span>
+            </a>
+          </footer>
         </>
       )}
     </div>

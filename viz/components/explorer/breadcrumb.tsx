@@ -12,6 +12,8 @@ export interface BreadcrumbProps {
   path: string | null;
   /** Navigate the tree to a directory path ("" = repository root). */
   onNavigate: (dirPath: string) => void;
+  /** Landmark label — the viewer instance uses "File path". */
+  ariaLabel?: string;
   className?: string;
 }
 
@@ -42,7 +44,12 @@ const MAX_SEGMENTS = 5;
  * - Touch targets ≥44px on mobile (VIZ-014 §8.9); focus-visible rings
  *   throughout (SC 2.4.7).
  */
-export function Breadcrumb({ path, onNavigate, className }: BreadcrumbProps) {
+export function Breadcrumb({
+  path,
+  onNavigate,
+  ariaLabel = "Breadcrumb",
+  className,
+}: BreadcrumbProps) {
   const [expanded, setExpanded] = React.useState(false);
 
   const segments = React.useMemo<Segment[]>(() => {
@@ -76,7 +83,7 @@ export function Breadcrumb({ path, onNavigate, className }: BreadcrumbProps) {
     : segments;
 
   return (
-    <nav aria-label="Breadcrumb" className={cn("min-w-0", className)}>
+    <nav aria-label={ariaLabel} className={cn("min-w-0", className)}>
       <ol className="flex min-w-0 flex-wrap items-center gap-0.5 text-sm">
         {visible.map((seg, i) => (
           <li key={`${seg.dir}-${i}`} className="flex min-w-0 items-center">
