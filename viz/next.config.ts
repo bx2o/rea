@@ -66,6 +66,18 @@ const nextConfig: NextConfig = {
   // server (it would delete .next/server/middleware-manifest.json out from
   // under it). Production builds keep the default .next directory.
   distDir: process.env.NEXT_DIST_DIR || ".next",
+  // Next 15.5 `next dev` uses Turbopack by default. An explicit (even empty)
+  // turbopack config is required when a `webpack` config is present, otherwise
+  // the dev server aborts with "using Turbopack with a webpack config and no
+  // turbopack config". The client-side fs/path fallbacks are translated into
+  // turbopack aliases below so client bundles never try to bundle Node builtins.
+  turbopack: {
+    resolveAlias: {
+      fs: { browser: "./lib/empty-module.ts" },
+      path: { browser: "./lib/empty-module.ts" },
+      child_process: { browser: "./lib/empty-module.ts" },
+    },
+  },
   // Large data payloads from API routes / snapshots
   experimental: {
     serverActions: { bodySizeLimit: "4mb" },

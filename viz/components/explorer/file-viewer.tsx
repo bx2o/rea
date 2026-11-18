@@ -3,13 +3,18 @@
 import * as React from "react";
 import Link from "next/link";
 import {
+  Check,
   CloudOff,
+  Code,
+  Copy,
+  Download,
   FileSearch,
   FileWarning,
   GitCommitHorizontal,
   History,
   X,
 } from "lucide-react";
+import { Breadcrumb } from "./breadcrumb";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -30,7 +35,26 @@ export interface FileViewerProps {
   isMobile: boolean;
   /** Close the mobile sheet (page clears ?path=). */
   onClose?: () => void;
+  /** Navigate the tree from the viewer's path breadcrumb. */
+  onNavigateDir?: (dirPath: string) => void;
+  /** `?path=` does not resolve in the tree — show the empty "not found" state. */
+  notFound?: boolean;
+  /** Optional page-level polite live region (copy/download confirmations). */
+  onAnnounce?: (message: string) => void;
   className?: string;
+}
+
+/** Clipboard with a graceful failure result — no dependency required. */
+async function copyText(text: string): Promise<boolean> {
+  try {
+    if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch {
+    // Clipboard permission denied or unavailable (e.g. insecure context).
+  }
+  return false;
 }
 
 /* ------------------------------------------------------------------ */

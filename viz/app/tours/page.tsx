@@ -13,15 +13,32 @@
  * mounted inside the decks page.
  */
 
-import { useCallback, useState } from "react";
-import { Compass, MapPin, Play } from "lucide-react";
+import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
+import { ArrowRight, BookOpen, Clock, Compass, MapPin, Play } from "lucide-react";
 
 import { TourPlayer, useTours } from "@/components/learn/tour-player";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
+/** Same recommended order as /learn, expressed as in-app routes. */
+const LEARNING_PATH = [
+  { href: "/learn", step: "1", title: "Orientation deck", hint: "Start with the six zones." },
+  { href: "/learn", step: "2", title: "Program Brief deck", hint: "Thesis, councils, dossiers." },
+  { href: "/tours", step: "3", title: "Repo tour", hint: "Walk the live views in order." },
+  { href: "/learn", step: "4", title: "Councils deck", hint: "Routing rules and SLAs." },
+] as const;
+
+/** Rough reading time per step — only used for the "estimated duration" hint. */
+const minutesFor = (steps: number) => Math.max(1, Math.round(steps * 0.75));
+
 export default function ToursPage() {
+  // Client route — set the document title on mount (SSR-safe: effect only).
+  useEffect(() => {
+    document.title = "Guided Tours · Stremiium Repo Viz";
+  }, []);
+
   const { tours, loading, error, reload } = useTours();
   const [activeTourId, setActiveTourId] = useState<string | null>(null);
   const [playerOpen, setPlayerOpen] = useState(false);
@@ -33,19 +50,25 @@ export default function ToursPage() {
 
   return (
     <div className="container py-8">
-      <header className="mb-8">
-        <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-          <Compass className="h-3.5 w-3.5" aria-hidden="true" />
-          Learn
-        </p>
-        <h1 className="mt-1 font-heading text-3xl font-bold tracking-tight text-foreground">
-          Guided tours
-        </h1>
-        <p className="mt-2 max-w-2xl text-muted-foreground">
-          Step-through walkthroughs of the repository — every step names the view it
-          opens and the file it is about. Pick a tour and step through it; the
-          overlay keeps your place if you navigate away.
-        </p>
+      <header className="mb-8 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+            <Compass className="h-3.5 w-3.5" aria-hidden="true" />
+            Learn
+          </p>
+          <h1 className="mt-1 font-heading text-3xl font-bold tracking-tight text-foreground">
+            Guided tours
+          </h1>
+          <p className="mt-2 max-w-2xl text-muted-foreground">
+            Pick a tour and step through it at your own pace — every step names the
+            view it opens and what to look for there. The overlay keeps your place
+            if you navigate away.
+          </p>
+        </div>
+        <Badge variant="secondary" className="gap-1.5">
+          <span aria-hidden="true" className="size-1.5 rounded-full bg-muted-foreground" />
+          Snapshot · public/snapshots/tours.json
+        </Badge>
       </header>
 
       {loading ? (
@@ -107,6 +130,12 @@ export default function ToursPage() {
                   </Badge>
                 </div>
                 <p className="text-sm text-muted-foreground">{tour.description}</p>
+                <p className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+                  <Clock className="h-3.5 w-3.5" aria-hidden="true" />
+                  Estimated duration: ~{minutesFor(tour.steps.length)} min
+                  <span aria-hidden="true"> · </span>
+                  {tour.steps.length} stops
+                </p>
                 <ol className="space-y-1.5 text-xs text-muted-foreground">
                   {tour.steps.map((step, index) => (
                     <li key={step.id} className="flex items-start gap-2">
