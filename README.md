@@ -29,6 +29,7 @@ This repository contains the complete program workspace: canonical agent operati
 | **Deliverables** | [`docs/deliverables/`](docs/deliverables/) | Per-entity journey summaries, cross-cutting synthesis, and charts |
 | **Archive (second versions)** | [`docs/archive-second-versions/`](docs/archive-second-versions/) | Preserved duplicates and source snapshots (no deletions): canonical backups, dossiers, extracted snapshots, source bundles, tooling scratch |
 | **Prompts** | [`prompts/`](prompts/) | All agent prompts split into per-prompt folders: `prompts/neobank/<dept>/<prompt-name>/prompt.md` and `prompts/stremiium/<council>/<agent-name>/prompt.md` |
+| **Prompt replies** | [`prompts/replies/`](prompts/replies/) | Substantive UnConsolidated answers to all 201 Master Prompts (164 Stremiium + 37 NeoBank), with research evidence, diagrams, and a complete folder/file index — see [`MASTER-INDEX.md`](prompts/replies/MASTER-INDEX.md) |
 | **Execution results** | [`execution/`](execution/) | Per-prompt execution results: `execution/results/<council>/<prompt-name>/execution-result.md` plus `execution/EXECUTION_LEDGER.md` |
 | **REA engine** | [`rea/`](rea/) | `morluto/rea` checkout (v6.5.0, 207 MCP tools / 153 CLI commands). **Present but not installed** (`node_modules` absent). Kept at root for vendor/test path compatibility. |
 
