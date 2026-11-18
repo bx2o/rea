@@ -1,0 +1,34 @@
+[
+  {
+    "id": "deck-01-repo-orientation",
+    "title": "Repo Orientation",
+    "description": "What the rea workspace is: the six zones with real file counts, the reading order, REA quickstart, TBS snapshot, and the evidentiary rule that governs every claim.",
+    "file": "deck-01-repo-orientation.md",
+    "slides": 13,
+    "accent": "#2563EB"
+  },
+  {
+    "id": "deck-02-program-brief",
+    "title": "SC-REA-NEOBANK-5.0 — Program Brief",
+    "description": "Stremiium (Pty) Ltd context, the NeoBank thesis and competitive field, the 16 strategic councils, the 17-entity dossier roster, evidentiary buckets, and the ADOPT/ADAPT/AVOID/BEAT filter.",
+    "file": "deck-02-program-brief.md",
+    "slides": 14,
+    "accent": "#2563EB"
+  },
+  {
+    "id": "deck-03-prompts-and-replies",
+    "title": "Prompts & Replies",
+    "description": "The 201 Master Prompts (164 Stremiium + 37 NeoBank), the 18-section reply format, evidence grades, the research apparatus, execution results, and how to explore it all in this app.",
+    "file": "deck-03-prompts-and-replies.md",
+    "slides": 12,
+    "accent": "#2563EB"
+  },
+  {
+    "id": "deck-04-councils-governance",
+    "title": "Councils & Governance",
+    "description": "The two-plane hierarchy, Sparkling Curious's role, routing rules R1-R6 quoted verbatim, the 15 CRD coordinators, escalation SLAs, and the private-funded boundary.",
+    "file": "deck-04-councils-governance.md",
+    "slides": 14,
+    "accent": "#2563EB"
+  }
+]

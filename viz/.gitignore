@@ -1,0 +1,13 @@
+# Next.js build output
+.next/
+out/
+
+# TypeScript incremental build info
+*.tsbuildinfo
+
+# Dependencies (also covered by root .gitignore)
+node_modules/
+
+# Local env / logs
+.env*.local
+*.log

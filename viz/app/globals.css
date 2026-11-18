@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Core tokens (VIZ-012 §8.2 light, VIZ-017 binding palette) */
+    --background: 220 14% 96%;
+    --foreground: 220 14% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 14% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 14% 10%;
+    /* ZAR green #007749 → HSL(157, 100%, 24%) */
+    --primary: 157 100% 24%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 93%;
+    --secondary-foreground: 220 14% 15%;
+    --muted: 220 14% 93%;
+    --muted-foreground: 220 9% 42%;
+    /* ZAR gold #FFB612 → HSL(42, 100%, 53%) — highlight only, never body text */
+    --accent: 42 100% 53%;
+    --accent-foreground: 30 10% 12%;
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 88%;
+    --input: 220 13% 88%;
+    --ring: 157 100% 24%;
+    --radius: 0.5rem;
+
+    /* Zone hues (VIZ-017 D2 light values; single source lib/brand.ts) */
+    --zone-docs: 221 83% 53%;      /* #2563EB */
+    --zone-prompts: 32 95% 44%;    /* #D97706 */
+    --zone-execution: 142 72% 37%; /* #16A34A */
+    --zone-stremiium: 262 83% 58%; /* #7C3AED */
+    --zone-rea: 215 16% 46%;       /* #64748B */
+    --zone-other: 220 9% 64%;      /* #9CA3AF */
+
+    /* Chart tokens: zones as categorical hues (VIZ-015/VIZ-017) */
+    --chart-1: 221 83% 53%;
+    --chart-2: 32 95% 44%;
+    --chart-3: 142 72% 37%;
+    --chart-4: 262 83% 58%;
+    --chart-5: 215 16% 46%;
+
+    /* Liquid-glass (VIZ-018 §8.5) */
+    --glass: 0 0% 100%;
+    --glass-border: 220 13% 88%;
+    --glass-blur: 12px;
+  }
+
+  .dark {
+    --background: 200 19% 7%;
+    --foreground: 210 20% 92%;
+    --card: 200 18% 10%;
+    --card-foreground: 210 20% 92%;
+    --popover: 200 18% 10%;
+    --popover-foreground: 210 20% 92%;
+    /* Dark primary green #4CC38A → HSL(148 49% 43%) */
+    --primary: 148 49% 43%;
+    --primary-foreground: 160 30% 8%;
+    --secondary: 200 15% 16%;
+    --secondary-foreground: 210 20% 92%;
+    --muted: 200 15% 16%;
+    --muted-foreground: 215 15% 62%;
+    --accent: 42 100% 53%;
+    --accent-foreground: 30 10% 12%;
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 200 14% 20%;
+    --input: 200 14% 20%;
+    --ring: 148 49% 43%;
+
+    /* Zone hues dark (VIZ-017 D2) */
+    --zone-docs: 217 91% 68%;      /* #60A5FA */
+    --zone-prompts: 43 96% 59%;    /* #FBBF24 */
+    --zone-execution: 142 69% 59%; /* #4ADE80 */
+    --zone-stremiium: 255 85% 76%; /* #A78BFA */
+    --zone-rea: 213 20% 65%;       /* #94A3B8 */
+    --zone-other: 217 19% 79%;     /* #D1D5DB */
+
+    --chart-1: 217 91% 68%;
+    --chart-2: 43 96% 59%;
+    --chart-3: 142 69% 59%;
+    --chart-4: 255 85% 76%;
+    --chart-5: 213 20% 65%;
+
+    --glass: 200 18% 12%;
+    --glass-border: 200 14% 26%;
+    --glass-blur: 16px;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Liquid-glass surface (VIZ-018 §8.5) */
+  .glass {
+    background: hsl(var(--glass) / 0.72);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid hsl(var(--glass-border) / 0.6);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
