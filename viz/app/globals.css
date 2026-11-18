@@ -445,3 +445,365 @@
     backdrop-filter: none;
   }
 }
+
+/* ==========================================================================
+   STUNNING CHROME — `.stunning-deck` enhancement block (APPEND-ONLY, token-only)
+   --------------------------------------------------------------------------
+   Scoped to `.stunning-deck`, which is present on BOTH the reveal player root
+   and the /learn hub root. Nothing above this line (including design tokens)
+   is modified. Every colour resolves through hsl(var(--...)); no literal hex.
+   Decorative motion is gated TWICE: the OS query AND the persisted
+   `viz-reduced-motion` switch (html[data-reduced-motion="on"] plus the
+   `.stunning-still` class mirrored by both React owners).
+   ========================================================================== */
+
+/* ------------------------------------------------------ shared primitives */
+.stunning-deck .stunning-eyebrow {
+  line-height: 1.25;
+}
+.stunning-deck .stunning-live-dot {
+  background: hsl(var(--primary));
+  box-shadow: 0 0 0 0.32rem hsl(var(--primary) / 0.14),
+    0 0 1rem hsl(var(--primary) / 0.5);
+}
+
+/* ======================================================== REVEAL PLAYER === */
+
+/* Slim frosted title bar. */
+.stunning-deck .stunning-chrome-top {
+  background: linear-gradient(
+    180deg,
+    hsl(var(--card) / 0.94),
+    hsl(var(--card) / 0.62)
+  );
+  border-bottom: 1px solid hsl(var(--border) / 0.6);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+  box-shadow: 0 0.5rem 2rem hsl(var(--foreground) / 0.06),
+    inset 0 1px 0 hsl(var(--glass-highlight) / 0.3);
+}
+.stunning-deck .stunning-status {
+  background: hsl(var(--card) / 0.72);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+  letter-spacing: 0.04em;
+}
+.stunning-deck .stunning-ghost:hover {
+  background: hsl(var(--primary) / 0.08);
+}
+.stunning-deck .stunning-close {
+  background: linear-gradient(180deg, hsl(var(--card)), hsl(var(--card) / 0.86));
+  box-shadow: 0 0.35rem 1rem hsl(var(--foreground) / 0.1),
+    inset 0 1px 0 hsl(var(--glass-highlight) / 0.28);
+  transition: box-shadow 200ms ease, border-color 200ms ease;
+}
+.stunning-deck .stunning-close:hover {
+  border-color: hsl(var(--primary) / 0.5);
+  box-shadow: 0 0.5rem 1.6rem hsl(var(--primary) / 0.2),
+    inset 0 1px 0 hsl(var(--glass-highlight) / 0.35);
+}
+
+/* Cinematic stage: soft vignette + token-coloured top accent gradient. */
+.stunning-deck .stunning-stage {
+  background: radial-gradient(
+      110% 80% at 50% 0%,
+      hsl(var(--accent) / 0.35),
+      transparent 62%
+    ),
+    hsl(var(--card) / 0.4);
+}
+.stunning-deck .stunning-accent {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsl(var(--highlight)) 20%,
+    hsl(var(--primary)) 50%,
+    hsl(var(--highlight)) 80%,
+    transparent
+  );
+  box-shadow: 0 0 1.2rem hsl(var(--highlight) / 0.6),
+    0 0 2.4rem hsl(var(--primary) / 0.3);
+}
+.stunning-deck .stunning-vignette {
+  background: radial-gradient(
+    112% 82% at 50% 44%,
+    transparent 52%,
+    hsl(var(--foreground) / 0.1) 82%,
+    hsl(var(--foreground) / 0.2) 100%
+  );
+  box-shadow: inset 0 0 4rem hsl(var(--foreground) / 0.06);
+}
+/* Inset vignette on the glass slide frame itself. */
+.stunning-deck .reveal .slides section {
+  box-shadow: 0 1.25rem 3rem hsl(var(--foreground) / 0.14),
+    inset 0 0 6rem hsl(var(--foreground) / 0.05),
+    inset 0 1px 0 hsl(var(--card-foreground) / 0.06);
+}
+
+/* Floating glass command bar with the progress ring. */
+.stunning-deck .stunning-bar {
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 1.35));
+  backdrop-filter: blur(calc(var(--glass-blur) * 1.35));
+  box-shadow: 0 0.9rem 2.6rem hsl(var(--foreground) / 0.26),
+    inset 0 1px 0 hsl(var(--glass-highlight) / 0.2);
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .stunning-deck .stunning-bar,
+  .stunning-deck .stunning-help {
+    background: hsl(var(--card));
+  }
+}
+.stunning-deck .stunning-tool {
+  color: hsl(var(--muted-foreground));
+}
+.stunning-deck .stunning-tool:hover {
+  color: hsl(var(--foreground));
+  box-shadow: 0 0 1.5rem hsl(var(--primary) / 0.2),
+    inset 0 1px 0 hsl(var(--glass-highlight) / 0.2);
+}
+.stunning-deck .stunning-tool[aria-pressed="true"] {
+  background: hsl(var(--primary) / 0.14);
+  color: hsl(var(--primary));
+  box-shadow: 0 0 1.25rem hsl(var(--primary) / 0.24);
+}
+.stunning-deck .stunning-tool-icon {
+  transition: transform 180ms ease;
+}
+.stunning-deck .stunning-ring-value {
+  filter: drop-shadow(0 0 0.35rem hsl(var(--primary) / 0.65));
+  transition: stroke-dashoffset 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.stunning-deck .stunning-help {
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 1.35));
+  backdrop-filter: blur(calc(var(--glass-blur) * 1.35));
+  box-shadow: 0 1.2rem 3rem hsl(var(--foreground) / 0.26);
+}
+/* The ring replaces reveal's plain bar + counter (no duplicate indicators). */
+.stunning-deck .reveal .progress,
+.stunning-deck .reveal .slide-number {
+  display: none;
+}
+
+/* Elegant content entry — never fragments, never when motion is reduced. */
+@keyframes stunning-content-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.6rem) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html:not([data-reduced-motion="on"])
+    .stunning-deck:not(.stunning-still)
+    .reveal
+    .slides
+    section.present
+    > :not(.fragment) {
+    animation: stunning-content-in 480ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+  html:not([data-reduced-motion="on"])
+    .stunning-deck:not(.stunning-still)
+    .stunning-tool:hover
+    .stunning-tool-icon {
+    transform: translateY(-1px) scale(1.08);
+  }
+}
+
+/* ========================================================== LEARN HUB ==== */
+
+.stunning-deck.stunning-learn {
+  background: radial-gradient(
+    95% 40rem at 50% -12rem,
+    hsl(var(--primary) / 0.07),
+    transparent 72%
+  );
+}
+.stunning-deck .stunning-kicker-rule {
+  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--highlight)));
+}
+.stunning-deck .stunning-snapshot {
+  border-color: hsl(var(--primary) / 0.3);
+}
+
+/* KPI dashboard. */
+.stunning-deck .stunning-stats {
+  box-shadow: 0 0.8rem 2.4rem hsl(var(--foreground) / 0.08),
+    inset 0 1px 0 hsl(var(--glass-highlight) / 0.22);
+}
+.stunning-deck .stunning-stats-glow {
+  background: radial-gradient(circle, hsl(var(--primary) / 0.16), transparent 70%);
+  filter: blur(1rem);
+}
+.stunning-deck .stunning-kpi {
+  transition: border-color 220ms ease, box-shadow 220ms ease;
+}
+.stunning-deck .stunning-kpi:hover {
+  border-color: hsl(var(--primary) / 0.35);
+  box-shadow: 0 0.6rem 1.6rem hsl(var(--foreground) / 0.09);
+}
+.stunning-deck .stunning-kpi-sheen {
+  background: radial-gradient(circle, hsl(var(--highlight) / 0.14), transparent 70%);
+  filter: blur(0.75rem);
+}
+.stunning-deck .stunning-kpi-value {
+  letter-spacing: -0.045em;
+}
+.stunning-deck .stunning-mini-chart {
+  overflow: visible;
+}
+.stunning-deck .stunning-filter-active {
+  box-shadow: 0 0.4rem 1.1rem hsl(var(--primary) / 0.28);
+}
+
+/* Premium movie-poster deck tiles. */
+.stunning-deck .stunning-poster {
+  box-shadow: 0 0.7rem 1.8rem hsl(var(--foreground) / 0.09);
+}
+.stunning-deck .stunning-poster:hover,
+.stunning-deck .stunning-poster:focus-within {
+  box-shadow: 0 1.6rem 3.5rem hsl(var(--foreground) / 0.17),
+    0 0 0 1px hsl(var(--primary) / 0.2);
+}
+.stunning-deck .stunning-poster-rail {
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    hsl(var(--glass-highlight) / 0.5),
+    transparent
+  );
+}
+.stunning-deck .stunning-poster-art {
+  box-shadow: inset 0 0 2rem hsl(var(--foreground) / 0.12);
+}
+.stunning-deck .stunning-motif {
+  filter: drop-shadow(0 0.35rem 0.55rem hsl(var(--foreground) / 0.22));
+}
+.stunning-deck .stunning-poster-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    108deg,
+    transparent 38%,
+    hsl(var(--card-foreground) / 0.13) 48%,
+    hsl(var(--card-foreground) / 0.03) 56%,
+    transparent 66%
+  );
+  transform: translateX(-115%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html:not([data-reduced-motion="on"])
+    .stunning-deck:not(.stunning-still)
+    .stunning-poster-art::after {
+    opacity: 1;
+    transition: transform 850ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  html:not([data-reduced-motion="on"])
+    .stunning-deck:not(.stunning-still)
+    .stunning-poster:hover
+    .stunning-poster-art::after,
+  html:not([data-reduced-motion="on"])
+    .stunning-deck:not(.stunning-still)
+    .stunning-poster:focus-within
+    .stunning-poster-art::after {
+    transform: translateX(115%);
+  }
+}
+.stunning-deck .stunning-chip {
+  box-shadow: 0 0.25rem 0.6rem hsl(var(--foreground) / 0.12);
+}
+.stunning-deck .stunning-duration {
+  background: linear-gradient(100deg, hsl(var(--primary)), hsl(var(--primary) / 0.82));
+  box-shadow: 0 0.35rem 0.9rem hsl(var(--primary) / 0.3);
+}
+.stunning-deck .stunning-open {
+  background: linear-gradient(
+    100deg,
+    hsl(var(--primary)),
+    hsl(var(--primary) / 0.8) 62%,
+    hsl(var(--st-brand-500) / 0.78)
+  );
+  box-shadow: 0 0.5rem 1.4rem hsl(var(--primary) / 0.3),
+    inset 0 1px 0 hsl(var(--glass-highlight) / 0.22);
+  transition: box-shadow 200ms ease;
+}
+.stunning-deck .stunning-open:hover {
+  box-shadow: 0 0.7rem 1.9rem hsl(var(--primary) / 0.44),
+    inset 0 1px 0 hsl(var(--glass-highlight) / 0.3);
+}
+.stunning-deck .stunning-open-icon {
+  background: hsl(var(--primary-foreground) / 0.16);
+}
+.stunning-deck .stunning-open-arrow {
+  transition: transform 200ms ease;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html:not([data-reduced-motion="on"])
+    .stunning-deck:not(.stunning-still)
+    .stunning-poster:hover
+    .stunning-open-arrow,
+  html:not([data-reduced-motion="on"])
+    .stunning-deck:not(.stunning-still)
+    .stunning-poster:focus-within
+    .stunning-open-arrow {
+    transform: translateX(0.25rem);
+  }
+}
+
+/* Glowing 1 → 2 → 3 → 4 roadmap. */
+.stunning-deck .stunning-roadmap {
+  overflow: visible;
+}
+.stunning-deck .stunning-halo {
+  filter: blur(0.5rem);
+}
+.stunning-deck .stunning-road-ring {
+  filter: drop-shadow(0 0 0.5rem hsl(var(--primary) / 0.4));
+}
+.stunning-deck .stunning-endpoint {
+  filter: drop-shadow(0 0 0.55rem hsl(var(--highlight) / 0.85));
+}
+.stunning-deck .stunning-step {
+  transition: box-shadow 220ms ease, border-color 220ms ease, transform 220ms ease;
+}
+.stunning-deck .stunning-step:hover {
+  box-shadow: 0 1rem 2.2rem hsl(var(--primary) / 0.14);
+}
+.stunning-deck .stunning-step-cta svg {
+  transition: transform 200ms ease;
+}
+@keyframes stunning-road-flow {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html:not([data-reduced-motion="on"])
+    .stunning-deck:not(.stunning-still)
+    .stunning-road-line {
+    stroke-dasharray: 7 7;
+    animation: stunning-road-flow 1800ms linear infinite;
+  }
+  html:not([data-reduced-motion="on"])
+    .stunning-deck:not(.stunning-still)
+    .stunning-step:hover
+    .stunning-step-cta
+    svg {
+    transform: translateX(3px);
+  }
+}
+
+/* Keep the enhanced chrome out of printed decks. */
+@media print {
+  .stunning-deck .stunning-bar,
+  .stunning-deck .stunning-chrome-top,
+  .stunning-deck .stunning-accent,
+  .stunning-deck .stunning-vignette {
+    display: none !important;
+  }
+}

@@ -74,9 +74,53 @@ const NOTE_SEPARATOR = "^Note:";
 const FOCUSABLE_SELECTOR =
   "a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex='-1'])";
 
-/** Shared class for the floating toolbar buttons (token-only, no hex). */
-const TOOL_BUTTON_CLASS =
-  "inline-flex h-9 items-center gap-1.5 rounded-md border border-transparent px-2.5 text-xs font-medium text-muted-foreground transition-colors hover:border-border hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+/** Two-digit slide counter used by the status chip and the progress ring. */
+const pad2 = (value: number) => String(Math.max(0, value)).padStart(2, "0");
+
+/** Shared classes for the floating command-bar pill controls (token-only, no hex). */
+const TOOL_PILL_CLASS =
+  "group relative inline-flex h-11 shrink-0 items-center gap-2 rounded-full px-3 text-xs font-medium text-muted-foreground ring-1 ring-inset ring-transparent transition-[color,background-color,box-shadow] hover:bg-primary/10 hover:text-foreground hover:ring-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:px-4";
+
+/**
+ * Cinematic deck-progress arc. A token-coloured SVG ring replaces the plain
+ * reveal progress bar; the current slide index sits in its centre. The ring is
+ * decorative — the polite live status in the chrome carries the announcement.
+ */
+function ProgressRing({ index, total }: { index: number; total: number }) {
+  const radius = 15;
+  const circumference = 2 * Math.PI * radius;
+  const fraction = total > 0 ? Math.min(1, Math.max(0, index / total)) : 0;
+
+  return (
+    <span className="stunning-ring relative grid size-11 shrink-0 place-items-center" aria-hidden="true">
+      <svg viewBox="0 0 40 40" className="absolute inset-0 size-full -rotate-90">
+        <circle
+          cx="20"
+          cy="20"
+          r={radius}
+          fill="none"
+          style={{ stroke: "hsl(var(--muted-foreground) / 0.25)" }}
+          strokeWidth="3"
+        />
+        <circle
+          className="stunning-ring-value"
+          cx="20"
+          cy="20"
+          r={radius}
+          fill="none"
+          style={{ stroke: "hsl(var(--primary))" }}
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeDasharray={circumference}
+          strokeDashoffset={circumference * (1 - fraction)}
+        />
+      </svg>
+      <span className="relative font-mono text-[10px] font-semibold leading-none text-foreground">
+        {pad2(index)}
+      </span>
+    </span>
+  );
+}
 
 /**
  * reveal.js ships without type declarations. Both import specifiers are
@@ -214,6 +258,8 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
   const [slideInfo, setSlideInfo] = useState<SlideInfo | null>(null);
   const [fullscreenAvailable, setFullscreenAvailable] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  /** Mirrors the OS query AND the persisted viz-reduced-motion switch for CSS gating. */
+  const [motionStill, setMotionStill] = useState(false);
 
   const overlayRef = useRef<HTMLDivElement>(null);
   const revealRootRef = useRef<HTMLDivElement>(null);
@@ -227,6 +273,20 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
   useEffect(() => {
     onCloseRef.current = onClose;
   }, [onClose]);
+
+  // Keep decorative motion in sync with BOTH motion gates. The in-app toggle
+  // broadcasts `viz-reduced-motion-change` and writes localStorage; the class
+  // it drives is the CSS-side companion to reveal's `transition: "none"`.
+  useEffect(() => {
+    const sync = () => setMotionStill(prefersReducedMotion());
+    sync();
+    window.addEventListener("viz-reduced-motion-change", sync);
+    window.addEventListener("storage", sync);
+    return () => {
+      window.removeEventListener("viz-reduced-motion-change", sync);
+      window.removeEventListener("storage", sync);
+    };
+  }, []);
 
   const announce = useCallback((message: string) => {
     if (liveRef.current) liveRef.current.textContent = message;
@@ -346,7 +406,8 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
         const reduced = prefersReducedMotion();
         const plugins: RevealPlugin[] = [Markdown];
         if (Notes) plugins.push(Notes); // speaker notes: progressive enhancement
-        const transition = reduced ? "none" : "fade";
+        // Easing upgrade: convex for full motion, absolutely none when reduced.
+        const transition = reduced ? "none" : "convex";
 
         deck = new RevealCtor(revealRoot, {
           embedded: true,
@@ -478,29 +539,41 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
     <div
       ref={overlayRef}
       id={deckId ? `deck-overlay-${deckId}` : undefined}
-      className="deck-player fixed inset-0 z-50 flex flex-col bg-background"
+      className={`stunning-deck deck-player fixed inset-0 z-50 flex flex-col overflow-hidden ${motionStill ? "stunning-still" : ""}`}
+      style={{
+        background:
+          "radial-gradient(120% 85% at 50% -10%, hsl(var(--primary) / 0.18), transparent 55%), radial-gradient(85% 65% at 100% 105%, hsl(var(--st-gold-500) / 0.10), transparent 62%), hsl(var(--background))",
+      }}
       role="dialog"
       aria-modal="true"
       aria-label={`Learning deck: ${title}`}
       onKeyDown={handleKeyDown}
     >
       {/* Deck chrome — visible controls are real buttons (VIZ-014 §8.5). */}
-      <div className="flex items-center justify-between gap-3 border-b border-border bg-card px-4 py-2.5">
+      <header className="stunning-chrome-top relative z-30 flex shrink-0 items-center justify-between gap-3 px-4 py-3 sm:px-6">
         <div className="flex min-w-0 items-center gap-3">
-          <p className="truncate text-sm font-medium text-card-foreground">
-            {title}
-            <span className="ml-2 text-xs font-normal text-muted-foreground">Learn deck</span>
-          </p>
+          <span
+            aria-hidden="true"
+            className="stunning-live-dot hidden size-2.5 shrink-0 rounded-full sm:block"
+          />
+          <div className="min-w-0">
+            <p className="stunning-eyebrow truncate text-[9px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+              Learning deck <span aria-hidden="true">/</span> {deckId ?? "interactive slides"}
+            </p>
+            <p className="truncate font-heading text-sm font-bold tracking-tight text-foreground sm:text-base">
+              {title}
+            </p>
+          </div>
           {/* Polite, labelled slide status (also visible — no duplicate live region). */}
           <p
             aria-live="polite"
             aria-atomic="true"
-            className="hidden shrink-0 rounded-full border border-border bg-background px-2.5 py-1 font-mono text-[11px] text-muted-foreground sm:block"
+            className="stunning-status hidden shrink-0 items-center gap-2 rounded-full border border-border/70 bg-card/70 px-3 py-1.5 font-mono text-[10px] text-muted-foreground md:inline-flex"
           >
             <span className="sr-only">Slide status: </span>
             {slideInfo
-              ? `Slide ${slideInfo.index} of ${slideInfo.total}: ${slideInfo.heading}`
-              : "Slide status loading…"}
+              ? `SLIDE ${pad2(slideInfo.index)} / ${pad2(slideInfo.total)} · ${slideInfo.heading}`
+              : "SLIDE STATUS LOADING…"}
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-2">
@@ -508,7 +581,7 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
           <button
             type="button"
             onClick={() => setHelpOpen((open) => !open)}
-            className="hidden items-center gap-1.5 rounded-md px-2 py-1 text-xs text-muted-foreground hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:inline-flex"
+            className="stunning-ghost hidden h-11 items-center gap-1.5 rounded-full px-3 text-xs font-medium text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:inline-flex"
             aria-label="Keyboard shortcuts"
             aria-expanded={helpOpen}
             aria-controls={helpId}
@@ -521,30 +594,33 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
             ref={closeRef}
             type="button"
             onClick={closeDeck}
-            className="inline-flex h-9 shrink-0 items-center gap-2 rounded-md border border-input bg-background px-3 text-sm font-medium text-foreground hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            className="stunning-close inline-flex h-11 shrink-0 items-center gap-2 rounded-full border border-border/70 bg-card/80 px-4 text-sm font-semibold text-foreground ring-1 ring-inset ring-card-foreground/5 hover:border-primary/40 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             Close deck
-            <kbd className="rounded border border-border px-1 text-[0.65rem] text-muted-foreground">
+            <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-[0.65rem] text-muted-foreground">
               Esc
             </kbd>
           </button>
         </div>
-      </div>
+      </header>
 
-      {/* Reveal mount + floating player controls. */}
-      <div className="relative min-h-0 flex-1">
+      {/* Cinematic stage + floating command bar. */}
+      <div className="relative min-h-0 flex-1 p-3 sm:px-6 sm:pb-6">
         {markdown !== null && error === null ? (
-          <div className="deck-toolbar absolute right-3 top-3 z-20 flex items-center gap-1 rounded-lg border border-border p-1 shadow-lg">
+          <div className="stunning-bar pointer-events-auto absolute bottom-5 left-1/2 z-40 flex max-w-[calc(100%-1rem)] -translate-x-1/2 items-center gap-1 rounded-full border border-border/70 bg-card/85 p-1.5 pl-2 shadow-2xl sm:bottom-6 sm:gap-1.5 sm:pl-2.5">
+            <ProgressRing index={slideInfo?.index ?? 0} total={slideInfo?.total ?? 0} />
+            <span aria-hidden="true" className="mx-0.5 h-6 w-px shrink-0 bg-border/80" />
+
             <button
               type="button"
               onClick={toggleOverview}
-              className={TOOL_BUTTON_CLASS}
+              className={`stunning-tool ${TOOL_PILL_CLASS}`}
               aria-label="Toggle slide overview"
               title="Overview (O)"
             >
               <svg
                 viewBox="0 0 24 24"
-                className="h-4 w-4"
+                className="stunning-tool-icon size-4 shrink-0"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={1.75}
@@ -552,17 +628,18 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
                 strokeLinejoin="round"
                 aria-hidden="true"
               >
-                <rect x="3" y="3" width="7" height="7" rx="1" />
-                <rect x="14" y="3" width="7" height="7" rx="1" />
-                <rect x="3" y="14" width="7" height="7" rx="1" />
-                <rect x="14" y="14" width="7" height="7" rx="1" />
+                <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                <rect x="14" y="14" width="7" height="7" rx="1.5" />
               </svg>
-              <span className="hidden lg:inline">Overview</span>
+              <span className="hidden sm:inline">Overview</span>
             </button>
+
             <button
               type="button"
               onClick={() => setHelpOpen((open) => !open)}
-              className={TOOL_BUTTON_CLASS}
+              className={`stunning-tool ${TOOL_PILL_CLASS}`}
               aria-label="Show keyboard shortcuts"
               aria-expanded={helpOpen}
               aria-controls={helpId}
@@ -570,7 +647,7 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
             >
               <svg
                 viewBox="0 0 24 24"
-                className="h-4 w-4"
+                className="stunning-tool-icon size-4 shrink-0"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={1.75}
@@ -582,20 +659,21 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
                 <path d="M9.4 9.2a2.7 2.7 0 1 1 3.9 2.4c-.9.5-1.3 1.1-1.3 2.1" />
                 <circle cx="12" cy="17.2" r="0.7" fill="currentColor" stroke="none" />
               </svg>
-              <span className="hidden lg:inline">Help</span>
+              <span className="hidden sm:inline">Help</span>
             </button>
+
             {fullscreenAvailable ? (
               <button
                 type="button"
                 onClick={toggleFullscreen}
-                className={TOOL_BUTTON_CLASS}
+                className={`stunning-tool ${TOOL_PILL_CLASS}`}
                 aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
                 aria-pressed={isFullscreen}
                 title={isFullscreen ? "Exit fullscreen (F)" : "Fullscreen (F)"}
               >
                 <svg
                   viewBox="0 0 24 24"
-                  className="h-4 w-4"
+                  className="stunning-tool-icon size-4 shrink-0"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth={1.75}
@@ -603,11 +681,13 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
                   strokeLinejoin="round"
                   aria-hidden="true"
                 >
-                  <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3" />
+                  {isFullscreen ? (
+                    <path d="M9 3v6H3M15 21v-6h6M21 9h-6V3M3 15h6v6" />
+                  ) : (
+                    <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3" />
+                  )}
                 </svg>
-                <span className="hidden lg:inline">
-                  {isFullscreen ? "Exit" : "Fullscreen"}
-                </span>
+                <span className="hidden sm:inline">{isFullscreen ? "Exit" : "Fullscreen"}</span>
               </button>
             ) : null}
           </div>
@@ -618,7 +698,7 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
             id={helpId}
             role="group"
             aria-label="Keyboard shortcuts"
-            className="deck-help-panel absolute right-3 top-16 z-30 w-64 rounded-lg border border-border bg-card p-3 text-card-foreground shadow-xl"
+            className="deck-help-panel stunning-help absolute bottom-24 right-3 z-50 w-64 rounded-2xl border border-border/70 bg-card/95 p-4 text-card-foreground shadow-2xl sm:right-6"
           >
             <div className="mb-2 flex items-center justify-between gap-2">
               <h2 className="font-heading text-sm font-semibold text-foreground">
@@ -629,7 +709,7 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
                 onClick={() => setHelpOpen(false)}
                 aria-label="Close keyboard shortcuts"
                 title="Close"
-                className="inline-flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="inline-flex size-11 items-center justify-center rounded-full text-muted-foreground hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -669,26 +749,36 @@ export function RevealDeck({ file, title, deckId, onClose }: RevealDeckProps) {
           </div>
         ) : null}
 
-        {markdown !== null ? (
-          <div ref={revealRootRef} className="reveal h-full w-full">
-            <div className="slides" data-separator={SLIDE_SEPARATOR} />
-          </div>
-        ) : error !== null ? (
-          <div role="alert" className="flex h-full items-center justify-center p-8">
-            <div className="max-w-md rounded-lg border border-destructive/40 bg-card p-6 text-center">
-              <p className="font-medium text-foreground">Deck failed to load</p>
-              <p className="mt-2 text-sm text-muted-foreground">{error}</p>
-              <p className="mt-2 text-xs text-muted-foreground">
-                Source: /decks/{file} — the authored deck lives in{" "}
-                <code>content/decks/</code>; re-copy it to <code>public/decks/</code> if missing.
-              </p>
+        <div
+          className="stunning-stage relative h-full w-full overflow-hidden rounded-[1.5rem] border border-border/60 bg-card/40"
+          style={{ boxShadow: "0 2rem 5rem hsl(var(--foreground) / 0.18)" }}
+        >
+          <div aria-hidden="true" className="stunning-accent absolute inset-x-0 top-0 z-20 h-[3px]" />
+          {markdown !== null ? (
+            <div ref={revealRootRef} className="reveal h-full w-full">
+              <div className="slides" data-separator={SLIDE_SEPARATOR} />
             </div>
-          </div>
-        ) : (
-          <div role="status" aria-busy="true" className="flex h-full items-center justify-center">
-            <p className="text-sm text-muted-foreground">Loading deck…</p>
-          </div>
-        )}
+          ) : error !== null ? (
+            <div role="alert" className="flex h-full items-center justify-center p-8">
+              <div className="max-w-md rounded-lg border border-destructive/40 bg-card p-6 text-center">
+                <p className="font-medium text-foreground">Deck failed to load</p>
+                <p className="mt-2 text-sm text-muted-foreground">{error}</p>
+                <p className="mt-2 text-xs text-muted-foreground">
+                  Source: /decks/{file} — the authored deck lives in{" "}
+                  <code>content/decks/</code>; re-copy it to <code>public/decks/</code> if missing.
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div role="status" aria-busy="true" className="flex h-full items-center justify-center">
+              <p className="text-sm text-muted-foreground">Loading deck…</p>
+            </div>
+          )}
+          <div
+            aria-hidden="true"
+            className="stunning-vignette pointer-events-none absolute inset-0 z-10 rounded-[inherit]"
+          />
+        </div>
       </div>
 
       {/* Polite load/error announcements (VIZ-014 §8.5/§8.7). */}
