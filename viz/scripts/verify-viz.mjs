@@ -775,7 +775,37 @@ function checkFeatureContracts() {
     : ok("all promised features present and wired (palette, explain, tours, motion switch, council links, zone filter, last-commit, error boundaries, 404, transition)");
 }
 
+/**
+ * V20 — stale dist reference gate (permanent guard against the recurring
+ * dev-server SyntaxErrors). next build with an alternate NEXT_DIST_DIR
+ * rewrites next-env.d.ts / tsconfig.json to point at that dir; when it is
+ * deleted the dev server recompiles against it and serves a broken chunk.
+ */
+function checkNoStaleDistRefs() {
+  // Only config that the dev server WATCHES can be poisoned by a stale dist
+  // path. Build scripts that merely mention cleanup names are exempt.
+  const files = ["next-env.d.ts", "tsconfig.json"];
+  const refs = [];
+  for (const f of files) {
+    const p = path.join(VIZ_ROOT, f);
+    if (!fs.existsSync(p)) continue;
+    const text = readText(p);
+    if (text === null) continue;
+    for (const m of text.matchAll(/\.next-[A-Za-z0-9_-]+/g)) {
+      const dir = m[0];
+      if (dir === ".next-dev") continue; // canonical live dist
+      if (!fs.existsSync(path.join(VIZ_ROOT, dir))) {
+        refs.push(`${f}: ${dir} (missing on disk)`);
+      }
+    }
+  }
+  return refs.length
+    ? bad(`stale dist reference(s) that cause dev-server SyntaxErrors: ${cap(refs)}`)
+    : ok("no stale dist references in dev config/build scripts");
+}
+
 const CHECKS = [
+  { id: "V20", name: "stability/no-stale-dist", area: "source", cls: 1, owner: "VIZ-023", fn: checkNoStaleDistRefs },
   { id: "V01", name: "snapshots/parse", area: "snapshots", cls: 1, owner: "VIZ-022", fn: checkSnapshotsParse },
   { id: "V02", name: "snapshots/tree-shape", area: "snapshots", cls: 1, owner: "VIZ-022", fn: checkTreeShape },
   { id: "V03", name: "snapshots/commits-shape", area: "snapshots", cls: 1, owner: "VIZ-022", fn: checkCommitsShape },
